@@ -8,30 +8,53 @@ except:
  st.markdown("<h2 style='color:#FFD60A;text-align:center'>FX AMBUSHERS</h2>",unsafe_allow_html=True)
 sa=datetime.now(pytz.timezone('Africa/Johannesburg')).strftime("%d %b %H:%M SA")
 st.markdown("<div style='background:#111;padding:6px;color:#FFD60A'>"+sa+"</div>",unsafe_allow_html=True)
+
 DB={}
-DB["DXY"]=["71","BULL","Fed Hawk + Yield 4.2 Up","Fed Cut + Gold Risk On","GPR Oil"]
-DB["EURUSD"]=["39","BEAR","GPR + 68 Long Trap Fake Up","DXY 71 + Yield + -125K Short","VIX"]
-DB["GBPUSD"]=["42","BEAR","UK Wage + 65 Trap Fake Up","DXY + BoE Dov -89K Short","VIX Oil"]
-DB["USDJPY"]=["72","BULL","DXY + Fed Hawk + BoJ Dov 148K","BoJ Intervention + VIX","GPR"]
-DB["XAUUSD"]=["39","BEAR","GPR + CB Buy + 82 Top Trap Fake","DXY 71 + Yield Up + Hawk","VIX GDX"]
-DB["XAGUSD"]=["44","BEAR","GPR + 76 Long Trap Fake","DXY 71 + Yield + -12K","VIX CPI"]
-DB["USDCAD"]=["52","NEUT","DXY + Fed Hawk + CPI High","Oil 82 + OPEC + CB Buy CAD","VIX GPR"]
-DB["USDCHF"]=["61","BULL","DXY + SNB Dov + Yield 4.2","CHF Safe + GPR + Gold Up","SP500"]
-DB["OILWTI"]=["68","BULL","GPR War + OPEC Cut + Draw","DXY + Hawk Demand Down","VIX"]
-DB["BTCUSD"]=["54","NEUT","ETF Inflow + Halving","DXY + Yield 4.2 Risk Off","SP500"]
-DB["US30"]=["48","NEUT","Fed Pause + Earn + 15K Long","DXY + Yield 4.2 + VIX + Oil","CPI"]
-DB["NAS100"]=["45","BEAR","AI Demand + Trap Fake Up","DXY + Yield Tech Sell + Hawk","SP500"]
-DB["SP500"]=["50","NEUT","Fed Pause + Buyback + Earn","DXY + Yield + VIX Fear","CPI Oil"]
-DB["GER30"]=["44","BEAR","ECB Dov + PMI 44.2 Low Fake Up","DXY + Yield + -18K Short","SP500"]
-DB["UK100"]=["53","NEUT","BoE Pause + Oil 82 + 12K Long","DXY + Yield + PMI Low","VIX"]
+DB["DXY"]=["71","BULL","Fed Hawk No Cut Dot High + Yield 4.2 Up = USD Buy","Fed Cut + Gold Risk On = USD Sell","GPR Oil BoJ Rate"]
+DB["EURUSD"]=["39","BEAR","GPR CB Buy + Retail 68 Long Trap = Fake Up Only","DXY 71 Bull + Yield 4.2 US>EU + Hawk -125K Short = EUR Down","VIX SP500 Fear"]
+DB["GBPUSD"]=["42","BEAR","UK Wage Strong + GPR 65 Long Trap = Fake Up Only","DXY 71 Bull + BoE Dov No Hike -89K Short = GBP Down Real","VIX Oil Risk"]
+DB["USDJPY"]=["72","BULL","DXY Bull + Fed Hawk High + BoJ Dov No Hike 148K Long = Up Real","BoJ Intervention + VIX Safe Haven = Down","GPR War"]
+DB["XAUUSD"]=["39","BEAR","GPR War + CB Buy + 82 Long Top Trap = Fake Pump Only","DXY 71 Bull + Yield 4.2 Up Gold No Yield Sell + Hawk = Down Real","VIX GDX Flow"]
+DB["XAGUSD"]=["44","BEAR","GPR Industry + 76 Long Trap = Fake Up Only","DXY 71 Bull + Yield Up + Hawk -12K +22K Short = Down Real","VIX CPI Data"]
+DB["USDCAD"]=["52","NEUT","DXY Bull + Fed Hawk + CPI High = USD Up","Oil 82 + OPEC Cut + CB Buy CAD = CAD Up Strong","VIX GPR Fear"]
+DB["USDCHF"]=["61","BULL","DXY Bull + SNB Dov Cut + Yield 4.2 = CHF Down Real","CHF Safe + GPR Fear + Gold Up = CHF Up","SP500 Risk"]
+DB["OILWTI"]=["68","BULL","GPR War + OPEC Cut + Draw Low Supply = Oil Up Real","DXY Bull + Fed Hawk Demand Down = Oil Down","VIX Fear"]
+DB["BTCUSD"]=["54","NEUT","ETF Inflow + Halving Low Supply = Up Real","DXY Bull + Yield 4.2 Up Risk Off = Down Real","SP500 Correlation"]
+DB["US30"]=["48","NEUT","Fed Pause No Hike + Earn Up + 15K Long = Up","DXY Bull + Yield 4.2 + VIX + Oil High = Down","CPI Data"]
+DB["NAS100"]=["45","BEAR","AI Demand + CB + Long Trap = Fake Up Only","DXY Bull + Yield Up Tech Sell + Hawk -18K = Down Real","SP500 Flow"]
+DB["SP500"]=["50","NEUT","Fed Pause + Buyback + Earn Up = Up","DXY Bull + Yield Up + VIX Fear High = Down","CPI Oil Data"]
+DB["GER30"]=["44","BEAR","ECB Dov Cut + GPR + PMI 44.2 Low = Fake Up Only","DXY Bull + Yield + COT -18K Short DAX = Down Real","SP500 Risk"]
+DB["UK100"]=["53","NEUT","BoE Pause + Oil 82 + FTSE + 12K Long = Up Real","DXY Bull + Yield + PMI Low = Down","VIX Fear"]
 MP={"EURUSD":"EURUSD=X","GBPUSD":"GBPUSD=X","USDJPY":"USDJPY=X","XAUUSD":"GC=F","XAGUSD":"SI=F","USDCAD":"USDCAD=X","USDCHF":"USDCHF=X","OILWTI":"CL=F","BTCUSD":"BTC-USD","US30":"^DJI","NAS100":"^IXIC","SP500":"^GSPC","GER30":"^GDAXI","UK100":"^FTSE","DXY":"DX-Y.NYB"}
 GR={"forex":["EURUSD","GBPUSD","USDJPY","USDCAD","USDCHF","DXY"],"commods":["XAUUSD","XAGUSD","OILWTI"],"crypto":["BTCUSD"],"indices":["US30","NAS100","SP500","GER30","UK100","DXY"]}
-FUND=[["01 Oct","ISM PMI","HIGH","DXY"],["02 Oct","NFP Wage","HIGH","DXY GOLD"],["03 Oct","OPEC","HIGH","OIL"],["08 Oct","FOMC Min","HIGH","DXY"],["10 Oct","US CPI","CRIT","DXY GOLD"],["15 Oct","UK CPI","HIGH","GBP"],["17 Oct","EU CPI ECB","HIGH","EUR GER"],["24 Oct","US GDP","HIGH","DXY SP500"],["29 Oct","FOMC Powell","CRIT","ALL"],["30 Oct","BOJ Rate","HIGH","JPY"]]
-GLOSS={"Fed Hawk":["Fed NO CUT high rates","USD UP GOLD DOWN SP DOWN"],"Fed Cut":["Fed cutting low","USD DOWN GOLD UP SP UP"],"Yield 4.2 Up":["10yr yield rising","USD UP GOLD DOWN NAS DOWN"],"DXY 71 Bull":["Dollar bullish","EUR DOWN GBP DOWN GOLD DOWN"],"GPR War":["War fear","GOLD UP OIL UP USD UP"],"COT -125K":["Funds short EUR","EUR DOWN"],"Retail 68 Trap":["68% long at top","Fake Up then DOWN"],"82 Top":["82% long GOLD top","Pump then CRASH"],"BoJ Dov":["BoJ dovish","JPY DOWN USDJPY UP"],"Oil 82":["Oil high","OIL UP USDCAD DOWN"],"ETF Inflow":["BTC ETF buy","BTC UP"],"VIX Fear":["VIX high","SP DOWN GOLD UP"]}
-
+FUND=[
+["01 Oct","ISM PMI","HIGH","DXY"],
+["02 Oct","NFP Wage","HIGH","DXY GOLD"],
+["03 Oct","OPEC","HIGH","OIL"],
+["08 Oct","FOMC Min","HIGH","DXY"],
+["10 Oct","US CPI","CRIT","DXY GOLD"],
+["15 Oct","UK CPI","HIGH","GBP"],
+["17 Oct","EU CPI ECB","HIGH","EUR GER"],
+["24 Oct","US GDP","HIGH","DXY SP500"],
+["29 Oct","FOMC Powell","CRIT","ALL"],
+["30 Oct","BOJ Rate","HIGH","JPY"]]
+GLOSS={
+"Fed Hawk":["Fed NO CUT high","USD UP GOLD DOWN"],
+"Fed Cut":["Fed low","USD DOWN GOLD UP"],
+"Yield":["10yr up","USD UP GOLD DOWN"],
+"DXY Bull":["Dollar bull","EUR DOWN"],
+"GPR War":["War fear","GOLD UP OIL UP"],
+"COT":["Funds short","EUR DOWN"],
+"Trap 68":["68% long top","Fake Up then DOWN"],
+"Top 82":["82% long top","Pump then CRASH"],
+"BoJ Dov":["BoJ dovish","JPY DOWN"],
+"Oil 82":["Oil high","OIL UP"],
+"ETF":["BTC ETF buy","BTC UP"],
+"VIX":["VIX high","SP DOWN GOLD UP"]}
 def gauge(d,n):
  s=int(d[0])
  a=-90+s*1.8
+
  col="#22C55E" if d[1]=="BULL" else ("#FF2A2A" if d[1]=="BEAR" else "#FFD60A")
  t="<div class='macro-card' style='text-align:center;border-left:5px solid "+col+"'>"
  t+="<div style='color:#9AA0B3'>"+n+" AMBUSH</div>"
