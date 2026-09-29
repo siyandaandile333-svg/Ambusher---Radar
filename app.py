@@ -144,9 +144,29 @@ else:
         for i,(p,s,bu,be,ne) in enumerate(crypto):
             with cols[i%2]:
                 st.markdown(gauge_card(p,s,bu,be,ne,170), unsafe_allow_html=True)
-    if st.session_state.page=="cot":
+        if st.session_state.page=="cot":
         st.markdown("### COT - LONG / SHORT / CHANGE")
-        st.table(pd.DataFrame(cot_data, columns=["Asset","Long","Short","Change","Bias","Why"]))
+        # Build colored HTML table - GREEN BULL, RED BEAR
+        html_cot = "<table style='width:100%;border-collapse:collapse;font-size:13px'>"
+        html_cot += "<tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
+        for row in cot_data:
+            asset, longv, shortv, change, bias, why = row
+            if bias=="BULL":
+                bias_col = "<td style='background:#00ff66;color:black;font-weight:900;padding:6px;border:1px solid #333'>BULL</td>"
+                change_col = "<td style='color:#00ff66;padding:6px;border:1px solid #333'>" + change + "</td>"
+            else:
+                bias_col = "<td style='background:#ff4444;color:white;font-weight:900;padding:6px;border:1px solid #333'>BEAR</td>"
+                change_col = "<td style='color:#ff4444;padding:6px;border:1px solid #333'>" + change + "</td>"
+            html_cot += "<tr style='border:1px solid #333'>"
+            html_cot += "<td style='padding:6px;border:1px solid #333;font-weight:bold'>" + asset + "</td>"
+            html_cot += "<td style='padding:6px;border:1px solid #333;color:#00ff66'>" + longv + "</td>"
+            html_cot += "<td style='padding:6px;border:1px solid #333;color:#ff6666'>" + shortv + "</td>"
+            html_cot += change_col
+            html_cot += bias_col
+            html_cot += "<td style='padding:6px;border:1px solid #333;color:#aaa'>" + why + "</td>"
+            html_cot += "</tr>"
+        html_cot += "</table>"
+        st.markdown(html_cot, unsafe_allow_html=True)
     if st.session_state.page=="news":
         st.markdown("### INTEL NEWS + GEOPOLITICAL")
         st.table(pd.DataFrame(gpr_news, columns=["Event","Impact","What Happens"]))
