@@ -66,3 +66,4 @@ else:
             ["USDCAD","BUY","DXY Bull + Oil Down"],
         ],columns=["Pair","Bias","Why"])
         st.data
+        
