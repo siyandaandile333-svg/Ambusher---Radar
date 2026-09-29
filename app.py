@@ -113,17 +113,26 @@ gpr_news=[
 if st.session_state.page=="home":
     c1,c2=st.columns(2)
     with c1:
-        if st.button("FOREX 6", use_container_width=True): st.session_state.page="forex"
-        if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
-        if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
-        if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
+        if st.button("FOREX 6", use_container_width=True):
+            st.session_state.page="forex"
+        if st.button("GOLD OIL", use_container_width=True):
+            st.session_state.page="gold"
+        if st.button("INDICES", use_container_width=True):
+            st.session_state.page="indices"
+        if st.button("CRYPTO", use_container_width=True):
+            st.session_state.page="crypto"
     with c2:
-        if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
-        if st.button("INTEL NEWS", use_container_width=True): st.session_state.page="news"
-        if st.button("FUND DATES", use_container_width=True): st.session_state.page="fund"
-        if st.button("LEARN WORDS", use_container_width=True): st.session_state.page="words"
+        if st.button("COT TABLE", use_container_width=True):
+            st.session_state.page="cot"
+        if st.button("INTEL NEWS", use_container_width=True):
+            st.session_state.page="news"
+        if st.button("FUND DATES", use_container_width=True):
+            st.session_state.page="fund"
+        if st.button("LEARN WORDS", use_container_width=True):
+            st.session_state.page="words"
 else:
-    if st.button("BACK RADAR", use_container_width=True): st.session_state.page="home"
+    if st.button("BACK RADAR", use_container_width=True):
+        st.session_state.page="home"
     if st.session_state.page=="forex":
         cols=st.columns(2)
         for i,(p,s,bu,be,ne) in enumerate(forex):
@@ -144,9 +153,8 @@ else:
         for i,(p,s,bu,be,ne) in enumerate(crypto):
             with cols[i%2]:
                 st.markdown(gauge_card(p,s,bu,be,ne,170), unsafe_allow_html=True)
-        if st.session_state.page=="cot":
+    if st.session_state.page=="cot":
         st.markdown("### COT - LONG / SHORT / CHANGE")
-        # Build colored HTML table - GREEN BULL, RED BEAR
         html_cot = "<table style='width:100%;border-collapse:collapse;font-size:13px'>"
         html_cot += "<tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
         for row in cot_data:
