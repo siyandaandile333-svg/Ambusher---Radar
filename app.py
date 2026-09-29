@@ -4,7 +4,7 @@ import pandas as pd
 import pytz
 from datetime import datetime
 st.set_page_config(layout="wide")
-st.markdown("<style>.stApp{background:#070709;color:#E8E6D9}.macro-card{background:#101018;border:1px solid #2A2A3A;border-radius:14px;padding:12px;margin:6px 0}.why{font-size:11px}</style>",unsafe_allow_html=True)
+st.markdown("<style>.stApp{background:#070709;color:#E8E6D9}.macro-card{background:#101018;border:1px solid #2A2A3A;border-radius:14px;padding:12px;margin:6px 0}.why{font-size:11px;line-height:1.3}</style>",unsafe_allow_html=True)
 try:
  st.image("IMG-20260929-WA1810.jpg",width=340)
 except:
@@ -30,27 +30,37 @@ DB["UK100"]=["53","NEUT","BoE Pause + Oil 82 + FTSE + 12K Long = Up","DXY Bull +
 MP={"EURUSD":"EURUSD=X","GBPUSD":"GBPUSD=X","USDJPY":"USDJPY=X","XAUUSD":"GC=F","XAGUSD":"SI=F","USDCAD":"USDCAD=X","USDCHF":"USDCHF=X","OILWTI":"CL=F","BTCUSD":"BTC-USD","US30":"^DJI","NAS100":"^IXIC","SP500":"^GSPC","GER30":"^GDAXI","UK100":"^FTSE","DXY":"DX-Y.NYB"}
 GR={"forex":["EURUSD","GBPUSD","USDJPY","USDCAD","USDCHF","DXY"],"commods":["XAUUSD","XAGUSD","OILWTI"],"crypto":["BTCUSD"],"indices":["US30","NAS100","SP500","GER30","UK100","DXY"]}
 FUND=[["01 Oct","ISM PMI","HIGH","DXY"],["02 Oct","NFP Wage","HIGH","DXY GOLD"],["03 Oct","OPEC","HIGH","OIL"],["08 Oct","FOMC Min","HIGH","DXY"],["10 Oct","US CPI","CRIT","DXY GOLD"],["15 Oct","UK CPI","HIGH","GBP"],["17 Oct","EU CPI ECB","HIGH","EUR GER"],["24 Oct","US GDP","HIGH","DXY SP500"],["29 Oct","FOMC Powell","CRIT","ALL"],["30 Oct","BOJ Rate","HIGH","JPY"]]
+
 def gauge(d,n):
  s=int(d[0])
  ang=-90 + s*1.8
- col="#22C55E" if d[1]=="BULL" else "#FF2A2A" if d[1]=="BEAR" else "#FFD60A"
- h="<div class='macro-card' style='text-align:center;border-left:5px solid "+col+"'>"
- h+="<div style='color:#9AA0B3;font-size:11px'>"+n+" AMBUSH METER</div>"
- h+="<div style='color:"+col+";font-weight:900;font-size:30px;margin:6px 0'>"+d[1]+" "+str(s)+"/100</div>"
- h+="<div style='position:relative;width:220px;height:115px;margin:0 auto'>"
- h+="<div style='width:220px;height:110px;background:conic-gradient(from 270deg at 50% 100%, #FF2A2A 0deg 72deg, #FFD60A 72deg 108deg, #22C55E 108deg 180deg);border-radius:220px 220px 0 0'></div>"
- h+="<div style='position:absolute;left:50%;bottom:0;width:3px;height:95px;background:white;transform:translateX(-50%) rotate("+str(ang)+"deg);transform-origin:bottom center'></div>"
- h+="<div style='position:absolute;left:50%;bottom:-6px;width:14px;height:14px;background:white;border:3px solid "+col+";border-radius:50%;transform:translateX(-50%)'></div>"
- h+="</div>"
- h+="<div style='display:flex;justify-content:space-between;font-size:11px;color:#888;width:220px;margin:6px auto 0'><span>0 BEAR</span><span>50</span><span>100 BULL</span></div>"
- h+="<div style='margin-top:12px;text-align:left'>"
- h+="<div class='why' style='color:#22C55E'><b>Bull:</b> "+d[2]+"</div>"
- h+="<div class='why' style='color:#FF2A2A'><b>Bear:</b> "+d[3]+"</div>"
- h+="<div class='why' style='color:#6B7280'><b>Neu:</b> "+d[4]+"</div></div></div>"
- return h style='color:#6B7280;text-align:left'><b>Neu:</b> "+d[4]+"</div></div>"
- return h
+ if d[1]=="BULL":
+  col="#22C55E"
+ else:
+  if d[1]=="BEAR":
+   col="#FF2A2A"
+  else:
+   col="#FFD60A"
+ html = ""
+ html += "<div class='macro-card' style='text-align:center;border-left:5px solid "+col+"'>"
+ html += "<div style='color:#9AA0B3;font-size:11px'>"+n+" AMBUSH METER</div>"
+ html += "<div style='color:"+col+";font-weight:900;font-size:28px;margin:6px 0'>"+d[1]+" "+str(s)+"/100</div>"
+ html += "<div style='position:relative;width:220px;height:110px;margin:0 auto'>"
+ html += "<div style='width:220px;height:110px;background:conic-gradient(from 270deg at 50% 100%, #FF2A2A 0deg 72deg, #FFD60A 72deg 108deg, #22C55E 108deg 180deg);border-radius:220px 220px 0 0'></div>"
+ html += "<div style='position:absolute;left:50%;bottom:0;width:3px;height:95px;background:white;transform:translateX(-50%) rotate("+str(ang)+"deg);transform-origin:bottom center'></div>"
+ html += "<div style='position:absolute;left:50%;bottom:-6px;width:14px;height:14px;background:white;border:3px solid "+col+";border-radius:50%;transform:translateX(-50%)'></div>"
+ html += "</div>"
+ html += "<div style='display:flex;justify-content:space-between;font-size:11px;color:#888;width:220px;margin:6px auto'><span>0 BEAR</span><span>50</span><span>100 BULL</span></div>"
+ html += "<div style='margin-top:10px;text-align:left'>"
+ html += "<div class='why' style='color:#22C55E'><b>Bull:</b> "+d[2]+"</div>"
+ html += "<div class='why' style='color:#FF2A2A'><b>Bear:</b> "+d[3]+"</div>"
+ html += "<div class='why' style='color:#888'><b>Neu:</b> "+d[4]+"</div>"
+ html += "</div></div>"
+ return html
+
 if "page" not in st.session_state:
  st.session_state.page="home"
+
 def show(lst,head):
  st.markdown("## "+head)
  for name in lst:
@@ -60,18 +70,16 @@ def show(lst,head):
    df=yf.Ticker(t).history(period="1d",interval="5m")
    daily=yf.Ticker(t).history(period="5d")
    p=daily['Close'].iloc[-1]
+   cl=df['Close'].dropna()
+   cl=cl[cl>0]
   except:
-   df=pd.DataFrame({"Close":[1]*40})
+   cl=pd.Series([1,2,3])
    p=0
-  lab=d[1]+" "+name+" "+str(round(p,2))+" "+d[0]
+  lab=d[1]+" "+name+" "+str(round(float(p),2))+" "+d[0]
   with st.expander(lab):
-   try:
-    c=df['Close'].dropna()
-    c=c[c>0.5]
-    st.line_chart(c.tail(100),height=120)
-   except:
-    st.line_chart(df['Close'],height=90)
+   st.line_chart(cl.tail(80),height=140)
    st.markdown(gauge(d,name),unsafe_allow_html=True)
+
 if st.session_state.page=="home":
  st.markdown("### DXY 71 BULL - WHY EXPLAINED")
  st.markdown(gauge(DB["DXY"],"DXY"),unsafe_allow_html=True)
