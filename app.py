@@ -30,7 +30,7 @@ DB["UK100"]=["53","NEUT","BoE Pause + Oil 82 + FTSE + 12K Long = Up","DXY Bull +
 MP={"EURUSD":"EURUSD=X","GBPUSD":"GBPUSD=X","USDJPY":"USDJPY=X","XAUUSD":"GC=F","XAGUSD":"SI=F","USDCAD":"USDCAD=X","USDCHF":"USDCHF=X","OILWTI":"CL=F","BTCUSD":"BTC-USD","US30":"^DJI","NAS100":"^IXIC","SP500":"^GSPC","GER30":"^GDAXI","UK100":"^FTSE","DXY":"DX-Y.NYB"}
 GR={"forex":["EURUSD","GBPUSD","USDJPY","USDCAD","USDCHF","DXY"],"commods":["XAUUSD","XAGUSD","OILWTI"],"crypto":["BTCUSD"],"indices":["US30","NAS100","SP500","GER30","UK100","DXY"]}
 FUND=[["01 Oct","ISM PMI","HIGH","DXY"],["02 Oct","NFP Wage","HIGH","DXY GOLD"],["03 Oct","OPEC","HIGH","OIL"],["08 Oct","FOMC Min","HIGH","DXY"],["10 Oct","US CPI","CRIT","DXY GOLD"],["15 Oct","UK CPI","HIGH","GBP"],["17 Oct","EU CPI ECB","HIGH","EUR GER"],["24 Oct","US GDP","HIGH","DXY SP500"],["29 Oct","FOMC Powell","CRIT","ALL"],["30 Oct","BOJ Rate","HIGH","JPY"]]
-
+GLOSS={"Fed Hawk":["Fed says NO CUT, rates HIGH","USD UP, GOLD DOWN"],"Fed Cut":["Fed cutting rates LOW","USD DOWN, GOLD UP"],"Yield 4.2 Up":["US 10yr yield 4.2% rising","USD UP, GOLD DOWN, NAS DOWN"],"DXY 71 Bull":["Dollar index bullish","EUR DOWN, GBP DOWN, GOLD DOWN"],"GPR War":["Geopolitical Risk war fear","GOLD UP, OIL UP"],"COT -125K Short":["Hedge funds short","EUR DOWN"],"Retail 68 Long Trap":["Retail 68% long at top","Fake Up then DOWN"],"82 Long Top":["Retail 82% long GOLD top","Fake Pump then CRASH"],"BoJ Dov":["Bank Japan dovish","JPY DOWN, USDJPY UP"],"Oil 82":["Oil $82 high","OIL UP, USDCAD DOWN"],"ETF Inflow":["BTC ETF inflow","BTC UP"],"VIX Fear":["VIX fear high","SP500 DOWN, GOLD UP"]}
 def gauge(d,n):
  s=int(d[0])
  ang=-90 + s*1.8
