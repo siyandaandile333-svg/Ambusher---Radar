@@ -8,7 +8,7 @@ if "page" not in st.session_state:
 
 DXY=71
 TM=datetime.now().strftime("%H:%M SAST")
-st.success(f"LIVE v1.6 UNBREAKABLE | {TM}")
+st.success(f"LIVE v1.7 CHANGE BACK | {TM}")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -55,77 +55,34 @@ def gauge(t,s,bu,be,ne,sz=260):
     f+="Neu: "+ne+"</div></div>"
     return a+b+c+d+e+f
 
-# DXY - built from small pieces - phone safe
 dxy_bu=j(["Powell Hawk No Cut","US CPI 3.2% Hot","US10Y 4.2% Up","BoJ Dovish"],"USD Buy")
 dxy_be=j(["Powell Cut 25bps","Gold 2600 Risk On","BoJ Hawk Hike","Yield Down"],"USD Sell")
 dxy_ne="FOMC Sep29 HIGH + NFP Oct3 + CPI Oct4"
 st.markdown(gauge("DXY AMBUSH",DXY,dxy_bu,dxy_be,dxy_ne,280), unsafe_allow_html=True)
 
-# ALL WHY'S - each piece <30 chars - phone can't break!
 forex=[
- ("EURUSD",29,
-  j(["ECB Lagarde Hawk","EU CPI 2.4% Hot","EU GDP Strong","Fed Cut"],"EUR Buy"),
-  j(["Powell Hawk No Cut","DXY 71 Bull","US10Y 4.2% Up","CPI 3.2%"],"EUR Sell"),
-  "ECB Oct5 + US CPI Oct4 + GPR"),
- ("GBPUSD",30,
-  j(["BoE Bailey Hawk","UK CPI 3.8% Hot","UK Wage Up","Fed Cut"],"GBP Buy"),
-  j(["Fed Hawk No Cut","DXY 71","Yield Up","UK Recession"],"GBP Sell"),
-  "BoE Oct5 + FOMC Sep29"),
- ("USDJPY",71,
-  j(["DXY 71 Bull","BoJ Ueda Dovish","US-JP Gap 4.2%"],"USDJPY Buy"),
-  j(["BoJ Hawk Hike","Ueda Hawk","Fed Cut","Risk Off"],"Sell"),
-  "BoJ Oct4 HIGH + FOMC"),
- ("AUDUSD",28,
-  j(["RBA Hawk","Gold 2600 Up","China Stimulus","Iron Up"],"AUD Buy"),
-  j(["DXY 71","Risk Off","China PMI Weak","Iron Down"],"AUD Sell"),
-  "RBA + China PMI + Gold"),
- ("USDCHF",71,
-  j(["DXY 71 Bull","SNB Dovish","Safe Off","Gold Down"],"Buy"),
-  j(["SNB Hawk","Fed Cut","Gold 2600 Up","Risk Off"],"Sell"),
-  "SNB + Gold + Fed"),
- ("USDCAD",70,
-  j(["DXY 71 Bull","Oil WTI 70 Down","BoC Dovish"],"Buy"),
-  j(["Oil 85 Up","OPEC Cut","BoC Hawk","CPI Up"],"Sell"),
-  "BoC + Oil + OPEC"),
+ ("EURUSD",29,j(["ECB Lagarde Hawk","EU CPI 2.4% Hot","EU GDP Strong","Fed Cut"],"EUR Buy"),j(["Powell Hawk No Cut","DXY 71 Bull","US10Y 4.2% Up","CPI 3.2%"],"EUR Sell"),"ECB Oct5 + US CPI Oct4 + GPR"),
+ ("GBPUSD",30,j(["BoE Bailey Hawk","UK CPI 3.8% Hot","UK Wage Up","Fed Cut"],"GBP Buy"),j(["Fed Hawk No Cut","DXY 71","Yield Up","UK Recession"],"GBP Sell"),"BoE Oct5 + FOMC Sep29"),
+ ("USDJPY",71,j(["DXY 71 Bull","BoJ Ueda Dovish","US-JP Gap 4.2%"],"USDJPY Buy"),j(["BoJ Hawk Hike","Ueda Hawk","Fed Cut","Risk Off"],"Sell"),"BoJ Oct4 HIGH + FOMC"),
+ ("AUDUSD",28,j(["RBA Hawk","Gold 2600 Up","China Stimulus","Iron Up"],"AUD Buy"),j(["DXY 71","Risk Off","China PMI Weak","Iron Down"],"AUD Sell"),"RBA + China PMI + Gold"),
+ ("USDCHF",71,j(["DXY 71 Bull","SNB Dovish","Safe Off","Gold Down"],"Buy"),j(["SNB Hawk","Fed Cut","Gold 2600 Up","Risk Off"],"Sell"),"SNB + Gold + Fed"),
+ ("USDCAD",70,j(["DXY 71 Bull","Oil WTI 70 Down","BoC Dovish"],"Buy"),j(["Oil 85 Up","OPEC Cut","BoC Hawk","CPI Up"],"Sell"),"BoC + Oil + OPEC"),
 ]
 commod=[
- ("GOLD",25,
-  j(["Fed Cut 25bps","US10Y Down","USD Weak","GPR War"],"Gold Buy"),
-  j(["DXY 71 Bull","Powell Hawk","US10Y Up","Risk On"],"Sell"),
-  "GPR Israel + FOMC + CPI"),
- ("SILVER",27,
-  j(["Gold 2600 Up","Fed Cut","Solar Demand","Copper Up"],"Buy"),
-  j(["DXY 71","Yield Up","Gold Sell","Risk Off"],"Sell"),
-  "Gold + Copper + Fed"),
- ("OIL",35,
-  j(["GPR Iran War","OPEC Cut 1M","Supply Tight"],"Oil Buy"),
-  j(["DXY Strong","Recession","Demand Down","Stock Up"],"Sell"),
-  "OPEC + GPR + EIA"),
+ ("GOLD",25,j(["Fed Cut 25bps","US10Y Down","USD Weak","GPR War"],"Gold Buy"),j(["DXY 71 Bull","Powell Hawk","US10Y Up","Risk On"],"Sell"),"GPR Israel + FOMC + CPI"),
+ ("SILVER",27,j(["Gold 2600 Up","Fed Cut","Solar Demand","Copper Up"],"Buy"),j(["DXY 71","Yield Up","Gold Sell","Risk Off"],"Sell"),"Gold + Copper + Fed"),
+ ("OIL",35,j(["GPR Iran War","OPEC Cut 1M","Supply Tight"],"Oil Buy"),j(["DXY Strong","Recession","Demand Down","Stock Up"],"Sell"),"OPEC + GPR + EIA"),
 ]
 indices=[
- ("US30",30,
-  j(["Fed Cut","Dow Earnings Beat","CPI 3.2 Down","Risk On"],"Buy"),
-  j(["DXY 71","Powell Hawk","Yield 4.2 Up","Miss"],"Sell"),
-  "FOMC Sep29 + CPI Oct4"),
- ("NAS100",28,
-  j(["Fed Cut","AAPL NVDA Beat","Yield Down","AI Demand"],"Buy"),
-  j(["DXY 71","US10Y Up","Hawk","CPI Hot"],"Sell"),
-  "Earnings + Yield + FOMC"),
- ("SPX500",29,
-  j(["Fed Cut","SPX Earnings Up","CPI Down","GDP Up"],"Buy"),
-  j(["DXY 71","Hawk","Yield Up","Recession"],"Sell"),
-  "FOMC + NFP Oct3 + CPI"),
+ ("US30",30,j(["Fed Cut","Dow Earnings Beat","CPI 3.2 Down","Risk On"],"Buy"),j(["DXY 71","Powell Hawk","Yield 4.2 Up","Miss"],"Sell"),"FOMC Sep29 + CPI Oct4"),
+ ("NAS100",28,j(["Fed Cut","AAPL NVDA Beat","Yield Down","AI Demand"],"Buy"),j(["DXY 71","US10Y Up","Hawk","CPI Hot"],"Sell"),"Earnings + Yield + FOMC"),
+ ("SPX500",29,j(["Fed Cut","SPX Earnings Up","CPI Down","GDP Up"],"Buy"),j(["DXY 71","Hawk","Yield Up","Recession"],"Sell"),"FOMC + NFP Oct3 + CPI"),
 ]
 crypto=[
- ("BTCUSD",30,
-  j(["Fed Cut","ETF Inflow 500M","Risk On","Halving"],"BTC Buy"),
-  j(["DXY 71","Risk Off","SEC FUD","Outflow"],"BTC Sell"),
-  "ETF + FOMC + NFP"),
- ("ETHUSD",29,
-  j(["Fed Cut","ETH ETF In","BTC Up","Burn Up"],"ETH Buy"),
-  j(["DXY 71","Hawk","BTC Sell","Outflow"],"ETH Sell"),
-  "ETF + BTC + FOMC"),
+ ("BTCUSD",30,j(["Fed Cut","ETF Inflow 500M","Risk On","Halving"],"BTC Buy"),j(["DXY 71","Risk Off","SEC FUD","Outflow"],"BTC Sell"),"ETF + FOMC + NFP"),
+ ("ETHUSD",29,j(["Fed Cut","ETH ETF In","BTC Up","Burn Up"],"ETH Buy"),j(["DXY 71","Hawk","BTC Sell","Outflow"],"ETH Sell"),"ETF + BTC + FOMC"),
 ]
+# COT WITH CHANGE - RESTORED
 cot=[
  ["DXY","71%","29%","+3% Long","BULL","Powell Hawk"],
  ["EURUSD","29%","71%","+4% Short","BEAR","DXY 71"],
@@ -169,8 +126,8 @@ else:
         s,bu,be,ne,typ=all_assets[ch]
         st.write(f"Type: {typ}")
         st.markdown(gauge(ch,s,bu,be,ne,280), unsafe_allow_html=True)
-        if s>=60: st.success(f"Score {s} = BULL - Buy only")
-        elif s<=40: st.error(f"Score {s} = BEAR - Sell only")
+        if s>=60: st.success(f"Score {s} = BULL")
+        elif s<=40: st.error(f"Score {s} = BEAR")
         else: st.warning(f"Score {s} = WAIT")
     if st.session_state.page=="forex":
         cols=st.columns(2)
@@ -189,19 +146,23 @@ else:
         for i,(p,s,bu,be,ne) in enumerate(crypto):
             with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
     if st.session_state.page=="cot":
-        st.markdown("### COT - FULL 14")
-        html="<table style='width:100%;border-collapse:collapse;font-size:12px'>"
-        html+="<tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Bias</th><th>Why</th></tr>"
+        st.markdown("### COT - FULL 14 WITH CHANGE")
+        html="<table style='width:100%;border-collapse:collapse;font-size:11px'>"
+        html+="<tr style='background:#111;color:#888'>"
+        html+="<th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
         for r in cot:
             a,lo,sh,ch,bi,wh=r
             if bi=="BULL":
-                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:6px;border:1px solid #333'>BULL</td>"
+                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BULL</td>"
+                cc="<td style='color:#00ff66;padding:5px;border:1px solid #333'>"+ch+"</td>"
             else:
-                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:6px;border:1px solid #333'>BEAR</td>"
-            html+="<tr><td style='padding:6px;border:1px solid #333'>"+a+"</td>"
-            html+="<td style='padding:6px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
-            html+="<td style='padding:6px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"+bc
-            html+="<td style='padding:6px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>BEAR</td>"
+                cc="<td style='color:#ff6666;padding:5px;border:1px solid #333'>"+ch+"</td>"
+            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"
+            html+=cc+bc
+            html+="<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
         html+="</table>"
         st.markdown(html, unsafe_allow_html=True)
     if st.session_state.page=="fund":
