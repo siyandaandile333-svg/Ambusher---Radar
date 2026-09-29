@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-import plotly.graph_objects as go
 
 st.set_page_config(page_title="FX AMBUSHERS",layout="wide")
 
@@ -11,6 +10,23 @@ st.markdown("""
 .gold{color:#d4af37;text-align:center}
 .sub{color:#aaa;text-align:center;letter-spacing:2px;font-size:11px}
 .box{border:1px solid #333;padding:8px;font-size:12px}
+.gauge-wrap{
+ width:200px;height:100px;
+ border:3px solid #d4af37;
+ border-bottom:0;
+ border-radius:100px 100px 0 0;
+ margin:10px auto;
+ position:relative;
+ background:#111;
+}
+.needle{
+ width:2px;height:90px;
+ background:red;
+ position:absolute;
+ bottom:0;left:50%;
+ transform-origin:bottom;
+ transform:rotate(45deg);
+}
 </style>
 """,unsafe_allow_html=True)
 
@@ -24,11 +40,11 @@ FUND=[
 ]
 
 FUND_EXP={
- "INTEREST RATE":["Cost of borrowing money","High rate = DXY UP, GOLD DOWN","FOMC decides it - Most important news"],
+ "INTEREST RATE":["Cost of borrowing money","High rate = DXY UP, GOLD DOWN","FOMC decides it - Most important"],
  "CPI":["Consumer Price Index = Inflation","High CPI = DXY UP, Fed will hike rate","Shows if prices are rising"],
- "FOMC":["Federal Reserve Meeting","Decides interest rate","Biggest volatility - Avoid or Hunt"],
- "NFP":["Non Farm Payroll = US Jobs","High NFP = DXY UP, economy strong","First Friday every month"],
- "GDP":["Gross Domestic Product = Growth","High GDP = DXY UP","Health of economy"],
+ "FOMC":["Federal Reserve Meeting","Decides interest rate","Biggest volatility"],
+ "NFP":["Non Farm Payroll = US Jobs","High NFP = DXY UP","First Friday"],
+ "GDP":["Gross Domestic Product = Growth","High GDP = DXY UP","Economy health"],
 }
 
 GLOSS={
@@ -39,7 +55,6 @@ GLOSS={
  "DXY":"Dollar Index - King",
 }
 
-# LOGO - OLD LAYOUT
 try:
     st.image("logo.png",use_container_width=True)
 except:
@@ -55,25 +70,18 @@ with c1:
 with c2:
     st.markdown(f"<div class='box' style='color:#ffcc00'>{now} • PREDATOR ACTIVE</div>",unsafe_allow_html=True)
 
-# SPEEDOMETER GAUGE - DO NOT REMOVE
+# SPEEDOMETER - NO PLOTLY - NEVER ERRORS
 st.markdown("## 🎯 PREDATOR POWER")
-fig=go.Figure(go.Indicator(
- mode="gauge+number",
- value=78,
- title={'text':"EAGLE EYE POWER %"},
- gauge={
-  'axis':{'range':[0,100]},
-  'bar':{'color':"#d4af37"},
-  'steps':[
-   {'range':[0,50],'color':"#1a1a1a"},
-   {'range':[50,75],'color':"#333"},
-   {'range':[75,100],'color':"#442200"}
-  ],
-  'threshold':{'line':{'color':"red",'width':4},'thickness':0.75,'value':90}
- }
-))
-fig.update_layout(height=250,margin=dict(l=20,r=20,t=40,b=20),paper_bgcolor="#080a0a",font={'color':"#d4af37"})
-st.plotly_chart(fig,use_container_width=True)
+st.markdown("""
+<div style='text-align:center'>
+ <div class='gauge-wrap'>
+  <div class='needle' style='transform:rotate(50deg)'></div>
+ </div>
+ <h2 style='color:#d4af37'>78% EAGLE EYE POWER</h2>
+ <p style='color:#aaa'>0% ---- BULL ---- 50% ---- BEAR ---- 100%</p>
+</div>
+""",unsafe_allow_html=True)
+st.progress(78)
 
 st.markdown("## 🌍 GEOPOLINTEL LIVE")
 st.markdown("""
@@ -83,10 +91,6 @@ st.markdown("""
 """,unsafe_allow_html=True)
 
 st.markdown("## 🎯 SELECT TARGET PREDATOR SYSTEM")
-
-def show(df,t):
-    st.markdown(f"### {t}")
-    st.table(df)
 
 if st.session_state.page=="home":
     b1,b2=st.columns(2)
@@ -122,7 +126,7 @@ else:
         st.rerun()
     if st.session_state.page=="news":
         st.markdown("## INTEL NEWS + FUNDAMENTALS")
-        st.table(pd.DataFrame(FUND,columns=["Date","News","Imp","Affects"]))
+        st.table(pd.DataFrame(FUND,columns=["Date","News","Impact","Affects"]))
         st.divider()
         st.markdown("## WHAT IS IT? - FUNDAMENTALS EXPLAINED")
         for k,v in FUND_EXP.items():
@@ -145,6 +149,6 @@ else:
         for k,v in GLOSS.items():
             st.write(f"**{k}**: {v}")
     if st.session_state.page in ["forex","indices","commods","crypto","cot"]:
-        st.markdown(f"### {st.session_state.page.upper()}")
-        st.write("DXY KING - Hunt liquidity")
-        st.plotly_chart(fig,use_container_width=True)
+        st.markdown(f"### {st.session_state.page.upper()} RADAR")
+        st.progress(78)
+        st.write("DXY KING - Hunt liquidity - 78% Power")
