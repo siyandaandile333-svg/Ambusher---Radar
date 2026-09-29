@@ -1,5 +1,5 @@
 import streamlit as st, yfinance as yf, pandas as pd
-import pytz, random
+import pytz
 from datetime import datetime
 
 st.set_page_config(page_title="FX AMBUSHERS - Mr SA Dlamini", layout="wide", page_icon="🦅")
@@ -8,27 +8,39 @@ st.markdown("""
 <style>
 .stApp{background:#070709;color:#E8E6D9}
 .sentiment-box{background:#0B0B0E;border-radius:18px;padding:14px;text-align:center;border:1px solid #1F1F2A}
-.macro{background:#101018;border:1px solid #1E1E2E;border-radius:16px;padding:12px;margin:8px 0}
+.macro{background:#101018;border:1px solid #1E1E2E;border-radius:16px;padding:12px;margin:8px 0;font-size:12px}
+.why{background:#12120A;border-left:3px solid #FFD60A;padding:10px;margin:8px 0;font-size:11px}
 .geo{border-left:3px solid #FF2A2A;background:#1A1010;padding:8px;margin:6px 0;font-size:11px}
 </style>
 """, unsafe_allow_html=True)
 
-# --- GOLD LOGO ON TOP ---
 try:
     st.markdown("<div style='text-align:center'>", unsafe_allow_html=True)
     st.image("IMG-20260929-WA1810.jpg", width=340)
     st.markdown("</div>", unsafe_allow_html=True)
 except:
-    try:
-        st.image("logo.png", width=340)
-    except:
-        st.markdown("<h1 style='color:#FFD60A;text-align:center;transform:skew(-6deg);font-style:italic'>FX AMBUSHERS</h1>", unsafe_allow_html=True)
+    try: st.image("logo.png", width=340)
+    except: st.markdown("<h1 style='color:#FFD60A;text-align:center'>FX AMBUSHERS</h1>", unsafe_allow_html=True)
 
-st.markdown("<div style='text-align:center;color:#FFD60A;letter-spacing:3px;font-size:13px;font-weight:900'>FX AMBUSHERS • MR SA DLAMINI</div><div style='text-align:center;color:#E8E6D9;font-size:10px;letter-spacing:2px'>PATIENCE IS PROFIT • AMBUSH THE MARKET • BULL VS BEAR</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align:center;color:#FFD60A;letter-spacing:3px;font-size:13px;font-weight:900'>FX AMBUSHERS • MR SA DLAMINI</div><div style='text-align:center;color:#E8E6D9;font-size:10px'>PATIENCE IS PROFIT • AMBUSH THE MARKET</div>", unsafe_allow_html=True)
 sa=datetime.now(pytz.timezone('Africa/Johannesburg')).strftime("%d %b • %H:%M SA • PREDATOR ACTIVE")
-st.markdown(f"<div style='background:#111;border:1px solid #333;padding:6px 12px;display:flex;justify-content:space-between;font-size:11px;margin-top:12px'><span style='color:#FF2A2A'>● PREDATOR MODE • EAGLE EYE ACTIVE</span><span style='color:#FFD60A'>{sa}</span></div><br>", unsafe_allow_html=True)
+st.markdown(f"<div style='background:#111;border:1px solid #333;padding:6px 12px;display:flex;justify-content:space-between;font-size:11px;margin-top:12px'><span style='color:#FF2A2A'>● PREDATOR MODE</span><span style='color:#FFD60A'>{sa}</span></div><br>", unsafe_allow_html=True)
 
-DB={"EUR/USD":{"score":39,"bear":61,"bull":39,"bias":"BEARISH"},"GBP/USD":{"score":42,"bear":58,"bull":42,"bias":"BEARISH"},"USD/JPY":{"score":72,"bear":28,"bull":72,"bias":"BULLISH"},"AUD/USD":{"score":31,"bear":69,"bull":31,"bias":"BEARISH"},"NZD/USD":{"score":29,"bear":71,"bull":29,"bias":"BEARISH"},"USD/CAD":{"score":52,"bear":48,"bull":52,"bias":"NEUTRAL"},"USD/CHF":{"score":61,"bear":39,"bull":61,"bias":"BULLISH"},"XAU/USD":{"score":36,"bear":64,"bull":36,"bias":"BEARISH"},"GOLD":{"score":36,"bear":64,"bull":36,"bias":"BEARISH"},"OIL WTI":{"score":68,"bear":32,"bull":68,"bias":"BULLISH"},"BTC/USD":{"score":54,"bear":46,"bull":54,"bias":"NEUTRAL"},"US30":{"score":48,"bear":52,"bull":48,"bias":"NEUTRAL"},"NAS100":{"score":45,"bear":55,"bull":45,"bias":"BEARISH"}}
+DB={
+"EUR/USD":{"score":39,"bear":61,"bull":39,"bias":"BEARISH","why":"SELL: ECB dovish + US Dollar strong on Fed hawkish. EUR hit by Ukraine gas risk. Retail 68% LONG = TRAP.","entry":"Ambush SELL 1.1380-1.1400, SL 1.1430, TP 1.1280"},
+"GBP/USD":{"score":42,"bear":58,"bull":42,"bias":"BEARISH","why":"SELL: UK inflation falling, BoE cutting soon. USD demand high. Bearish engulfing daily.","entry":"SELL 1.3250, SL 1.3300, TP 1.3150"},
+"USD/JPY":{"score":72,"bear":28,"bull":72,"bias":"BULLISH","why":"BUY: BoJ ultra dovish, Fed stays high. China-Taiwan tension = JPY weak but USD stronger.","entry":"BUY dip 147.80, SL 147.20, TP 149.50"},
+"AUD/USD":{"score":31,"bear":69,"bull":31,"bias":"BEARISH","why":"SELL: China slowdown hits AUD. Iron ore down. RBA dovish vs Fed hawkish.","entry":"SELL 0.6480, SL 0.6520, TP 0.6380"},
+"NZD/USD":{"score":29,"bear":71,"bull":29,"bias":"BEARISH","why":"SELL: Weakest commodity FX. Dairy down. Risk-off mood. Retail trapped long.","entry":"SELL 0.5980, SL 0.6030, TP 0.5880"},
+"USD/CAD":{"score":52,"bear":48,"bull":52,"bias":"NEUTRAL","why":"WAIT: Oil up bullish CAD but USD strong cancels. Chop. No ambush yet.","entry":"WAIT - Chop 1.3750-1.3850"},
+"USD/CHF":{"score":61,"bear":39,"bull":61,"bias":"BULLISH","why":"BUY: SNB already cut rates, CHF weak. Safe haven demand for USD over CHF.","entry":"BUY 0.8950, SL 0.8900, TP 0.9050"},
+"XAU/USD":{"score":36,"bear":64,"bull":36,"bias":"BEARISH","why":"SELL: Gold topping. Real yields rising. Retail 82% LONG = Classic top trap. USD kills gold.","entry":"SELL 2640, SL 2665, TP 2590"},
+"GOLD":{"score":36,"bear":64,"bull":36,"bias":"BEARISH","why":"SELL: Overbought, profit taking, strong dollar. Bearish divergence daily.","entry":"SELL 2640, SL 2665, TP 2590"},
+"OIL WTI":{"score":68,"bear":32,"bull":68,"bias":"BULLISH","why":"BUY: Middle East oil risk + OPEC production cut. Demand up. Breakout above 72.","entry":"BUY dip 71.50, SL 70.20, TP 75.00"},
+"BTC/USD":{"score":54,"bear":46,"bull":54,"bias":"NEUTRAL","why":"WAIT: BTC chopping 65k. ETF flows mixed. Need breakout 68k for bullish ambush.","entry":"WAIT - Watch 68k"},
+"US30":{"score":48,"bear":52,"bull":48,"bias":"NEUTRAL","why":"WAIT: Stocks mixed on Fed uncertainty. Range bound. No clear direction.","entry":"WAIT - Range 42k-43k"},
+"NAS100":{"score":45,"bear":55,"bull":45,"bias":"BEARISH","why":"SELL: Tech overvalued, profit taking. Rising yields hit Nasdaq.","entry":"SELL 19700, SL 19900, TP 19300"}
+}
 pairs_map={"EUR/USD":"EURUSD=X","GBP/USD":"GBPUSD=X","USD/JPY":"USDJPY=X","AUD/USD":"AUDUSD=X","NZD/USD":"NZDUSD=X","USD/CAD":"USDCAD=X","USD/CHF":"USDCHF=X","XAU/USD":"GC=F","GOLD":"GC=F","OIL WTI":"CL=F","BTC/USD":"BTC-USD","US30":"^DJI","NAS100":"^IXIC"}
 GROUPS={"forex":["EUR/USD","GBP/USD","USD/JPY","AUD/USD","NZD/USD","USD/CAD","USD/CHF"],"commods":["XAU/USD","GOLD","OIL WTI"],"crypto":["BTC/USD"],"indices":["US30","NAS100"]}
 
@@ -52,11 +64,13 @@ def show_detail(pair_list, header):
             st.line_chart(df['Close'], height=90)
             c1,c2=st.columns(2)
             with c1: st.markdown(gauge_svg(d['score'],d['bias']), unsafe_allow_html=True)
-            with c2: st.markdown(f"<div class='macro'><div style='text-align:center;color:{'#FF2A2A' if d['bias']=='BEARISH' else '#4ADE80'};font-weight:800'>{d['bias']} {d['score']}/100</div><div style='font-size:11px;margin-top:6px'>Bear {d['bear']}% • Bull {d['bull']}%<br>Patience is Profit</div></div>", unsafe_allow_html=True)
+            with c2: st.markdown(f"<div class='macro'><div style='text-align:center;color:{'#FF2A2A' if d['bias']=='BEARISH' else '#4ADE80' if d['bias']=='BULLISH' else '#FFD60A'};font-weight:800'>{d['bias']} {d['score']}/100</div><div style='font-size:11px;margin-top:6px'>Bear {d['bear']}% • Bull {d['bull']}%</div></div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='why'><b style='color:#FFD60A'>WHY {d['bias']}?</b><br>{d['why']}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='macro'><b style='color:#4ADE80'>🎯 AMBUSH PLAN:</b> {d['entry']}</div>", unsafe_allow_html=True)
 
 if st.session_state.page=="home":
     st.markdown("### 🌍 GEOPOLINTEL LIVE")
-    st.markdown("<div class='geo'>🔴 MIDDLE EAST Oil risk | 🔴 UKRAINE Gas spike bearish EUR | 🟡 CHINA-TAIWAN JPY bid | 🟢 OPEC cut bullish CAD</div>", unsafe_allow_html=True)
+    st.markdown("<div class='geo'>🔴 MIDDLE EAST Oil risk bullish Oil bearish Gold | 🔴 UKRAINE Gas spike bearish EUR | 🟡 CHINA-TAIWAN JPY bid | 🟢 OPEC cut bullish CAD & OIL</div>", unsafe_allow_html=True)
     st.markdown("### 🎯 SELECT TARGET - 6 PREDATOR SYSTEMS")
     c1,c2=st.columns(2)
     with c1:
@@ -64,16 +78,16 @@ if st.session_state.page=="home":
         if st.button("◈ Commodities Trap • GOLD OIL • LOCK TARGET", use_container_width=True): st.session_state.page="commods"; st.rerun()
         if st.button("◉ Intel News • LOCK TARGET", use_container_width=True): st.session_state.page="news"; st.rerun()
     with c2:
-        if st.button("▲ Indices Hunt • LOCK TARGET", use_container_width=True, key="indices"): st.session_state.page="indices"; st.rerun()
+        if st.button("▲ Indices Hunt • LOCK TARGET", use_container_width=True): st.session_state.page="indices"; st.rerun()
         if st.button("₿ Crypto Ambush • LOCK TARGET", use_container_width=True): st.session_state.page="crypto"; st.rerun()
         if st.button("⬡ Institutional COT • LOCK TARGET", use_container_width=True): st.session_state.page="cot"; st.rerun()
 else:
     if st.button("← RETURN TO RADAR"): st.session_state.page="home"; st.rerun()
-    if st.session_state.page=="forex": show_detail(GROUPS["forex"],"FOREX AMBUSH")
-    elif st.session_state.page=="commods": show_detail(GROUPS["commods"],"COMMODITIES TRAP")
+    if st.session_state.page=="forex": show_detail(GROUPS["forex"],"FOREX AMBUSH - WHY BUY/SELL")
+    elif st.session_state.page=="commods": show_detail(GROUPS["commods"],"COMMODITIES TRAP - WHY BUY/SELL")
     elif st.session_state.page=="crypto": show_detail(GROUPS["crypto"],"CRYPTO AMBUSH")
     elif st.session_state.page=="indices": show_detail(GROUPS["indices"],"INDICES HUNT")
-    elif st.session_state.page=="news": st.markdown("## <span style='color:#FF2A2A'>INTEL NEWS</span>", unsafe_allow_html=True); st.markdown("🟢 USD BULLISH • 🔴 EUR BEARISH • 🔴 GOLD TRAP • 🟢 OIL BULLISH")
-    elif st.session_state.page=="cot": st.markdown("## <span style='color:#FFD60A'>COT PREDATOR</span>", unsafe_allow_html=True); st.markdown("Retail 68% Long EUR = SHORT AMBUSH • 82% Long Gold = TOP")
+    elif st.session_state.page=="news": st.markdown("## <span style='color:#FF2A2A'>INTEL NEWS</span>", unsafe_allow_html=True); st.markdown("<div class='why'>🟢 USD BULLISH: Fed hawkish hold • 🔴 EUR BEARISH: ECB dovish • 🔴 GOLD TRAP: Retail 82% long • 🟢 OIL BULLISH: War risk</div>", unsafe_allow_html=True)
+    elif st.session_state.page=="cot": st.markdown("## <span style='color:#FFD60A'>COT PREDATOR</span>", unsafe_allow_html=True); st.markdown("<div class='why'>Retail 68% Long EUR = We SHORT AMBUSH • 82% Long Gold = TOP trap • Smart money SHORT EUR/USD</div>", unsafe_allow_html=True)
 
 if st.button("🔄 RE-SCAN ALL MARKETS"): st.rerun()
