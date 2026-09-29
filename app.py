@@ -30,7 +30,8 @@ DB["UK100"]=["53","NEUT","BoE Pause + Oil 82 + FTSE + 12K Long = Up","DXY Bull +
 MP={"EURUSD":"EURUSD=X","GBPUSD":"GBPUSD=X","USDJPY":"USDJPY=X","XAUUSD":"GC=F","XAGUSD":"SI=F","USDCAD":"USDCAD=X","USDCHF":"USDCHF=X","OILWTI":"CL=F","BTCUSD":"BTC-USD","US30":"^DJI","NAS100":"^IXIC","SP500":"^GSPC","GER30":"^GDAXI","UK100":"^FTSE","DXY":"DX-Y.NYB"}
 GR={"forex":["EURUSD","GBPUSD","USDJPY","USDCAD","USDCHF","DXY"],"commods":["XAUUSD","XAGUSD","OILWTI"],"crypto":["BTCUSD"],"indices":["US30","NAS100","SP500","GER30","UK100","DXY"]}
 FUND=[["01 Oct","ISM PMI","HIGH","DXY"],["02 Oct","NFP Wage","HIGH","DXY GOLD"],["03 Oct","OPEC","HIGH","OIL"],["08 Oct","FOMC Min","HIGH","DXY"],["10 Oct","US CPI","CRIT","DXY GOLD"],["15 Oct","UK CPI","HIGH","GBP"],["17 Oct","EU CPI ECB","HIGH","EUR GER"],["24 Oct","US GDP","HIGH","DXY SP500"],["29 Oct","FOMC Powell","CRIT","ALL"],["30 Oct","BOJ Rate","HIGH","JPY"]]
-GLOSS={"Fed Hawk":["Fed says NO CUT, rates HIGH","USD UP, GOLD DOWN"],"Fed Cut":["Fed cutting rates LOW","USD DOWN, GOLD UP"],"Yield 4.2 Up":["US 10yr yield 4.2% rising","USD UP, GOLD DOWN, NAS DOWN"],"DXY 71 Bull":["Dollar index bullish","EUR DOWN, GBP DOWN, GOLD DOWN"],"GPR War":["Geopolitical Risk war fear","GOLD UP, OIL UP"],"COT -125K Short":["Hedge funds short","EUR DOWN"],"Retail 68 Long Trap":["Retail 68% long at top","Fake Up then DOWN"],"82 Long Top":["Retail 82% long GOLD top","Fake Pump then CRASH"],"BoJ Dov":["Bank Japan dovish","JPY DOWN, USDJPY UP"],"Oil 82":["Oil $82 high","OIL UP, USDCAD DOWN"],"ETF Inflow":["BTC ETF inflow","BTC UP"],"VIX Fear":["VIX fear high","SP500 DOWN, GOLD UP"]}
+GLOSS={"Fed Hawk":["Fed says NO CUT, rates HIGH","USD UP, GOLD DOWN, SP500 DOWN - high rates = USD buys"],"Fed Cut":["Fed cutting rates LOW","USD DOWN, GOLD UP, SP500 UP - cheap money"],"Yield 4.2 Up":["US 10yr yield 4.2% rising","USD UP, GOLD DOWN, NAS DOWN - money goes to USD"],"DXY 71 Bull":["Dollar index 71 bullish","EUR DOWN, GBP DOWN, GOLD DOWN - strong dollar kills others"],"GPR War":["Geopolitical Risk war fear","GOLD UP, OIL UP, USD UP - safe haven buy"],"COT -125K Short":["Hedge funds -125K short EUR","EUR DOWN - smart money selling"],"Retail 68 Long Trap":["Retail 68% long at top","Fake Up then DOWN - crowd trapped"],"82 Long Top":["Retail 82% long GOLD at top","Fake Pump then CRASH - no buyers left"],"BoJ Dov":["Bank Japan dovish no hike","JPY DOWN, USDJPY UP - yen weak"],"Oil 82":["Oil $82 high","OIL UP, USDCAD DOWN - CAD follows oil"],"ETF Inflow":["BTC ETF inflow","BTC UP - more buyers"],"VIX Fear":["VIX fear high","SP500 DOWN, GOLD UP - fear = sell stocks"]}
+
 def gauge(d,n):
  s=int(d[0])
  ang=-90 + s*1.8
@@ -52,90 +53,4 @@ def gauge(d,n):
  html += "</div>"
  html += "<div style='display:flex;justify-content:space-between;font-size:11px;color:#888;width:220px;margin:6px auto'><span>0 BEAR</span><span>50</span><span>100 BULL</span></div>"
  html += "<div style='margin-top:10px;text-align:left'>"
- html += "<div class='why' style='color:#22C55E'><b>Bull:</b> "+d[2]+"</div>"
- html += "<div class='why' style='color:#FF2A2A'><b>Bear:</b> "+d[3]+"</div>"
- html += "<div class='why' style='color:#888'><b>Neu:</b> "+d[4]+"</div>"
- html += "</div></div>"
- return html
-
-if "page" not in st.session_state:
- st.session_state.page="home"
-
-def show(lst,head):
- st.markdown("## "+head)
- for name in lst:
-  d=DB[name]
-  t=MP.get(name)
-  try:
-   df=yf.Ticker(t).history(period="1d",interval="5m")
-   daily=yf.Ticker(t).history(period="5d")
-   p=daily['Close'].iloc[-1]
-   cl=df['Close'].dropna()
-   cl=cl[cl>0]
-  except:
-   cl=pd.Series([1,2,3])
-   p=0
-  lab=d[1]+" "+name+" "+str(round(float(p),2))+" "+d[0]
-  with st.expander(lab):
-   st.line_chart(cl.tail(80),height=140)
-   st.markdown(gauge(d,name),unsafe_allow_html=True)
-
-if st.session_state.page=="home":
- st.markdown("### DXY 71 BULL - WHY EXPLAINED")
- st.markdown(gauge(DB["DXY"],"DXY"),unsafe_allow_html=True)
- c1,c2=st.columns(2)
- with c1:
-  if st.button("FOREX 6"):
-   st.session_state.page="forex"
-   st.rerun()
-  if st.button("INDICES"):
-   st.session_state.page="indices"
-   st.rerun()
-  if st.button("INTEL NEWS"):
-   st.session_state.page="news"
-   st.rerun()
-    if st.button("LEARN WORDS"):
-   st.session_state.page="gloss"
-   st.rerun()
-   st.session_state.page="fund"
-   st.rerun()
- with c2:
-  if st.button("GOLD OIL"):
-   st.session_state.page="commods"
-   st.rerun()
-  if st.button("CRYPTO"):
-   st.session_state.page="crypto"
-   st.rerun()
-  if st.button("COT TABLE"):
-   st.session_state.page="cot"
-   st.rerun()
-else:
- if st.button("BACK RADAR"):
-  st.session_state.page="home"
-  st.rerun()
- if st.session_state.page=="forex":
-  show(GR["forex"],"FOREX DXY KING")
- if st.session_state.page=="commods":
-  show(GR["commods"],"GOLD OIL TRAP")
- if st.session_state.page=="crypto":
-  show(GR["crypto"],"CRYPTO AMBUSH")
- if st.session_state.page=="indices":
-  show(GR["indices"],"INDICES HUNT")
- if st.session_state.page=="news":
-  st.markdown("## INTEL NEWS")
-  st.markdown("<div class='macro-card'>DXY 104.5 BULL 71 Fed hawk Yield 4.2 EUR BEAR 39 GOLD 82 TOP</div>",unsafe_allow_html=True)
-  if st.session_state.page=="fund":
-  st.markdown("## FUND DATES - FUTURE COMINGS")
-  df=pd.DataFrame(FUND,columns=["DATE","EVENT","IMPACT","PAIR"])
-  st.dataframe(df,hide_index=True,use_container_width=True)
-   if st.session_state.page=="gloss":
-  st.markdown("## LEARN WORDS - WHAT IT MEANS + MARKET EFFECT")
-  for k,v in GLOSS.items():
-   st.markdown("<div class='macro-card'><b style='color:#FFD60A'>"+k+"</b><br><span style='color:#aaa;font-size:12px'>Means: "+v[0]+"</span><br><span style='color:#22C55E;font-size:12px'>Effect: "+v[1]+"</span></div>",unsafe_allow_html=True)
- if st.session_state.page=="cot":
-  st.markdown("## COT 12 PAIRS")
-  rows=[["DXY 71","62 SHORT SQZ","98K Long Bull","BULL"],["XAU 39","82 LONG TOP","-28K +19K Short","BEAR"],["XAG 44","76 LONG TRAP","-12K +22K Short","BEAR"],["US30 48","60 LONG","15K +32K","NEUT"],["NAS 45","64 LONG TRAP","-18K Sell","BEAR"],["SP500 50","60 LONG","Flat","NEUT"],["GER 44","55 LONG","-18K DAX","BEAR"],["UK 53","52 LONG","12K FTSE","NEUT"],["EUR 39","68 LONG TRAP","-125K EUR","BEAR"],["GBP 42","65 LONG TRAP","-89K GBP","BEAR"],["JPY 72","71 SHORT SQZ","148K Long","BULL"],["OIL 68","58 SHORT SQZ","112K OPEC","BULL"]]
-  df=pd.DataFrame(rows,columns=["PAIR","RETAIL","SMART","BIAS"])
-  st.dataframe(df,hide_index=True,use_container_width=True)
-if st.button("RE-SCAN"):
- st.rerun()
+ html += "<div class='why'
