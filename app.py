@@ -8,7 +8,7 @@ if "page" not in st.session_state:
 
 DXY=71
 TM=datetime.now().strftime("%H:%M SAST")
-st.success(f"LIVE v1.7 CHANGE BACK | {TM}")
+st.success(f"LIVE v1.8 RETAIL + CHANGE | {TM}")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -82,7 +82,6 @@ crypto=[
  ("BTCUSD",30,j(["Fed Cut","ETF Inflow 500M","Risk On","Halving"],"BTC Buy"),j(["DXY 71","Risk Off","SEC FUD","Outflow"],"BTC Sell"),"ETF + FOMC + NFP"),
  ("ETHUSD",29,j(["Fed Cut","ETH ETF In","BTC Up","Burn Up"],"ETH Buy"),j(["DXY 71","Hawk","BTC Sell","Outflow"],"ETH Sell"),"ETF + BTC + FOMC"),
 ]
-# COT WITH CHANGE - RESTORED
 cot=[
  ["DXY","71%","29%","+3% Long","BULL","Powell Hawk"],
  ["EURUSD","29%","71%","+4% Short","BEAR","DXY 71"],
@@ -99,6 +98,23 @@ cot=[
  ["SPX500","29%","71%","+3% Short","BEAR","DXY 71"],
  ["BTCUSD","30%","70%","+2% Short","BEAR","Risk Off"],
 ]
+# RETAIL SENTIMENT - NEW - inverse of smart money
+retail=[
+ ["EURUSD","70%","30%","72% Long Retail","CONTRARIAN SELL","Retail Long Crowded"],
+ ["GBPUSD","68%","32%","70% Long Retail","CONTRARIAN SELL","Retail Long"],
+ ["USDJPY","35%","65%","66% Short Retail","CONTRARIAN BUY","Retail Short Crowded"],
+ ["AUDUSD","65%","35%","68% Long Retail","CONTRARIAN SELL","Retail Wrong"],
+ ["USDCHF","38%","62%","64% Short Retail","CONTRARIAN BUY","Retail Short"],
+ ["USDCAD","40%","60%","62% Short Retail","CONTRARIAN BUY","Retail Short"],
+ ["GOLD","75%","25%","80% Long Retail","CONTRARIAN SELL","Top Signal"],
+ ["SILVER","72%","28%","75% Long Retail","CONTRARIAN SELL","Retail Long"],
+ ["OIL","60%","40%","65% Long Retail","CONTRARIAN SELL","Retail Long Oil"],
+ ["US30","68%","32%","70% Long Retail","CONTRARIAN SELL","Retail Bull Trap"],
+ ["NAS100","70%","30%","73% Long Retail","CONTRARIAN SELL","Retail Bull"],
+ ["SPX500","69%","31%","71% Long Retail","CONTRARIAN SELL","Retail Bull"],
+ ["BTCUSD","78%","22%","85% Long Retail","CONTRARIAN SELL","Retail FOMO"],
+ ["DXY","30%","70%","68% Short Retail","CONTRARIAN BUY","Retail Short USD"],
+]
 
 all_assets={}
 for p,s,bu,be,ne in forex: all_assets[p]=(s,bu,be,ne,"FOREX")
@@ -113,11 +129,12 @@ if st.session_state.page=="home":
         if st.button("FOREX 6", use_container_width=True): st.session_state.page="forex"
         if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
         if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
+        if st.button("RETAIL SENTIMENT", use_container_width=True): st.session_state.page="retail"
     with c2:
         if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
         if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
         if st.button("SCORE FINDER", use_container_width=True): st.session_state.page="finder"
-    if st.button("FUND + GPR", use_container_width=True): st.session_state.page="fund"
+        if st.button("FUND + GPR", use_container_width=True): st.session_state.page="fund"
 else:
     if st.button("BACK RADAR", use_container_width=True): st.session_state.page="home"
     if st.session_state.page=="finder":
@@ -162,6 +179,26 @@ else:
             html+="<td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
             html+="<td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"
             html+=cc+bc
+            html+="<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+        html+="</table>"
+        st.markdown(html, unsafe_allow_html=True)
+    if st.session_state.page=="retail":
+        st.markdown("### RETAIL SENTIMENT - CONTRARIAN")
+        st.write("Retail = Crowd | We fade them | 70% Long = Bearish Signal")
+        html="<table style='width:100%;border-collapse:collapse;font-size:11px'>"
+        html+="<tr style='background:#111;color:#888'>"
+        html+="<th>Asset</th><th>Retail Long</th><th>Retail Short</th><th>Crowd</th><th>Signal</th><th>Why</th></tr>"
+        for r in retail:
+            a,lo,sh,cr,sg,wh=r
+            if "SELL" in sg:
+                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>SELL</td>"
+            else:
+                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BUY</td>"
+            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#ffcc00'>"+cr+"</td>"
+            html+=bc
             html+="<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
         html+="</table>"
         st.markdown(html, unsafe_allow_html=True)
