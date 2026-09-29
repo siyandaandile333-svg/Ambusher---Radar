@@ -119,12 +119,32 @@ if st.session_state.page=="home":
    st.rerun()
   if st.button("COT TABLE"):
    st.session_state.page="cot"
-   st.rerun()
+     st.rerun()
 else:
  if st.button("BACK RADAR"):
   st.session_state.page="home"
   st.rerun()
  if st.session_state.page=="forex":
-  show(GR["forex"],"FOREX DXY KING")
+  show(GR["forex"],"FOREX")
+ if st.session_state.page=="indices":
+  show(GR["indices"],"INDICES")
  if st.session_state.page=="commods":
-  show
+  show(GR["commods"],"GOLD OIL")
+ if st.session_state.page=="crypto":
+  show(GR["crypto"],"CRYPTO")
+ if st.session_state.page=="cot":
+  show(GR["cot"],"COT TABLE")
+ if st.session_state.page=="news":
+  st.markdown("### INTEL NEWS")
+  st.table(pd.DataFrame(FUND))
+  st.divider()
+  st.markdown("### LEARN WORDS")
+  for k,v in GLOSS.items():
+   st.markdown(f"**{k}**: {v[0]} -> {v[1]}")
+ if st.session_state.page=="fund":
+  st.markdown("### FUND DATES")
+  st.table(pd.DataFrame(FUND))
+ if st.session_state.page=="gloss":
+  st.markdown("### GLOSSARY")
+  for k,v in GLOSS.items():
+   st.markdown(f"**{k}**: {v[0]} -> {v[1]}")
