@@ -94,7 +94,9 @@ if st.session_state.page=="home":
   if st.button("INTEL NEWS"):
    st.session_state.page="news"
    st.rerun()
-  if st.button("FUND DATES"):
+    if st.button("LEARN WORDS"):
+   st.session_state.page="gloss"
+   st.rerun()
    st.session_state.page="fund"
    st.rerun()
  with c2:
@@ -122,10 +124,14 @@ else:
  if st.session_state.page=="news":
   st.markdown("## INTEL NEWS")
   st.markdown("<div class='macro-card'>DXY 104.5 BULL 71 Fed hawk Yield 4.2 EUR BEAR 39 GOLD 82 TOP</div>",unsafe_allow_html=True)
- if st.session_state.page=="fund":
+  if st.session_state.page=="fund":
   st.markdown("## FUND DATES - FUTURE COMINGS")
   df=pd.DataFrame(FUND,columns=["DATE","EVENT","IMPACT","PAIR"])
   st.dataframe(df,hide_index=True,use_container_width=True)
+   if st.session_state.page=="gloss":
+  st.markdown("## LEARN WORDS - WHAT IT MEANS + MARKET EFFECT")
+  for k,v in GLOSS.items():
+   st.markdown("<div class='macro-card'><b style='color:#FFD60A'>"+k+"</b><br><span style='color:#aaa;font-size:12px'>Means: "+v[0]+"</span><br><span style='color:#22C55E;font-size:12px'>Effect: "+v[1]+"</span></div>",unsafe_allow_html=True)
  if st.session_state.page=="cot":
   st.markdown("## COT 12 PAIRS")
   rows=[["DXY 71","62 SHORT SQZ","98K Long Bull","BULL"],["XAU 39","82 LONG TOP","-28K +19K Short","BEAR"],["XAG 44","76 LONG TRAP","-12K +22K Short","BEAR"],["US30 48","60 LONG","15K +32K","NEUT"],["NAS 45","64 LONG TRAP","-18K Sell","BEAR"],["SP500 50","60 LONG","Flat","NEUT"],["GER 44","55 LONG","-18K DAX","BEAR"],["UK 53","52 LONG","12K FTSE","NEUT"],["EUR 39","68 LONG TRAP","-125K EUR","BEAR"],["GBP 42","65 LONG TRAP","-89K GBP","BEAR"],["JPY 72","71 SHORT SQZ","148K Long","BULL"],["OIL 68","58 SHORT SQZ","112K OPEC","BULL"]]
