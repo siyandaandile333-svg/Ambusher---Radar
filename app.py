@@ -10,8 +10,7 @@ if "page" not in st.session_state:
 
 DXY=71
 TM=datetime.now().strftime("%H:%M SAST")
-
-st.success(f"✅ LIVE v1.1 {TM} | DXY {DXY} BULL | Why BACK")
+st.success(f"✅ LIVE v1.2 {TM} | DXY {DXY} BULL | FULL COT 14")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -66,11 +65,22 @@ crypto=[
  ("BTCUSD",30,"Fed Cut + Risk On = Buy","DXY 71 + Risk Off = Sell","ETF + Fed"),
  ("ETHUSD",29,"Fed Cut + ETF = Buy","DXY 71 + Hawk = Sell","ETF + BTC"),
 ]
+# FULL COT 14 - RESTORED - SHORT LINES
 cot=[
  ["DXY","71%","29%","+3% Long","BULL","Fed Hawk"],
- ["EURUSD","29%","71%","+4% Short","BEAR","DXY Bull 71"],
+ ["EURUSD","29%","71%","+4% Short","BEAR","DXY 71"],
+ ["GBPUSD","30%","70%","+2% Short","BEAR","DXY Bull"],
  ["USDJPY","71%","29%","+2% Long","BULL","BoJ Dovish"],
+ ["AUDUSD","28%","72%","+3% Short","BEAR","Risk Off"],
+ ["USDCHF","71%","29%","+1% Long","BULL","SNB Dovish"],
+ ["USDCAD","70%","30%","+2% Long","BULL","Oil Down"],
  ["GOLD","25%","75%","+5% Short","BEAR","DXY + Yield"],
+ ["SILVER","27%","73%","+3% Short","BEAR","Gold Down"],
+ ["OIL","35%","65%","+2% Short","BEAR","DXY Strong"],
+ ["US30","30%","70%","+3% Short","BEAR","DXY Bull"],
+ ["NAS100","28%","72%","+4% Short","BEAR","Yield Up"],
+ ["SPX500","29%","71%","+3% Short","BEAR","DXY Bull"],
+ ["BTCUSD","30%","70%","+2% Short","BEAR","Risk Off"],
 ]
 
 if st.session_state.page=="home":
@@ -78,8 +88,10 @@ if st.session_state.page=="home":
     with c1:
         if st.button("FOREX 6", use_container_width=True): st.session_state.page="forex"
         if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
-    with c2:
         if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
+    with c2:
+        if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
+        if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
         if st.button("FUND + GPR", use_container_width=True): st.session_state.page="fund"
 else:
     if st.button("BACK RADAR", use_container_width=True): st.session_state.page="home"
@@ -91,22 +103,26 @@ else:
         cols=st.columns(2)
         for i,(p,s,bu,be,ne) in enumerate(commod):
             with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
+    if st.session_state.page=="indices":
+        cols=st.columns(2)
+        for i,(p,s,bu,be,ne) in enumerate(indices):
+            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
+    if st.session_state.page=="crypto":
+        cols=st.columns(2)
+        for i,(p,s,bu,be,ne) in enumerate(crypto):
+            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
     if st.session_state.page=="cot":
-        st.markdown("### COT GREEN BULL RED BEAR")
+        st.markdown("### COT - FULL 14 - GREEN BULL RED BEAR")
         html="<table style='width:100%;border-collapse:collapse;font-size:12px'>"
-        html+="<tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Bias</th></tr>"
+        html+="<tr style='background:#111;color:#888'>"
+        html+="<th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
         for r in cot:
-            a,lo,sh,ch,bi,wh=r
-            if bi=="BULL":
-                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:6px;border:1px solid #333'>BULL</td>"
+            asset,longv,shortv,change,bias,why=r
+            if bias=="BULL":
+                bcol="<td style='background:#00ff66;color:black;font-weight:900;padding:6px;border:1px solid #333'>BULL</td>"
+                ccol="<td style='color:#00ff66;padding:6px;border:1px solid #333'>"+change+"</td>"
             else:
-                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:6px;border:1px solid #333'>BEAR</td>"
-            html+="<tr><td style='padding:6px;border:1px solid #333'>"+a+"</td>"
-            html+="<td style='padding:6px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
-            html+="<td style='padding:6px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"+bc+"</tr>"
-        html+="</table>"
-        st.markdown(html, unsafe_allow_html=True)
-    if st.session_state.page=="fund":
-        st.write("FOMC HIGH - Fed Hawk = DXY Buy")
-        st.write("NFP 2026-10-03 - Biggest USD mover")
-        st.write("GPR: Israel-Gaza = Gold SELL | Russia-Ukraine = Gold BUY")
+                bcol="<td style='background:#ff4444;color:white;font-weight:900;padding:6px;border:1px solid #333'>BEAR</td>"
+                ccol="<td style='color:#ff4444;padding:6px;border:1px solid #333'>"+change+"</td>"
+            html+="<tr><td style='padding:6px;border:1px solid #333'>"+asset+"</td>"
+            html+="<td style='padding:6px;border:1px solid #333;color:#00ff66'>"+longv+"</td>"
