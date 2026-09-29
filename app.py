@@ -4,13 +4,12 @@ from datetime import datetime
 import os
 
 st.set_page_config(page_title="FX AMBUSHERS", layout="wide")
-
 if "page" not in st.session_state:
     st.session_state.page="home"
 
 DXY=71
 TM=datetime.now().strftime("%H:%M SAST")
-st.success(f"✅ LIVE v1.2 {TM} | DXY {DXY} BULL | FULL COT 14")
+st.success(f"✅ LIVE v1.3 {TM} | SPECIFIC WHY'S | DXY {DXY} BULL")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -41,45 +40,45 @@ def gauge(t,s,bu,be,ne,sz=260):
     f+="<div style='font-size:11px;color:#888'>Neu: "+ne+"</div></div>"
     return a+b+c+d+e+f
 
-st.markdown(gauge("DXY AMBUSH",DXY,"Fed Hawk + Yield Up = Buy","Fed Cut + Gold = Sell","GPR Oil BoJ",280), unsafe_allow_html=True)
+st.markdown(gauge("DXY AMBUSH",DXY,"Powell Hawk No Cut + CPI 3.2% + Yield 4.2%","Powell Cut + Gold 2600 + Risk On","FOMC Sep 29 + NFP Oct 3",280), unsafe_allow_html=True)
 
+# SUPER SPECIFIC WHY'S - NOT GENERIC
 forex=[
- ("EURUSD",29,"ECB Hawk + Fed Cut = Buy","Fed Hawk + Yield + DXY = Sell","ECB + GPR"),
- ("GBPUSD",30,"BoE Hawk + Fed Cut = Buy","Fed Hawk + Yield + DXY = Sell","BoE + GPR"),
- ("USDJPY",71,"DXY 71 + BoJ Dovish = Buy","BoJ Hawk + Fed Cut = Sell","BoJ + GPR"),
- ("AUDUSD",28,"RBA Hawk + Gold = Buy","DXY 71 + Risk Off = Sell","RBA + China"),
- ("USDCHF",71,"DXY 71 + SNB Dovish = Buy","SNB Hawk + Fed Cut = Sell","SNB + Gold"),
- ("USDCAD",70,"DXY 71 + Oil Down = Buy","Oil Up + BoC Hawk = Sell","BoC + Oil"),
+ ("EURUSD",29,"ECB Lagarde Hawk + EU CPI 2.4% + Fed Cut","Powell Hawk No Cut + DXY 71 + US10Y 4.2%","ECB Oct5 + US CPI Oct4"),
+ ("GBPUSD",30,"BoE Bailey Hawk + UK CPI 3.8% + Fed Cut","Fed Hawk + DXY 71 + Risk Off + Yield Up","BoE Oct5 + FOMC Sep29"),
+ ("USDJPY",71,"DXY 71 + BoJ Ueda Dovish + US-JP Yield Gap","BoJ Hawk Rate Hike + Fed Cut + Risk Off","BoJ Rate Oct4 + FOMC"),
+ ("AUDUSD",28,"RBA Bullock Hawk + Gold 2600 + China Stimulus","DXY 71 + Risk Off + China Weak + Iron Down","RBA + China PMI + Gold"),
+ ("USDCHF",71,"DXY 71 + SNB Jordan Dovish + Safe Haven Off","SNB Hawk + Fed Cut + Gold Up + Risk Off","SNB + Gold + Fed"),
+ ("USDCAD",70,"DXY 71 + Oil WTI 70 Down + BoC Dovish","Oil 85 Up + BoC Macklem Hawk + Risk On","BoC + Oil OPEC + NFP"),
 ]
 commod=[
- ("GOLD",25,"Fed Cut + Yield Down = Buy","DXY 71 + Hawk = Sell","GPR + Fed"),
- ("SILVER",27,"Fed Cut + Gold = Buy","DXY 71 + Yield = Sell","Gold + Copper"),
- ("OIL",35,"GPR War + OPEC Cut = Buy","DXY 71 + Recession = Sell","OPEC + GPR"),
+ ("GOLD",25,"Fed Cut 25bps + Yield 4.2 Down + GPR War","DXY 71 + Powell Hawk + US10Y Up + Risk On","GPR Israel + FOMC + CPI"),
+ ("SILVER",27,"Gold 2600 Up + Fed Cut + Industrial Demand","DXY 71 + Yield Up + Gold Sell + Risk Off","Gold + Copper + Fed"),
+ ("OIL",35,"GPR Iran Tanker + OPEC Cut 1M + War Risk","DXY 71 + US Recession + Demand Down + Stock Up","OPEC Meeting + GPR + EIA"),
 ]
 indices=[
- ("US30",30,"Fed Cut + Earnings = Buy","DXY 71 + Hawk = Sell","FOMC + CPI"),
- ("NAS100",28,"Fed Cut + Tech = Buy","DXY 71 + Yield = Sell","Earnings + Yield"),
- ("SPX500",29,"Fed Cut + Strong = Buy","DXY 71 + Hawk = Sell","FOMC + NFP"),
+ ("US30",30,"Fed Cut + Dow Earnings Beat + CPI 3.2 Down","DXY 71 + Powell Hawk No Cut + Yield 4.2 Up","FOMC Sep29 + CPI Oct4 + NFP"),
+ ("NAS100",28,"Fed Cut + Tech AAPL NVDA Beat + Yield Down","DXY 71 + US10Y 4.2 Up + Fed Hawk + CPI Up","Earnings + Yield + FOMC"),
+ ("SPX500",29,"Fed Cut + SPX Earnings Up + Risk On + CPI Down","DXY 71 + Hawk + Yield Up + Recession Fear","FOMC + NFP Oct3 + CPI"),
 ]
 crypto=[
- ("BTCUSD",30,"Fed Cut + Risk On = Buy","DXY 71 + Risk Off = Sell","ETF + Fed"),
- ("ETHUSD",29,"Fed Cut + ETF = Buy","DXY 71 + Hawk = Sell","ETF + BTC"),
+ ("BTCUSD",30,"Fed Cut + ETF Inflow 500M + Risk On","DXY 71 + Risk Off + SEC FUD + Yield Up","ETF + FOMC + NFP"),
+ ("ETHUSD",29,"Fed Cut + ETH ETF Inflow + BTC Up","DXY 71 + Hawk + BTC Sell + Risk Off","ETF + BTC + Fed"),
 ]
-# FULL COT 14 - RESTORED - SHORT LINES
 cot=[
- ["DXY","71%","29%","+3% Long","BULL","Fed Hawk"],
- ["EURUSD","29%","71%","+4% Short","BEAR","DXY 71"],
- ["GBPUSD","30%","70%","+2% Short","BEAR","DXY Bull"],
- ["USDJPY","71%","29%","+2% Long","BULL","BoJ Dovish"],
- ["AUDUSD","28%","72%","+3% Short","BEAR","Risk Off"],
+ ["DXY","71%","29%","+3% Long","BULL","Powell Hawk No Cut"],
+ ["EURUSD","29%","71%","+4% Short","BEAR","DXY 71 + Fed Hawk"],
+ ["GBPUSD","30%","70%","+2% Short","BEAR","DXY Bull 71"],
+ ["USDJPY","71%","29%","+2% Long","BULL","BoJ Ueda Dovish"],
+ ["AUDUSD","28%","72%","+3% Short","BEAR","Risk Off + DXY"],
  ["USDCHF","71%","29%","+1% Long","BULL","SNB Dovish"],
- ["USDCAD","70%","30%","+2% Long","BULL","Oil Down"],
- ["GOLD","25%","75%","+5% Short","BEAR","DXY + Yield"],
+ ["USDCAD","70%","30%","+2% Long","BULL","Oil Down WTI 70"],
+ ["GOLD","25%","75%","+5% Short","BEAR","DXY 71 + Yield 4.2"],
  ["SILVER","27%","73%","+3% Short","BEAR","Gold Down"],
  ["OIL","35%","65%","+2% Short","BEAR","DXY Strong"],
- ["US30","30%","70%","+3% Short","BEAR","DXY Bull"],
- ["NAS100","28%","72%","+4% Short","BEAR","Yield Up"],
- ["SPX500","29%","71%","+3% Short","BEAR","DXY Bull"],
+ ["US30","30%","70%","+3% Short","BEAR","Fed Hawk No Cut"],
+ ["NAS100","28%","72%","+4% Short","BEAR","Yield 4.2 Up"],
+ ["SPX500","29%","71%","+3% Short","BEAR","DXY 71 Bull"],
  ["BTCUSD","30%","70%","+2% Short","BEAR","Risk Off"],
 ]
 
@@ -112,17 +111,26 @@ else:
         for i,(p,s,bu,be,ne) in enumerate(crypto):
             with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
     if st.session_state.page=="cot":
-        st.markdown("### COT - FULL 14 - GREEN BULL RED BEAR")
+        st.markdown("### COT - FULL 14")
         html="<table style='width:100%;border-collapse:collapse;font-size:12px'>"
-        html+="<tr style='background:#111;color:#888'>"
-        html+="<th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
+        html+="<tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Bias</th><th>Why</th></tr>"
         for r in cot:
-            asset,longv,shortv,change,bias,why=r
-            if bias=="BULL":
-                bcol="<td style='background:#00ff66;color:black;font-weight:900;padding:6px;border:1px solid #333'>BULL</td>"
-                ccol="<td style='color:#00ff66;padding:6px;border:1px solid #333'>"+change+"</td>"
+            a,lo,sh,ch,bi,wh=r
+            if bi=="BULL":
+                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:6px;border:1px solid #333'>BULL</td>"
             else:
-                bcol="<td style='background:#ff4444;color:white;font-weight:900;padding:6px;border:1px solid #333'>BEAR</td>"
-                ccol="<td style='color:#ff4444;padding:6px;border:1px solid #333'>"+change+"</td>"
-            html+="<tr><td style='padding:6px;border:1px solid #333'>"+asset+"</td>"
-            html+="<td style='padding:6px;border:1px solid #333;color:#00ff66'>"+longv+"</td>"
+                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:6px;border:1px solid #333'>BEAR</td>"
+            html+="<tr><td style='padding:6px;border:1px solid #333'>"+a+"</td>"
+            html+="<td style='padding:6px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
+            html+="<td style='padding:6px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"+bc
+            html+="<td style='padding:6px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+        html+="</table>"
+        st.markdown(html, unsafe_allow_html=True)
+    if st.session_state.page=="fund":
+        st.markdown("### FUND DATES + GPR")
+        st.write("FOMC Sep29 HIGH - Powell Hawk No Cut = DXY Buy")
+        st.write("NFP Oct3 HIGH - Exp 180K - Biggest USD mover")
+        st.write("CPI Oct4 HIGH - Exp 3.2% - If high = DXY UP")
+        st.write("BoJ Oct4 HIGH - Ueda Hawk? = JPY Up")
+        st.write("GPR: Israel-Gaza Talks = Gold SELL")
+        st.write("GPR: Russia-Ukraine Attacks = Gold BUY Oil BUY")
