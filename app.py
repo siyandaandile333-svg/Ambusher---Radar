@@ -1,6 +1,91 @@
 import streamlit as st
 from datetime import datetime, timedelta
 import os
+st.set_page_config(page_title="FX AMBUSHERS", layout="wide")
+if "unlocked" not in st.session_state:
+    st.session_state.unlocked=False
+VALID_KEYS=["AMBUSHER-001","AMBUSHER-002","FX-PRO-2024","TEST-123","VIP-SA-2024"]
+if not st.session_state.unlocked:
+    st.markdown("### 🔐 FX AMBUSHERS - LICENCED ACCESS")
+    key=st.text_input("Licence Key", type="password")
+    if st.button("UNLOCK APP"):
+        if key.strip() in VALID_KEYS:
+            st.session_state.unlocked=True
+            st.rerun()
+        else:
+            st.error("Invalid key! Buy at WhatsApp")
+    st.stop()
+if "page" not in st.session_state:
+    st.session_state.page="home"
+DXY=7
+TM=(datetime.utcnow()+timedelta(hours=2)).strftime("%H:%M SAST")
+st.success(f"LIVE v2.5 LICENCED | {TM}")
+def j(p,e):
+    return " + ".join(p)+" = "+e
+def gauge(t,s,bu,be,ne,sz=260):
+    ang=s*9
+    col="#00ff66" if s>=1 else "#ff4444" if s<=-1 else "#ffcc00"
+    bias="BULL" if s>=1 else "BEAR" if s<=-1 else "NEU"
+    h=sz//2
+    a=f"<div style='border:1px solid #222;border-radius:18px;padding:12px;background:#0f1414;border-left:4px solid {col};margin-bottom:12px'>"
+    b=f"<div style='text-align:center;color:#888;font-size:11px'>{t}</div>"
+    c=f"<div style='text-align:center;color:{col};font-weight:900;font-size:20px'>{bias} {'+'+str(s) if s>0 else str(s)}</div>"
+    d=f"<div style='width:{sz}px;height:{h}px;margin:8px auto;position:relative;background:conic-gradient(from 270deg at 50% 100%,#ff2b2b 0 60deg,#ffcc00 60deg 120deg,#00cc66 120deg 180deg);border-radius:{sz}px {sz}px 0 0'>"
+    e=f"<div style='width:3px;height:{h-10}px;background:white;position:absolute;bottom:0;left:50%;transform-origin:bottom;transform:rotate({ang}deg)'></div></div>"
+    f=f"<div style='font-size:11px;color:#00ff66'>Bull: {bu}</div><div style='font-size:11px;color:#ff6666'>Bear: {be}</div><div style='font-size:11px;color:#888'>Neu: {ne}</div></div>"
+    return a+b+c+d+e+f
+dxy_bu=j(["Powell Hawk No Cut","CPI 3.2% Hot","US10Y 4.2% Up","BoJ Dovish","COT 71% Bull","Retail 70% Short Buy"],"USD Buy")
+dxy_be=j(["Powell Cut 25bps","Gold 2600 Risk On","BoJ Hawk Hike","Yield Down","COT 29% Bear","Retail 68% Short Fade"],"USD Sell")
+dxy_ne="FOMC Sep29 HIGH + NFP Oct3 + CPI Oct4 + COT + Retail"
+st.markdown(gauge("DXY AMBUSH",DXY,dxy_bu,dxy_be,dxy_ne,280), unsafe_allow_html=True)
+forex=[
+ ("EURUSD",-7,j(["ECB Hawk","EU CPI 2.4% Hot","EU GDP Strong","Fed Cut","COT 29% Bear","Retail 70% Sell"],"EUR Buy"),j(["Powell Hawk","DXY +7 Bull","US10Y 4.2% Up","CPI 3.2%","COT DXY 71% Bull","Retail 70% Fade"],"EUR Sell"),"ECB + GPR + COT + Retail"),
+ ("GBPUSD",-7,j(["BoE Hawk","UK CPI 3.8% Hot","UK Wage Up","Fed Cut","COT 30% Bear","Retail 68% Sell"],"GBP Buy"),j(["Fed Hawk","DXY +7","Yield Up","Recession","COT 71% Bull","Retail 68% Fade"],"GBP Sell"),"BoE + COT + Retail"),
+ ("USDJPY",7,j(["DXY +7 Bull","BoJ Dovish","Gap 4.2%","COT 71% Bull","Retail 35% Buy"],"Buy"),j(["BoJ Hawk","Ueda Hawk","Fed Cut","Risk Off","COT 29% Bear","Retail 35% Fade"],"Sell"),"BoJ + COT + Retail"),
+ ("AUDUSD",-7,j(["RBA Hawk","Gold Up","China Stim","Iron Up","COT 28% Bear","Retail 65% Sell"],"Buy"),j(["DXY +7","Risk Off","China Weak","Iron Down","COT 72% Bear","Retail 65% Fade"],"Sell"),"RBA + COT + Retail"),
+ ("USDCHF",7,j(["DXY +7 Bull","SNB Dovish","Gold Down","COT 71% Bull","Retail 38% Buy"],"Buy"),j(["SNB Hawk","Fed Cut","Gold Up","Risk Off","COT 29% Bear","Retail 38% Fade"],"Sell"),"SNB + COT + Retail"),
+ ("USDCAD",6,j(["DXY +7 Bull","Oil 70 Down","BoC Dovish","COT 70% Bull","Retail 40% Buy"],"Buy"),j(["Oil 85 Up","OPEC Cut","BoC Hawk","COT 30% Bear","Retail 40% Fade"],"Sell"),"BoC + COT + Retail"),
+]
+commod=[
+ ("GOLD",-8,j(["Fed Cut","US10Y Down","USD Weak","GPR War","COT 25% Bear","Retail 75% Top"],"Buy"),j(["DXY +7 Bull","Powell Hawk","US10Y Up","Risk On","COT 75% Bear","Retail 75% Fade"],"Sell"),"GPR + COT + Retail"),
+ ("SILVER",-7,j(["Gold Up","Fed Cut","Solar Demand","COT 27% Bear","Retail 72% Sell"],"Buy"),j(["DXY +7","Yield Up","Gold Sell","COT 73% Bear","Retail 72% Fade"],"Sell"),"Gold + COT + Retail"),
+ ("OIL",-3,j(["GPR War","OPEC Cut","Supply Tight","COT 35% Bear","Retail 60% Sell"],"Buy"),j(["DXY Strong","Recession","Demand Down","COT 65% Bear","Retail 60% Fade"],"Sell"),"OPEC + COT + Retail"),
+]
+indices=[
+ ("US30",-7,j(["Fed Cut","Dow Beat","CPI Down","Risk On","COT 30% Bear","Retail 68% Sell"],"Buy"),j(["DXY +7","Powell Hawk","Yield Up","COT 70% Bear","Retail 68% Fade"],"Sell"),"FOMC + COT + Retail"),
+ ("NAS100",-7,j(["Fed Cut","AAPL Beat","Yield Down","COT 28% Bear","Retail 70% Sell"],"Buy"),j(["DXY +7","US10Y Up","Hawk","COT 72% Bear","Retail 70% Fade"],"Sell"),"Earnings + COT + Retail"),
+ ("SPX500",-7,j(["Fed Cut","SPX Up","CPI Down","COT 29% Bear","Retail 69% Sell"],"Buy"),j(["DXY +7","Hawk","Yield Up","COT 71% Bear","Retail 69% Fade"],"Sell"),"FOMC + COT + Retail"),
+]
+crypto=[
+ ("BTCUSD",-7,j(["Fed Cut","ETF Inflow","Risk On","Halving","COT 30% Bear","Retail 78% FOMO"],"Buy"),j(["DXY +7","Risk Off","SEC FUD","COT 70% Bear","Retail 78% Fade"],"Sell"),"ETF + COT + Retail"),
+ ("ETHUSD",-7,j(["Fed Cut","ETH ETF","BTC Up","COT 30% Bear","Retail 78% Sell"],"Buy"),j(["DXY +7","Hawk","BTC Sell","COT 70% Bear","Retail 78% Fade"],"Sell"),"ETF + COT + Retail"),
+]
+all_assets={}
+for p,s,bu,be,ne in forex: all_assets[p]=(s,bu,be,ne,"FOREX")
+for p,s,bu,be,ne in commod: all_assets[p]=(s,bu,be,ne,"METAL")
+for p,s,bu,be,ne in indices: all_assets[p]=(s,bu,be,ne,"INDICES")
+for p,s,bu,be,ne in crypto: all_assets[p]=(s,bu,be,ne,"CRYPTO")
+all_assets["DXY"]=(DXY,dxy_bu,dxy_be,dxy_ne,"DXY")
+if st.session_state.page=="home":
+    c1,c2=st.columns(2)
+    with c1:
+        if st.button("FOREX 6", use_container_width=True): st.session_state.page="forex"
+        if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
+        if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
+        if st.button("FUNDAMENTALS SCHOOL", use_container_width=True): st.session_state.page="learn_fund"
+    with c2:
+        if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
+        if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
+        if st.button("SCORE FINDER", use_container_width=True): st.session_state.page="finder"
+else:
+    if st.button("BACK RADAR", use_container_width=True): st.session_state.page="home"
+    if st.session_state.page in ["forex","gold","indices","crypto"]:
+        data={"forex":forex,"gold":commod,"indices":indices,"crypto":crypto}[st.session_state.page]
+        cols=st.columns(2)
+        for i,(p,s,bu,be,ne) in enumerate(data):
+            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)import streamlit as st
+from datetime import datetime, timedelta
+import os
 
 st.set_page_config(page_title="FX AMBUSHERS", layout="wide")
 if "page" not in st.session_state:
