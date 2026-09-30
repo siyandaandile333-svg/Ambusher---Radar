@@ -161,12 +161,57 @@ else:
         st.write("GPR: Israel-Gaza = Gold SELL")
         st.write("GPR: Russia-Ukraine = Gold BUY Oil BUY")
     if st.session_state.page=="learn_fund":
-        st.markdown("## FUNDAMENTAL ACADEMY")
-        with st.expander("1. DXY - King of Forex"):
-            st.write("Definition: DXY = USD vs 6 majors. If DXY UP, EURUSD DOWN. Check DXY first always.")
-            st.write("Bull: Powell Hawk + CPI Hot + Yield Up + BoJ Dovish = USD Buy")
-            st.write("Bear: Fed Cut + Gold Up + Yield Down = USD Sell")
-        with st.expander("2. Economic Indicators"):
+    st.markdown("## FUNDAMENTAL ACADEMY")
+    st.write("Why DXY is +7 BULL today")
+
+    with st.expander("1. DXY - King of Forex"):
+        st.write("Definition: DXY = USD vs 6 currencies")
+        st.write("Bull: Powell Hawk + CPI Hot + Yields UP = DXY UP +7")
+        st.write("Bear: Fed Cut + Gold UP + Risk ON = DXY DOWN -7")
+        st.write("Rule: DXY UP = EURUSD DOWN, GBPUSD DOWN")
+
+    with st.expander("2. Economic Indicators"):
+        st.write("CPI Hot = Hawk = DXY Bull +2")
+        st.write("NFP High = Strong Economy = DXY Bull +2")
+        st.write("FOMC Hawk = No Cut = DXY Bull +3")
+        st.write("Yield UP = DXY UP, NAS100 DOWN")
+
+    with st.expander("3. Central Banks - Who Controls What"):
+        st.write("FED = DXY Boss: Hawkish = BULL +2, Dovish = BEAR -2")
+        st.write("ECB = EUR: Hawkish = EUR BULL, Dovish = EUR BEAR")
+        st.write("BoJ: USDJPY 150+ = Intervention = JPY BUY spike +3")
+        st.write("RBA AUD = Gold + China linked")
+        st.write("SNB CHF = safe haven like USD")
+        st.write("BoC CAD = Oil price linked")
+        st.write("Today: Powell holding high = +7 BULL")
+
+    with st.expander("4. GPR Geopolitical - War & Oil"):
+        st.write("WAR = Safe Haven BUY: Gold +3, Oil +3, USD +2, CHF +2")
+        st.write("Example: Middle East tension = Gold spikes")
+        st.write("PEACE / Ceasefire = SELL Gold -3, Oil -2")
+        st.write("OPEC Cut = Oil BUY +3, OPEC Increase = Oil SELL -3")
+        st.write("China Stimulus = AUD BUY +2, Gold BUY +2")
+
+    with st.expander("5. COT - Smart Money"):
+        st.write("COT = Hedge funds report every Friday")
+        st.write("71% Long DXY = Banks buying USD = BULL +2")
+        st.write("80% Long = Extreme BULL +3")
+        st.write("30% Long = Banks selling = BEAR -2")
+        st.write("Momentum: +3% Long this week = Adding +1")
+        st.write("Rule: Don't fight Smart Money")
+
+    with st.expander("6. Retail Contrarian - Fade Crowd"):
+        st.write("Crowd WRONG at extremes")
+        st.write("Retail 70% long EURUSD = we SELL EURUSD -2")
+        st.write("Retail 80%+ long = Top = STRONG SELL -3")
+        st.write("BTC 78% long = FOMO top = SELL -3")
+        st.write("BTC 70% short = Capitulation = BUY +3")
+
+    with st.expander("7. Score -10 to +10"):
+        st.write("Add pillars: DXY +3, Yields +2, Banks +2, GPR +3, COT +2, Retail -2")
+        st.write("Total = -10 to +10")
+        st.write("0 = NO TRADE, +7 to +10 = STRONG BUY AMBUSH, -7 to -10 = STRONG SELL")
+        st.write("Today: DXY +7 BULL = SELL EURUSD, GOLD -8 BEAR = Strong Sell")
             st.write("CPI Hot = Hawk = DXY Buy. CPI Cold = Cut = DXY Sell + Gold Buy")
             st.write("NFP High = Strong Economy = DXY Buy. Low NFP = DXY Sell")
             st.write("FOMC Hawk = No Cut = DXY Buy. Dovish Cut = DXY Sell")
