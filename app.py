@@ -30,8 +30,10 @@ def gauge(t,s,bu,be,ne,sz=260):
     a="<div style='border:1px solid #222;border-radius:18px;padding:12px;background:#0f1414;border-left:4px solid "+bcol+";margin-bottom:12px'>"
     b="<div style='text-align:center;color:#888;font-size:11px'>"+t+"</div>"
     c="<div style='text-align:center;color:"+col+";font-weight:900;font-size:20px'>"
-    if s>0: c+=bias+" +"+str(s)
-    else: c+=bias+" "+str(s)
+    if s>0:
+        c+=bias+" +"+str(s)
+    else:
+        c+=bias+" "+str(s)
     c+="</div>"
     d="<div style='width:"+str(sz)+"px;height:"+str(sz//2)+"px;margin:8px auto;position:relative;background:conic-gradient(from 270deg at 50% 100%,#ff2b2b 0 60deg,#ffcc00 60deg 120deg,#00cc66 120deg 180deg);border-radius:"+str(sz)+"px "+str(sz)+"px 0 0'>"
     e="<div style='width:3px;height:"+str(h-10)+"px;background:white;position:absolute;bottom:0;left:50%;transform-origin:bottom;transform:rotate("+str(ang)+"deg)'></div></div>"
@@ -131,10 +133,9 @@ else:
         elif s<=-1: st.error(f"Score {s} = BEAR")
         else: st.warning(f"Score 0 = WAIT")
 
-                # ===== NEW WHY ADDON - FIXED NO ERROR - ONLY ADD =====
+        # WHY ADDON - ONLY ADD - FIXED NO TRIPLE QUOTES
         cot_row = next((x for x in cot if x[0]==ch), ["-","-","-","-","-","-"])
         ret_row = next((x for x in retail if x[0]==ch), ["-","-","-","-","-","-"])
-
         try:
             r_long = int(ret_row[1].replace("%",""))
         except:
@@ -144,61 +145,45 @@ else:
         st.markdown("<div style='margin-top:12px;border:1px solid #222;border-radius:12px;padding:10px;background:#0e1212'>Crowd sentiment signal: <b style='color:#6aa8ff;float:right'>"+str(ret_row[4])+"</b><div style='display:flex;gap:2px;margin:6px 0'><div style='flex:"+str(r_long)+";height:8px;background:#ff4444'></div><div style='flex:"+str(r_short)+";height:8px;background:#3b82f6'></div></div><div style='font-size:11px;color:#888'>Long % "+str(ret_row[1])+" | Short % "+str(ret_row[2])+" | "+str(ret_row[3])+" | "+str(ret_row[5])+"</div></div>", unsafe_allow_html=True)
 
         html2 = "<table style='width:100%;border-collapse:collapse;font-size:11px;margin-top:10px'>"
-        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Technicals</th><th style='text-align:left;padding:6px;color:#ff7777'>"+("Very Bearish" if s<=-6 else "Bearish" if s<0 else "Bullish")+"</th></tr>"
+        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Technicals</th><th style='text-align:left;padding:6px;color:#ff7777'>Very Bearish</th></tr>"
         html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>4H / Daily Trend Score "+str(s)+"</td><td style='padding:5px;border-bottom:1px solid #1a1a1a'>Score "+str(s)+"</td></tr>"
-        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Institutional</th><th style='padding:6px;color:#888'>Long Short Change</th></tr>"
+        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Institutional activity</th><th style='padding:6px;color:#888'>Long Short Change</th></tr>"
         html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>COT Net Positioning</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#6aa8ff'>"+str(cot_row[1])+" Long "+str(cot_row[2])+" Short "+str(cot_row[4])+"</td></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>COT Latest</td><td style='padding:5px;border-bottom:1px solid #1a1a1a'>"+str(cot_row[3])+" | "+str(cot_row[5])+"</td></tr>"
-        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Economic Growth</th><th></th></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>DXY +"+str(DXY)+" Bull King</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa'>"+str(bu)[:60]+"</td></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>COT Latest Buys/Sells</td><td style='padding:5px;border-bottom:1px solid #1a1a1a'>"+str(cot_row[3])+" | "+str(cot_row[5])+"</td></tr>"
+        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Economic growth</th><th></th></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>DXY +"+str(DXY)+" Bull King</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa'>"+str(bu)[:70]+"</td></tr>"
         html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>Retail Contrarian "+str(ret_row[1])+"</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#ffcc00'>"+str(ret_row[4])+" | "+str(ret_row[3])+"</td></tr>"
         html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Inflation / Jobs / GPR</th><th></th></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>CPI 3.2% + US10Y 4.2% + NFP</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa'>"+str(ne)+"</td></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>CPI 3.2% + US10Y 4.2% + NFP + GPR</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa'>"+str(ne)+"</td></tr>"
         html2 += "</table>"
         st.markdown(html2, unsafe_allow_html=True)
-
         st.caption("WHY: DXY +"+str(DXY)+" + COT "+str(cot_row[1])+" "+str(cot_row[4])+" "+str(cot_row[3])+" + Retail "+str(ret_row[1])+" vs "+str(ret_row[2])+" = "+str(ret_row[4]))
         st.write("Bull WHY: "+str(bu))
         st.write("Bear WHY: "+str(be))
-        # ===== END FIXED ADDON =====
-        # Find COT and Retail for chosen asset
-        cot_row = next((x for x in cot if x[0]==ch), ["-","-","-","-","-","-"])
-        ret_row = next((x for x in retail if x[0]==ch), ["-","-","-","-","-","-"])
 
-        def bb(t):
-            t=str(t)
-            if "BEAR" in t or "Bearish" in t or "SELL" in t:
-                return f"<span style='background:#ff444433;color:#ff7777;padding:2px 7px;border-radius:5px;font-weight:700;font-size:11px'>{t}</span>"
-            elif "BULL" in t or "Bullish" in t or "BUY" in t:
-                return f"<span style='background:#2a5bd744;color:#6aa8ff;padding:2px 7px;border-radius:5px;font-weight:700;font-size:11px'>{t}</span>"
-            else:
-                return f"<span style='background:#333;color:#aaa;padding:2px 7px;border-radius:5px;font-weight:700;font-size:11px'>{t}</span>"
-
-        # crowd bar
-        try:
-            r_long = int(ret_row[1].replace("%",""))
-        except:
-            r_long = 70
-        r_short = 100 - r_long
-
-        st.markdown(f"""
-        <div style="margin-top:10px;border:1px solid #222;border-radius:12px;padding:10px;background:#0e1212">
-        <div style="display:flex;justify-content:space-between"><b style="font-size:12px">Crowd sentiment signal</b><b style="color:#6aa8ff;font-size:12px">{ret_row[4]}</b></div>
-        <div style="display:flex;gap:2px;margin:6px 0"><div style="flex:{r_long};height:8px;background:#ff4444"></div><div style="flex:{r_short};height:8px;background:#3b82f6"></div></div>
-        <div style="font-size:11px;color:#888">Long % {ret_row[1]} | Short % {ret_row[2]} | Change {ret_row[3]} | <span style="color:#aaa">{ret_row[5]}</span></div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.markdown(f"""
-        <div style="margin-top:10px">
-        <table style="width:100%;border-collapse:collapse;font-size:11px">
-        <tr style="background:#111"><th style="text-align:left;padding:6px;color:#888">Technicals</th><th style="text-align:left;padding:6px">{bb('Very Bearish' if s<=-6 else 'Bearish' if s<0 else 'Very Bullish' if s>=6 else 'Neutral')}</th><th></th></tr>
-        <tr><td style="padding:5px;border-bottom:1px solid #1a1a1a">4H / Daily Chart Trend</td><td style="padding:5px;border-bottom:1px solid #1a1a1a">{bb('Bearish' if s<0 else 'Bullish')}</td><td style="padding:5px;border-bottom:1px solid #1a1a1a;color:#666">Score {s}</td></tr>
-        <tr><td style="padding:5px;border-bottom:1px solid #1a1a1a">Seasonality Trend</td><td style="padding:5px;border-bottom:1px solid #1a1a1a">{bb('Bearish' if 'DXY' in bu else 'Bullish')}</td><td></td></tr>
-
-        <tr style="background:#111"><th style="text-align:left;padding:6px;color:#888">Institutional activity</th><th style="padding:6px">Neutral</th><th style="padding:6px;color:#888">Long% Short% Change</th></tr>
-        <tr><td style="padding:5px;border-bottom:1px solid #1a1a1a">COT - Net Positioning</td><td style="padding:5px;border-bottom:1px solid #1a1a1a">{bb(cot_row[4])}</td><td style="padding:5px;border-bottom:1px solid #1a1a1a;color:#6aa8ff">{cot_row[1]} Long {cot_row[2]} Short</td></tr>
-        <tr><td style="padding:5px;border-bottom:1px solid #1a1a1a">COT - Latest Buys/Sells</td><td style="padding:5px;border-bottom:1px solid #1a1a1a">{bb(cot_row[3])}</td><td style="padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa">{cot_row[5]}</td></tr>
-
-        <tr style="background:#111"><th style="text-align:left;padding:6px;color:#888">Economic growth</th><th style="padding:6px">{bb('Very Bullish' if DXY>=5 else 'Bearish')}</th><th></th></tr>
-        <tr><td style="padding:5px
+    if st.session_state.page in ["forex","gold","indices","crypto"]:
+        data={"forex":forex,"gold":commod,"indices":indices,"crypto":crypto}[st.session_state.page]
+        cols=st.columns(2)
+        for i,(p,s,bu,be,ne) in enumerate(data):
+            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
+    if st.session_state.page=="cot":
+        st.markdown("### COT - WITH CHANGE")
+        html="<table style='width:100%;border-collapse:collapse;font-size:11px'><tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
+        for r in cot:
+            a,lo,sh,ch,bi,wh=r
+            if bi=="BULL": bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BULL</td>"; cc="<td style='color:#00ff66;padding:5px;border:1px solid #333'>"+ch+"</td>"
+            else: bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>BEAR</td>"; cc="<td style='color:#ff6666;padding:5px;border:1px solid #333'>"+ch+"</td>"
+            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td><td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td><td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"+cc+bc+"<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+        html+="</table>"; st.markdown(html, unsafe_allow_html=True)
+    if st.session_state.page=="retail":
+        st.markdown("### RETAIL SENTIMENT - CONTRARIAN")
+        html="<table style='width:100%;border-collapse:collapse;font-size:11px'><tr style='background:#111;color:#888'><th>Asset</th><th>RLong</th><th>RShort</th><th>Crowd</th><th>Signal</th><th>Why</th></tr>"
+        for r in retail:
+            a,lo,sh,cr,sg,wh=r
+            if "SELL" in sg: bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>SELL</td>"
+            else: bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BUY</td>"
+            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td><td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td><td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td><td style='padding:5px;border:1px solid #333;color:#ffcc00'>"+cr+"</td>"+bc+"<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+        html+="</table>"; st.markdown(html, unsafe_allow_html=True)
+    if st.session_state.page=="fund":
+        st.markdown("### FUND DATES + GPR")
+        st.write("FOMC Sep
