@@ -8,7 +8,16 @@ if "page" not in st.session_state:
 
 DXY=7
 TM=(datetime.utcnow()+timedelta(hours=2)).strftime("%H:%M SAST")
-st.success(f"LIVE v2.1 ACADEMY | {TM}")
+
+# BRAND HEADER - FX AMBUSHERS
+st.markdown("""
+<div style='text-align:center;background:#0a0a0a;border:2px solid #00ff66;border-radius:15px;padding:12px;margin-bottom:10px'>
+<div style='font-size:32px;font-weight:900;color:#00ff66;letter-spacing:3px'>FX AMBUSHERS</div>
+<div style='font-size:12px;color:#888;letter-spacing:2px'>PATIENCE IS PROFIT • EST 2025</div>
+</div>
+""", unsafe_allow_html=True)
+
+st.success(f"LIVE v2.4 BRANDED | {TM} | DXY +7 BULL")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -27,34 +36,15 @@ def gauge(t,s,bu,be,ne,sz=260):
     else:
         col="#ffcc00"; bcol="#ffcc00"; bias="NEU"
     h=sz//2
-    a="<div style='border:1px solid #222;"
-    a+="border-radius:18px;padding:12px;"
-    a+="background:#0f1414;border-left:4px solid "
-    a+=bcol+";margin-bottom:12px'>"
-    b="<div style='text-align:center;"
-    b+="color:#888;font-size:11px'>"+t+"</div>"
-    c="<div style='text-align:center;color:"
-    c+=col+";font-weight:900;font-size:20px'>"
+    a="<div style='border:1px solid #222;border-radius:18px;padding:12px;background:#0f1414;border-left:4px solid "+bcol+";margin-bottom:12px'>"
+    b="<div style='text-align:center;color:#888;font-size:11px'>"+t+"</div>"
+    c="<div style='text-align:center;color:"+col+";font-weight:900;font-size:20px'>"
     if s>0: c+=bias+" +"+str(s)
     else: c+=bias+" "+str(s)
     c+="</div>"
-    d="<div style='width:"+str(sz)+"px;height:"
-    d+=str(sz//2)+"px;margin:8px auto;"
-    d+="position:relative;background:conic-gradient"
-    d+="(from 270deg at 50% 100%,#ff2b2b 0 60deg,"
-    d+="#ffcc00 60deg 120deg,#00cc66 120deg 180deg);"
-    d+="border-radius:"+str(sz)+"px "+str(sz)+"px 0 0'>"
-    e="<div style='width:3px;height:"
-    e+=str(h-10)+"px;background:white;"
-    e+="position:absolute;bottom:0;left:50%;"
-    e+="transform-origin:bottom;transform:rotate("
-    e+=str(ang)+"deg)'></div></div>"
-    f="<div style='font-size:11px;color:#00ff66'>"
-    f+="Bull: "+bu+"</div>"
-    f+="<div style='font-size:11px;color:#ff6666'>"
-    f+="Bear: "+be+"</div>"
-    f+="<div style='font-size:11px;color:#888'>"
-    f+="Neu: "+ne+"</div></div>"
+    d="<div style='width:"+str(sz)+"px;height:"+str(sz//2)+"px;margin:8px auto;position:relative;background:conic-gradient(from 270deg at 50% 100%,#ff2b2b 0 60deg,#ffcc00 60deg 120deg,#00cc66 120deg 180deg);border-radius:"+str(sz)+"px "+str(sz)+"px 0 0'>"
+    e="<div style='width:3px;height:"+str(h-10)+"px;background:white;position:absolute;bottom:0;left:50%;transform-origin:bottom;transform:rotate("+str(ang)+"deg)'></div></div>"
+    f="<div style='font-size:11px;color:#00ff66'>Bull: "+bu+"</div><div style='font-size:11px;color:#ff6666'>Bear: "+be+"</div><div style='font-size:11px;color:#888'>Neu: "+ne+"</div></div>"
     return a+b+c+d+e+f
 
 dxy_bu=j(["Powell Hawk No Cut","US CPI 3.2% Hot","US10Y 4.2% Up","BoJ Dovish"],"USD Buy")
@@ -131,7 +121,8 @@ if st.session_state.page=="home":
         if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
         if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
         if st.button("RETAIL SENTIMENT", use_container_width=True): st.session_state.page="retail"
-        if st.button("LEARN FUNDAMENTALS", use_container_width=True): st.session_state.page="learn"
+        if st.button("FUNDAMENTALS SCHOOL", use_container_width=True): st.session_state.page="learn_fund"
+        if st.button("TECHNICAL SCHOOL", use_container_width=True): st.session_state.page="learn_tech"
     with c2:
         if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
         if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
@@ -145,127 +136,70 @@ else:
         s,bu,be,ne,typ=all_assets[ch]
         st.write(f"Type: {typ}")
         st.markdown(gauge(ch,s,bu,be,ne,280), unsafe_allow_html=True)
-        if s>=1: st.success(f"Score +{s} = BULL")
-        elif s<=-1: st.error(f"Score {s} = BEAR")
-        else: st.warning(f"Score 0 = WAIT NEUTRAL")
-    if st.session_state.page=="forex":
+    if st.session_state.page in ["forex","gold","indices","crypto"]:
+        data={"forex":forex,"gold":commod,"indices":indices,"crypto":crypto}[st.session_state.page]
         cols=st.columns(2)
-        for i,(p,s,bu,be,ne) in enumerate(forex):
-            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
-    if st.session_state.page=="gold":
-        cols=st.columns(2)
-        for i,(p,s,bu,be,ne) in enumerate(commod):
-            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
-    if st.session_state.page=="indices":
-        cols=st.columns(2)
-        for i,(p,s,bu,be,ne) in enumerate(indices):
-            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
-    if st.session_state.page=="crypto":
-        cols=st.columns(2)
-        for i,(p,s,bu,be,ne) in enumerate(crypto):
+        for i,(p,s,bu,be,ne) in enumerate(data):
             with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
     if st.session_state.page=="cot":
         st.markdown("### COT - WITH CHANGE")
-        html="<table style='width:100%;border-collapse:collapse;font-size:11px'>"
-        html+="<tr style='background:#111;color:#888'>"
-        html+="<th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
+        html="<table style='width:100%;border-collapse:collapse;font-size:11px'><tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
         for r in cot:
             a,lo,sh,ch,bi,wh=r
-            if bi=="BULL":
-                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BULL</td>"
-                cc="<td style='color:#00ff66;padding:5px;border:1px solid #333'>"+ch+"</td>"
-            else:
-                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>BEAR</td>"
-                cc="<td style='color:#ff6666;padding:5px;border:1px solid #333'>"+ch+"</td>"
-            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td>"
-            html+="<td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
-            html+="<td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"
-            html+=cc+bc
-            html+="<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
-        html+="</table>"
-        st.markdown(html, unsafe_allow_html=True)
+            if bi=="BULL": bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BULL</td>"; cc="<td style='color:#00ff66;padding:5px;border:1px solid #333'>"+ch+"</td>"
+            else: bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>BEAR</td>"; cc="<td style='color:#ff6666;padding:5px;border:1px solid #333'>"+ch+"</td>"
+            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td><td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td><td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"+cc+bc+"<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+        html+="</table>"; st.markdown(html, unsafe_allow_html=True)
     if st.session_state.page=="retail":
         st.markdown("### RETAIL SENTIMENT - CONTRARIAN")
-        st.write("Retail = Crowd | We fade them")
-        html="<table style='width:100%;border-collapse:collapse;font-size:11px'>"
-        html+="<tr style='background:#111;color:#888'>"
-        html+="<th>Asset</th><th>RLong</th><th>RShort</th><th>Crowd</th><th>Signal</th><th>Why</th></tr>"
+        html="<table style='width:100%;border-collapse:collapse;font-size:11px'><tr style='background:#111;color:#888'><th>Asset</th><th>RLong</th><th>RShort</th><th>Crowd</th><th>Signal</th><th>Why</th></tr>"
         for r in retail:
             a,lo,sh,cr,sg,wh=r
-            if "SELL" in sg:
-                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>SELL</td>"
-            else:
-                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BUY</td>"
-            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td>"
-            html+="<td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
-            html+="<td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"
-            html+="<td style='padding:5px;border:1px solid #333;color:#ffcc00'>"+cr+"</td>"
-            html+=bc
-            html+="<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
-        html+="</table>"
-        st.markdown(html, unsafe_allow_html=True)
+            if "SELL" in sg: bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>SELL</td>"
+            else: bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BUY</td>"
+            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td><td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td><td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td><td style='padding:5px;border:1px solid #333;color:#ffcc00'>"+cr+"</td>"+bc+"<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+        html+="</table>"; st.markdown(html, unsafe_allow_html=True)
     if st.session_state.page=="fund":
         st.markdown("### FUND DATES + GPR")
         st.write("FOMC Sep29 HIGH - Powell Hawk = DXY Buy")
         st.write("NFP Oct3 HIGH - Exp 180K")
         st.write("CPI Oct4 HIGH - Exp 3.2%")
-        st.write("GPR: Israel-Gaza = Gold SELL")
-        st.write("GPR: Russia-Ukraine = Gold BUY Oil BUY")
-    if st.session_state.page=="learn":
-        st.markdown("## FX AMBUSHERS ACADEMY")
-        st.write("Economic + Geopolitical + Definitions")
-        with st.expander("1. WHAT IS DXY? - King of Forex"):
-            st.write("**Definition:** DXY measures USD vs 6 majors EUR GBP JPY CAD SEK CHF")
-            st.write("**Formula:** If DXY UP = USD Strong, EURUSD DOWN")
-            st.write("**Bull:** DXY +1 to +10 = Powell Hawk + CPI Hot + Yield Up + BoJ Dovish")
-            st.write("**Bear:** DXY -1 to -10 = Fed Cut + Gold Up + Yield Down + Risk On")
-            st.write("**How we use:** Check DXY first! If DXY +7 BULL, we sell EURUSD GBPUSD AUDUSD, buy USDJPY USDCHF")
-        with st.expander("2. ECONOMIC INDICATORS - The News"):
-            st.write("**CPI Inflation:** Price of goods. HOT CPI = Hawk Fed = DXY BUY. Cold CPI = Cut = DXY SELL")
-            st.write("**NFP Jobs:** US jobs. HIGH NFP = Strong Economy = DXY BUY. Low NFP = Weak = DXY SELL")
-            st.write("**FOMC / Powell:** Fed interest rate. HAWK = No Cut Keep High = DXY BUY. DOVISH = Cut = DXY SELL Gold BUY")
-            st.write("**GDP Growth:** Economy growth. High GDP = Strong = Currency Buy")
-            st.write("**PMI:** Factory activity. Above 50 = Expansion = Buy. Below 50 = Recession = Sell")
-            st.write("**Retail Sales:** People spending. High = Economy Strong = Buy")
-            st.write("**Yield US10Y:** US bond. Yield UP = DXY UP + NAS100 DOWN. Yield DOWN = Gold UP + NAS100 UP")
-        with st.expander("3. CENTRAL BANKS - Who Moves Market"):
-            st.write("**FED US:** Most powerful. Controls DXY. Hawk = Strong USD")
-            st.write("**ECB Europe:** Controls EUR. Lagarde Hawk = EUR Buy")
-            st.write("**BoE UK:** Controls GBP. Bailey Hawk = GBP Buy")
-            st.write("**BoJ Japan:** Controls JPY. Ueda Dovish = USDJPY Buy. Hawk Hike = USDJPY Sell")
-            st.write("**RBA Australia:** Controls AUD. Linked to Gold + China + Iron")
-            st.write("**SNB Swiss:** Controls CHF. Safe haven like Gold")
-            st.write("**BoC Canada:** Controls CAD. Linked to Oil Price")
-        with st.expander("4. GEOPOLITICAL RISK - GPR"):
-            st.write("**Definition:** War, Election, Sanctions that move Gold Oil USD")
-            st.write("**Israel-Gaza War:** Risk On? Gold SELL Oil BUY. If ceasefire = Gold SELL")
-            st.write("**Russia-Ukraine:** Gold BUY + Oil BUY + USD BUY safe haven")
-            st.write("**Iran Oil:** War in Iran = Oil 85+ UP = USDCAD SELL")
-            st.write("**US Election:** Trump vs Biden = Volatility HIGH = DXY + Gold UP")
-            st.write("**OPEC Cut:** Oil supply cut = Oil BUY")
-            st.write("**China Stimulus:** China prints money = AUD BUY + Gold BUY + Copper BUY")
-        with st.expander("5. COT REPORT - Smart Money"):
-            st.write("**Definition:** Commitments of Traders. Shows where hedge funds banks positioned")
-            st.write("**Long %:** % of funds buying. 71% Long DXY = Banks buying USD = BULL")
-            st.write("**Short %:** % selling. 71% Short EURUSD = Banks selling EUR = BEAR")
-            st.write("**Change +3% Long:** This week they added 3% more longs = Momentum Bull")
-            st.write("**How we use:** Follow smart money. If COT 71% Long DXY +7, we buy USD pairs")
-        with st.expander("6. RETAIL SENTIMENT - Crowd Psychology"):
-            st.write("**Definition:** What retail traders small traders doing. 70% long EURUSD")
-            st.write("**Contrarian:** When retail 70% long, we do opposite = SELL. Retail always wrong at tops")
-            st.write("**Example:** BTC 78% long retail = 85% FOMO = Top coming = CONTRARIAN SELL")
-            st.write("**DXY 30% long 70% short retail:** Crowd short USD = CONTRARIAN BUY USD = DXY +7")
-            st.write("**Why fade:** Retail buys high sells low. We ambush them")
-        with st.expander("7. SCORE SYSTEM -10 to +10"):
-            st.write("**+1 to +10 BULL:** Buy signal. +7 = Strong Bull like DXY now")
-            st.write("**-1 to -10 BEAR:** Sell signal. -7 = Strong Bear like EURUSD now")
-            st.write("**0 NEUTRAL:** No trade, wait for news FOMC NFP CPI")
-            st.write("**How calculated:** Bull factors minus Bear factors + DXY + COT + Retail")
-            st.write("**Example:** DXY +7 + Powell Hawk + CPI 3.2% Hot + Yield Up = USD Buy = EURUSD -7")
-        with st.expander("8. AMBUSH STRATEGY - Patience is Profit"):
-            st.write("**Step 1:** Check DXY gauge first. DXY +7 = USD strong")
-            st.write("**Step 2:** Check COT Change. +3% Long = banks adding")
-            st.write("**Step 3:** Check Retail. 70% long = fade = sell")
-            st.write("**Step 4:** Check Score Finder -10 to +10. Only trade +/-5 to 10 strong")
-            st.write("**Step 5:** Wait for FUND HIGH dates FOMC NFP CPI. Dont trade before")
-            st.write("**Rule:** Patience is Profit. Ambush the market, dont chase")
+    if st.session_state.page=="learn_fund":
+        st.markdown("## FX AMBUSHERS FUNDAMENTAL ACADEMY")
+        with st.expander("1. DXY - King of Forex"):
+            st.write("DXY = USD vs 6 majors. DXY UP = EURUSD DOWN. Check DXY first.")
+        with st.expander("2. Economic Indicators"):
+            st.write("CPI Hot = Hawk = DXY Buy. NFP High = DXY Buy. FOMC Hawk = DXY Buy. Yield UP = DXY UP NAS100 DOWN.")
+        with st.expander("3. Central Banks"):
+            st.write("FED DXY, ECB EUR, BoE GBP, BoJ JPY, RBA AUD Gold China, SNB CHF safe, BoC CAD Oil.")
+        with st.expander("4. GPR Geopolitical"):
+            st.write("War = Gold Buy Oil Buy. Ceasefire = Gold Sell. OPEC Cut = Oil Buy. China Stimulus = AUD Gold Buy.")
+        with st.expander("5. COT Smart Money"):
+            st.write("71% Long DXY = Banks buying USD = Bull. Change +3% Long = adding momentum.")
+        with st.expander("6. Retail Contrarian"):
+            st.write("Retail 70% long = crowd wrong = SELL. BTC 78% long FOMO = Top = SELL.")
+        with st.expander("7. Score -10 to +10"):
+            st.write("+1 to +10 BULL, -1 to -10 BEAR, 0 WAIT. DXY +7 Strong Bull.")
+    if st.session_state.page=="learn_tech":
+        st.markdown("## FX AMBUSHERS TECHNICAL ACADEMY")
+        st.caption("Patience is Profit - Unique Ambush Method")
+        if os.path.exists("tech_structure.png"):
+            st.image("tech_structure.png", use_container_width=True)
+        with st.expander("1. MARKET STRUCTURE - Bull Road / Bear Road"):
+            st.write("HH HL = Bull Road stairs UP. LL LH = Bear Road stairs DOWN. BOS = Road Continues. CHoCH = Road Flips = Ambush zone. Never enter BOS, wait CHoCH + pullback.")
+            if os.path.exists("tech_structure.png"):
+                st.image("tech_structure.png", use_container_width=True)
+        with st.expander("2. SUPPORT & RESISTANCE - Battle Zones"):
+            st.write("Support = Floor zone 10-20 pips where price bounced 2-3x. Resistance = Roof. 3rd touch = Ambush. Broken support becomes resistance FLIP retest SELL. Only trade S/R with DXY +7 alignment.")
+            if os.path.exists("tech_sr.png"):
+                st.image("tech_sr.png", use_container_width=True)
+        with st.expander("3. SUPPLY & DEMAND - Bank Vaults"):
+            st.write("Demand = Wholesale - big green move from tight base. Banks bought cheap. Supply = Expensive - big red drop from tight base. First return strongest.")
+        with st.expander("4. SMC - Ambush Translation"):
+            st.write("Order Block = Ambush Block last opposite candle before big move. FVG = Gap Trap 3 candles gap fill 50%. Liquidity = Crowd Trap equal highs stop hunt then reverse. Stop Hunt = Fake Push. Premium above 50% only SELL, Discount below 50% only BUY.")
+            if os.path.exists("tech_smc.png"):
+                st.image("tech_smc.png", use_container_width=True)
+        with st.expander("5. ENTRY MODELS - 3 AMBUSH SETUPS"):
+            st.write("SETUP A: CHoCH + Ambush Block - CHoCH break HL, mark last green Block, wait return + DXY +7 + Score -7 = SELL. SETUP B: Liquidity Grab + Flip - equal highs spike take stops then rejection SELL. SETUP C: Gap Trap 50% - pullback to 50% of FVG + DXY bias.")
+        with st.expander("6. RISK - Patience is Profit"):
+            st.write("Stop behind Block or liquidity. Target next vault or 2R. 1% max per ambush. Score 0 = NO TRADE. Kill Zones 08:00-11:00 SAST London, 15:30-18:00 NY.")
