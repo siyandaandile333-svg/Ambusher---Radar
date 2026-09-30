@@ -84,3 +84,40 @@ retail=[
  ["GOLD","75%","25%","80% Long Retail","CONTRARIAN SELL","Top Signal"],
  ["SILVER","72%","28%","75% Long Retail","CONTRARIAN SELL","Retail Long"],
  ["OIL","60%","40%","65% Long Retail","CONTRARIAN SELL","Retail Long Oil"],
+ "USDCHF":{"cot":"Long 68 Short 32 Bullish","cotLS":"Bullish","techL":"Bullish","4h":"Bullish","seas":"Bullish","gdp":"1.2 vs 0.8 Bullish","pmiM":"52.0 vs 51.0 Bullish","pmiS":"54.0 vs 53.0 Bullish","retail":"0.3 vs 0.1 Bullish","conf":"99 vs 97 Bullish","cpi":"2.0 vs 1.8 Bullish","ppi":"2.2 vs 2.0 Bullish","pce":"Bullish 2.8","yld":"Bullish","nfp":"160k Bullish","unemp":"Bullish","jobless":"Bullish","adp":"Bullish","jolts":"Bullish","why":"USDCHF AMBUSH: DXY Bull + CHF safe sell = BUY"},
+ "USDCAD":{"cot":"Long 72 Short 28 Bullish","cotLS":"Very Bullish","techL":"Bullish","4h":"Bullish","seas":"Very Bullish","gdp":"1.5 vs 1.0 Bullish","pmiM":"50.2 vs 50.5 Neutral","pmiS":"53.5 vs 52.8 Bullish","retail":"0.5 vs 0.2 Bullish","conf":"100 vs 98 Bullish","cpi":"3.0 vs 2.8 Bullish","ppi":"2.5 vs 2.2 Bullish","pce":"Bullish","yld":"Bullish","nfp":"Bullish","unemp":"Neutral","jobless":"Bullish","adp":"Bullish","jolts":"Bullish","why":"USDCAD AMBUSH: DXY Bull + Oil weak = BUY"},
+ "GOLD":{"cot":"Long 25 Short 75 Bearish","cotLS":"Bearish","techL":"Very Bearish","4h":"Bearish","seas":"Bearish","gdp":"1.5 vs 1.5 Neutral","pmiM":"54.6 vs 55.2 Bullish","pmiS":"55.4 vs 54.1 Bearish","retail":"-0.6 vs 0.1 Bullish","conf":"89.4 vs 90.3 Bullish","cpi":"3.4 vs 3.4 Neutral","ppi":"4.7 vs 4.9 Bullish","pce":"3.3 vs 3.3 Neutral","yld":"Bearish yield rising","nfp":"162k vs 55k Bearish","unemp":"4.1 vs 4.1 Neutral","jobless":"206k vs 205k Bullish","adp":"38k vs 47k Bullish","jolts":"7.27M vs 7.33M Bullish","why":"GOLD AMBUSH: Tech Very Bearish + Retail 75 Long trapped = SELL"},
+ "SILVER":{"cot":"Long 40 Short 60 Bearish","cotLS":"Neutral","techL":"Bearish","4h":"Bearish","seas":"Neutral","gdp":"Neutral 1.5","pmiM":"54.6 vs 55.2 Bullish","pmiS":"55.4 vs 54.1 Bearish","retail":"0.2 Bullish","conf":"90 Bullish","cpi":"3.4 Neutral","ppi":"4.7 Bullish","pce":"3.3 Neutral","yld":"Bearish","nfp":"162k Bearish","unemp":"4.1 Neutral","jobless":"206k Bullish","adp":"38k Bullish","jolts":"7.27M Bullish","why":"SILVER AMBUSH: Gold trap + Tech Bear = SELL"},
+ "OIL":{"cot":"Long 45 Short 55 Bearish","cotLS":"Bearish","techL":"Bearish","4h":"Bearish","seas":"Bearish","gdp":"1.0 vs 1.5 Bearish","pmiM":"49.0 vs 50.0 Bearish","pmiS":"52.0 vs 52.5 Neutral","retail":"-0.1 vs 0.3 Bearish","conf":"95 vs 100 Bearish","cpi":"3.4 Neutral","ppi":"1.5 Bearish","pce":"2.5 Neutral","yld":"Neutral","nfp":"140k Neutral","unemp":"4.3 Neutral","jobless":"205k Neutral","adp":"40k Neutral","jolts":"7.3M Neutral","why":"OIL AMBUSH: DXY strong + Demand weak = SELL"},
+ "US30":{"cot":"Long 38 Short 62 Bearish","cotLS":"Bearish","techL":"Very Bearish","4h":"Very Bearish","seas":"Bearish","gdp":"1.2 vs 2.0 Bearish","pmiM":"48.5 vs 50.0 Bearish","pmiS":"51.0 vs 53.0 Bearish","retail":"-0.3 vs 0.2 Bearish","conf":"92 vs 98 Bearish","cpi":"2.8 Bearish","ppi":"1.8 Bearish","pce":"2.5 Bearish","yld":"Very Bearish yield up","nfp":"100k Bearish","unemp":"4.3 Neutral","jobless":"220k Bearish","adp":"20k Bearish","jolts":"7.0M Bearish","why":"US30 AMBUSH: Risk off + Yield up = SELL"},
+ "NAS100":{"cot":"Long 35 Short 65 Bearish","cotLS":"Very Bearish","techL":"Very Bearish","4h":"Very Bearish","seas":"Very Bearish","gdp":"1.0 Bearish","pmiM":"48.5 Bearish","pmiS":"51.0 Bearish","retail":"-0.3 Bearish","conf":"92 Bearish","cpi":"2.8 Bearish","ppi":"1.8 Bearish","pce":"2.5 Bearish","yld":"Very Bearish tech sell","nfp":"100k Bearish","unemp":"4.3 Neutral","jobless":"220k Bearish","adp":"20k Bearish","jolts":"7.0M Bearish","why":"NAS100 AMBUSH: Tech sell off = SELL"},
+ "SPX500":{"cot":"Long 40 Short 60 Bearish","cotLS":"Bearish","techL":"Very Bearish","4h":"Bearish","seas":"Bearish","gdp":"1.2 Bearish","pmiM":"48.5 Bearish","pmiS":"51.0 Bearish","retail":"-0.3 Bearish","conf":"92 Bearish","cpi":"2.8 Bearish","ppi":"1.8 Bearish","pce":"2.5 Bearish","yld":"Very Bearish","nfp":"100k Bearish","unemp":"4.3 Neutral","jobless":"220k Bearish","adp":"20k Bearish","jolts":"7.0M Bearish","why":"SPX500 AMBUSH: Risk off = SELL"},
+ "BTCUSD":{"cot":"Long 30 Short 70 Bearish","cotLS":"Very Bearish","techL":"Very Bearish","4h":"Very Bearish","seas":"Bearish","gdp":"Neutral","pmiM":"Bearish risk off","pmiS":"Bearish risk off","retail":"78 Long trapped","conf":"Bearish fear 22","cpi":"Bearish risk off","ppi":"Bearish risk off","pce":"Bearish risk off","yld":"Bearish risk off","nfp":"Bearish risk off","unemp":"Neutral","jobless":"Bearish risk off","adp":"Bearish risk off","jolts":"Bearish risk off","why":"BTC AMBUSH: Retail 78 Long trapped = SELL"},
+ "ETHUSD":{"cot":"Long 32 Short 68 Bearish","cotLS":"Very Bearish","techL":"Very Bearish","4h":"Very Bearish","seas":"Bearish","gdp":"Neutral","pmiM":"Bearish risk off","pmiS":"Bearish risk off","retail":"76 Long trapped","conf":"Bearish fear 25","cpi":"Bearish risk off","ppi":"Bearish risk off","pce":"Bearish risk off","yld":"Bearish risk off","nfp":"Bearish risk off","unemp":"Neutral","jobless":"Bearish risk off","adp":"Bearish risk off","jolts":"Bearish risk off","why":"ETH AMBUSH: Retail 76 Long trapped = SELL"},
+}
+def badge(t):
+    c='#ff3355' if 'Bear' in t else '#00ff88' if 'Bull' in t else '#ffcc00'
+    return f"<span style='background:{c}22;color:{c};border:1px solid {c};padding:3px 7px;border-radius:7px;font-size:11px'>{t}</span>"
+if st.session_state.page=="home":
+    c1,c2=st.columns(2)
+    with c1:
+        if st.button("FOREX 6", use_container_width=True): st.session_state.page="forex"
+        if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
+        if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
+        if st.button("RETAIL SENTIMENT", use_container_width=True): st.session_state.page="retail"
+        if st.button("FUNDAMENTALS SCHOOL", use_container_width=True): st.session_state.page="learn_fund"
+        if st.button("TECHNICAL SCHOOL", use_container_width=True): st.session_state.page="learn_tech"
+    with c2:
+        if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
+        if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
+        if st.button("SCORE FINDER - AMBUSH FINDER", use_container_width=True): st.session_state.page="finder"
+        if st.button("FUND + GPR", use_container_width=True): st.session_state.page="fund"
+else:
+    if st.button("BACK RADAR", use_container_width=True): st.session_state.page="home"
+    if st.session_state.page=="finder":
+        st.markdown("### AMBUSH-FINDER Scorecard - FULL DATA -10 to +10")
+        ch=st.selectbox("Choose Asset - 15 Pairs", list(all_assets.keys()))
+        s,bu,be,ne,typ=all_assets[ch]
+        st.write(f"Type: {typ}")
+        st.markdown(gauge(ch,s,bu,be,ne,280), unsafe_allow_html=True)
+        if s>=
