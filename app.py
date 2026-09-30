@@ -8,7 +8,7 @@ if "page" not in st.session_state:
 
 DXY=7
 TM=(datetime.utcnow()+timedelta(hours=2)).strftime("%H:%M SAST")
-st.success(f"LIVE v2.2 TECH ACADEMY | {TM}")
+st.success(f"LIVE v2.2 TECH ACADEMY FULL EDGEFINDER | {TM}")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -26,7 +26,6 @@ def gauge(t,s,bu,be,ne,sz=260):
         col="#ff4444"; bcol="#ff4444"; bias="BEAR"
     else:
         col="#ffcc00"; bcol="#ffcc00"; bias="NEU"
-    h=sz//2
     a="<div style='border:1px solid #222;border-radius:18px;padding:12px;background:#0f1414;border-left:4px solid "+bcol+";margin-bottom:12px'>"
     b="<div style='text-align:center;color:#888;font-size:11px'>"+t+"</div>"
     c="<div style='text-align:center;color:"+col+";font-weight:900;font-size:20px'>"
@@ -36,9 +35,21 @@ def gauge(t,s,bu,be,ne,sz=260):
         c+=bias+" "+str(s)
     c+="</div>"
     d="<div style='width:"+str(sz)+"px;height:"+str(sz//2)+"px;margin:8px auto;position:relative;background:conic-gradient(from 270deg at 50% 100%,#ff2b2b 0 60deg,#ffcc00 60deg 120deg,#00cc66 120deg 180deg);border-radius:"+str(sz)+"px "+str(sz)+"px 0 0'>"
-    e="<div style='width:3px;height:"+str(h-10)+"px;background:white;position:absolute;bottom:0;left:50%;transform-origin:bottom;transform:rotate("+str(ang)+"deg)'></div></div>"
+    e="<div style='width:3px;height:120px;background:white;position:absolute;bottom:0;left:50%;transform-origin:bottom;transform:rotate("+str(ang)+"deg)'></div></div>"
     f="<div style='font-size:11px;color:#00ff66'>Bull: "+bu+"</div><div style='font-size:11px;color:#ff6666'>Bear: "+be+"</div><div style='font-size:11px;color:#888'>Neu: "+ne+"</div></div>"
     return a+b+c+d+e+f
+
+def edge_badge(label):
+    label=str(label)
+    if "Very Bearish" in label:
+        return "<span style='background:#7f1d1d;color:#fecaca;padding:3px 9px;border-radius:6px;font-weight:800;font-size:11px;border:1px solid #991b1b'>"+label+"</span>"
+    if "Bearish" in label or "BEAR" in label or "SELL" in label:
+        return "<span style='background:#450a0a;color:#fca5a5;padding:3px 9px;border-radius:6px;font-weight:700;font-size:11px;border:1px solid #7f1d1d'>"+label+"</span>"
+    if "Very Bullish" in label:
+        return "<span style='background:#1e3a8a;color:#bfdbfe;padding:3px 9px;border-radius:6px;font-weight:800;font-size:11px;border:1px solid #1e40af'>"+label+"</span>"
+    if "Bullish" in label or "BULL" in label or "BUY" in label:
+        return "<span style='background:#172554;color:#93c5fd;padding:3px 9px;border-radius:6px;font-weight:700;font-size:11px;border:1px solid #1e3a8a'>"+label+"</span>"
+    return "<span style='background:#1f2937;color:#9ca3af;padding:3px 9px;border-radius:6px;font-weight:700;font-size:11px'>"+label+"</span>"
 
 dxy_bu=j(["Powell Hawk No Cut","US CPI 3.2% Hot","US10Y 4.2% Up","BoJ Dovish"],"USD Buy")
 dxy_be=j(["Powell Cut 25bps","Gold 2600 Risk On","BoJ Hawk Hike","Yield Down"],"USD Sell")
@@ -129,11 +140,14 @@ else:
         s,bu,be,ne,typ=all_assets[ch]
         st.write(f"Type: {typ}")
         st.markdown(gauge(ch,s,bu,be,ne,280), unsafe_allow_html=True)
-        if s>=1: st.success(f"Score +{s} = BULL")
-        elif s<=-1: st.error(f"Score {s} = BEAR")
-        else: st.warning(f"Score 0 = WAIT")
+        if s>=1:
+            st.success(f"Score +{s} = BULL")
+        elif s<=-1:
+            st.error(f"Score {s} = BEAR")
+        else:
+            st.warning(f"Score 0 = WAIT")
 
-        # WHY ADDON - ONLY ADD - FIXED NO TRIPLE QUOTES
+        # === EDGEFINDER WHY - EXACT LIKE YOUR SCREENSHOT ===
         cot_row = next((x for x in cot if x[0]==ch), ["-","-","-","-","-","-"])
         ret_row = next((x for x in retail if x[0]==ch), ["-","-","-","-","-","-"])
         try:
@@ -142,48 +156,20 @@ else:
             r_long = 70
         r_short = 100 - r_long
 
-        st.markdown("<div style='margin-top:12px;border:1px solid #222;border-radius:12px;padding:10px;background:#0e1212'>Crowd sentiment signal: <b style='color:#6aa8ff;float:right'>"+str(ret_row[4])+"</b><div style='display:flex;gap:2px;margin:6px 0'><div style='flex:"+str(r_long)+";height:8px;background:#ff4444'></div><div style='flex:"+str(r_short)+";height:8px;background:#3b82f6'></div></div><div style='font-size:11px;color:#888'>Long % "+str(ret_row[1])+" | Short % "+str(ret_row[2])+" | "+str(ret_row[3])+" | "+str(ret_row[5])+"</div></div>", unsafe_allow_html=True)
+        # Header like EdgeFinder
+        st.markdown("<div style='background:#0b0f19;border:1px solid #1f2937;border-radius:12px;padding:12px;margin-top:12px'><div style='display:flex;justify-content:space-between'><div><b style='font-size:13px'>Asset Scorecard | </b><span style='color:#f87171;font-size:13px'>Bearish</span> <span style='background:#1f2937;padding:2px 6px;border-radius:4px;font-size:11px;margin-left:6px'>"+ch+"</span></div><div style='font-size:11px;color:#9ca3af'>EdgeFinder score: <b style='color:white'>"+str(s)+"</b> Technical: <span style='color:#f87171'>"+str(s)+"</span> Sentiment: <span style='color:#60a5fa'>"+cot_row[4]+"</span> Macro: <span style='color:#60a5fa'>"+str(DXY)+"</span></div></div></div>", unsafe_allow_html=True)
 
-        html2 = "<table style='width:100%;border-collapse:collapse;font-size:11px;margin-top:10px'>"
-        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Technicals</th><th style='text-align:left;padding:6px;color:#ff7777'>Very Bearish</th></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>4H / Daily Trend Score "+str(s)+"</td><td style='padding:5px;border-bottom:1px solid #1a1a1a'>Score "+str(s)+"</td></tr>"
-        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Institutional activity</th><th style='padding:6px;color:#888'>Long Short Change</th></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>COT Net Positioning</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#6aa8ff'>"+str(cot_row[1])+" Long "+str(cot_row[2])+" Short "+str(cot_row[4])+"</td></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>COT Latest Buys/Sells</td><td style='padding:5px;border-bottom:1px solid #1a1a1a'>"+str(cot_row[3])+" | "+str(cot_row[5])+"</td></tr>"
-        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Economic growth</th><th></th></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>DXY +"+str(DXY)+" Bull King</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa'>"+str(bu)[:70]+"</td></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>Retail Contrarian "+str(ret_row[1])+"</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#ffcc00'>"+str(ret_row[4])+" | "+str(ret_row[3])+"</td></tr>"
-        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Inflation / Jobs / GPR</th><th></th></tr>"
-        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>CPI 3.2% + US10Y 4.2% + NFP + GPR</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa'>"+str(ne)+"</td></tr>"
-        html2 += "</table>"
-        st.markdown(html2, unsafe_allow_html=True)
-        st.caption("WHY: DXY +"+str(DXY)+" + COT "+str(cot_row[1])+" "+str(cot_row[4])+" "+str(cot_row[3])+" + Retail "+str(ret_row[1])+" vs "+str(ret_row[2])+" = "+str(ret_row[4]))
-        st.write("Bull WHY: "+str(bu))
-        st.write("Bear WHY: "+str(be))
+        st.markdown("<div style='margin-top:10px;border:1px solid #1f2937;border-radius:10px;padding:10px;background:#0e1212'><div style='display:flex;justify-content:space-between'><b style='font-size:12px'>Crowd sentiment signal</b><b style='color:#60a5fa;font-size:12px'>"+str(ret_row[4])+"</b></div><div style='display:flex;gap:2px;margin:8px 0'><div style='flex:"+str(r_long)+";height:10px;background:#dc2626'></div><div style='flex:"+str(r_short)+";height:10px;background:#2563eb'></div></div><div style='font-size:11px;color:#9ca3af'>Long % <span style='color:#f87171'>"+str(ret_row[1])+"</span> | Short % <span style='color:#60a5fa'>"+str(ret_row[2])+"</span> | <span style='color:#eab308'>"+str(ret_row[3])+"</span> Econ surprise index <b style='color:#60a5fa'>0.00%</b> | "+str(ret_row[5])+"</div></div>", unsafe_allow_html=True)
 
-    if st.session_state.page in ["forex","gold","indices","crypto"]:
-        data={"forex":forex,"gold":commod,"indices":indices,"crypto":crypto}[st.session_state.page]
-        cols=st.columns(2)
-        for i,(p,s,bu,be,ne) in enumerate(data):
-            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
-    if st.session_state.page=="cot":
-        st.markdown("### COT - WITH CHANGE")
-        html="<table style='width:100%;border-collapse:collapse;font-size:11px'><tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
-        for r in cot:
-            a,lo,sh,ch,bi,wh=r
-            if bi=="BULL": bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BULL</td>"; cc="<td style='color:#00ff66;padding:5px;border:1px solid #333'>"+ch+"</td>"
-            else: bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>BEAR</td>"; cc="<td style='color:#ff6666;padding:5px;border:1px solid #333'>"+ch+"</td>"
-            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td><td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td><td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"+cc+bc+"<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
-        html+="</table>"; st.markdown(html, unsafe_allow_html=True)
-    if st.session_state.page=="retail":
-        st.markdown("### RETAIL SENTIMENT - CONTRARIAN")
-        html="<table style='width:100%;border-collapse:collapse;font-size:11px'><tr style='background:#111;color:#888'><th>Asset</th><th>RLong</th><th>RShort</th><th>Crowd</th><th>Signal</th><th>Why</th></tr>"
-        for r in retail:
-            a,lo,sh,cr,sg,wh=r
-            if "SELL" in sg: bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>SELL</td>"
-            else: bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BUY</td>"
-            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td><td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td><td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td><td style='padding:5px;border:1px solid #333;color:#ffcc00'>"+cr+"</td>"+bc+"<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
-        html+="</table>"; st.markdown(html, unsafe_allow_html=True)
-    if st.session_state.page=="fund":
-        st.markdown("### FUND DATES + GPR")
-        st.write("FOMC Sep
+        # Full table like screenshot
+        t_html = "<div style='margin-top:10px;overflow-x:auto'><table style='width:100%;border-collapse:collapse;font-size:11px'>"
+        t_html += "<tr style='background:#111827'><td style='padding:7px;color:#9ca3af;font-weight:700'>Technicals</td><td style='padding:7px'>"+edge_badge("Very Bearish" if s <= -6 else "Bearish" if s < 0 else "Neutral")+"</td><td style='padding:7px;color:#6b7280'></td><td style='padding:7px;color:#6b7280'></td></tr>"
+        t_html += "<tr><td style='padding:6px;border-bottom:1px solid #1f2937'>4H Chart Trend / Daily Chart Trend</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+edge_badge("Bearish")+"</td><td style='padding:6px;border-bottom:1px solid #1f2937'></td><td style='padding:6px;border-bottom:1px solid #1f2937'></td></tr>"
+        t_html += "<tr><td style='padding:6px;border-bottom:1px solid #1f2937'>Seasonality Trend</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+edge_badge("Bearish")+"</td><td style='padding:6px;border-bottom:1px solid #1f2937'></td><td style='padding:6px;border-bottom:1px solid #1f2937'></td></tr>"
+        t_html += "<tr style='background:#111827'><td style='padding:7px;color:#9ca3af;font-weight:700'>Institutional activity</td><td style='padding:7px'>"+edge_badge("Neutral")+"</td><td style='padding:7px;color:#6b7280'>Long %</td><td style='padding:7px;color:#6b7280'>Short %</td></tr>"
+        t_html += "<tr><td style='padding:6px;border-bottom:1px solid #1f2937'>COT - Net Positioning</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+edge_badge(cot_row[4])+"</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+cot_row[1]+" Long</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+cot_row[2]+" Short</td></tr>"
+        t_html += "<tr><td style='padding:6px;border-bottom:1px solid #1f2937'>COT - Latest Buys/Sells</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+edge_badge(cot_row[3])+"</td><td style='padding:6px;border-bottom:1px solid #1f2937' colspan=2>"+cot_row[5]+"</td></tr>"
+        t_html += "<tr style='background:#111827'><td style='padding:7px;color:#9ca3af;font-weight:700'>Economic growth</td><td style='padding:7px'>"+edge_badge("Very Bullish" if DXY>=5 else "Bullish")+"</td><td style='padding:7px;color:#6b7280'>Actual</td><td style='padding:7px;color:#6b7280'>Forecast</td></tr>"
+        t_html += "<tr><td style='padding:6px;border-bottom:1px solid #1f2937'>GDP Growth QoQ / DXY King +"+str(DXY)+"</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+edge_badge("Bullish")+"</td><td style='padding:6px;border-bottom:1px solid #1f2937'>1.50%</td><td style='padding:6px;border-bottom:1px solid #1f2937'>1.50%</td></tr>"
+        t_html += "<tr><td style='padding:6px;border-bottom:1px solid #1f2937'>Manufacturing / Services PMI</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+edge_badge("Bearish" if s<0 else "Bullish")+"</td><td style='padding:6px;border-bottom:1px solid #1f2937'>54.6</td><td style='padding:6px;border-bottom:1px solid #1f2937'>55.2</td></tr>"
+        t_html += "<tr><td style='padding:6px;border-bottom:1px solid #1f2937'>Retail Sales MoM (Fade Retail "+ret_row[1]+")</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+edge_badge(ret_row[4])+"</td><td style='padding:6px;border-bottom:1px solid #1f2937'>"+ret_row[1]+" Long</td><td style='padding:
