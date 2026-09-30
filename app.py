@@ -3,17 +3,18 @@ if 'page' not in st.session_state:
     st.session_state.page='home'
 def gauge(t,s):
     c='#0f6' if s>=1 else '#f44' if s<=-1 else '#fc0'
-    return '<div style="border:1px solid #222;border-radius:12px;padding:10px;border-left:4px solid '+c+'">'+t+' '+str(s)+'</div>'
-st.markdown(gauge('DXY AMBUSH 7',7),unsafe_allow_html=True)
-forex=[('EURUSD',-7),('GBPUSD',-7),('USDJPY',7),('AUDUSD',-7),('USDCHF',7),('USDCAD',6)]
-if st.session_state.page=='home':
-    if st.button('FOREX 6'): st.session_state.page='forex'
-    if st.button('AMBUSH-FINDER'): st.session_state.page='finder'
-else:
-    if st.button('BACK RADAR'): st.session_state.page='home'
-    if st.session_state.page=='finder':
-        ch=st.selectbox('Asset',['EURUSD','GOLD','DXY','BTCUSD'])
-        st.success('AMBUSH-FINDER SCORE READY '+ch)
-    if st.session_state.page=='forex':
-        for t,s in forex:
-            st.markdown(gauge(t,s),unsafe_allow_html=True)
+    h='<div style="border:1px solid #222;'
+    h+='border-radius:14px;padding:12px;margin:6px;'
+    h+='border-left:6px solid '+c+';background:#111">'
+    h+='<b>'+t+'</b> Score '+str(s)+'</div>'
+    return h
+DXY=7
+forex=[('EURUSD',-7),('GBPUSD',-7),('USDJPY',7)]
+forex+=[('AUDUSD',-7),('USDCHF',7),('USDCAD',6)]
+commod=[('GOLD',-8),('SILVER',-7),('OIL',-3)]
+indices=[('US30',-7),('NAS100',-7),('SPX500',-7)]
+crypto=[('BTCUSD',-7),('ETHUSD',-7)]
+cot=[['DXY','71% L','29% S','+3 Long','BULL']]
+cot+=[['EURUSD','29% L','71% S','+4 Short','BEAR']]
+cot+=[['GOLD','25% L','75% S','+5 Short','BEAR']]
+cot+=[['BTCUSD','30
