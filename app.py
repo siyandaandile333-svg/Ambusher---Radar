@@ -49,3 +49,38 @@ commod=[
  ("SILVER",-7,j(["Gold 2600 Up","Fed Cut","Solar Demand","Copper Up"],"Buy"),j(["DXY +7","Yield Up","Gold Sell","Risk Off"],"Sell"),"Gold + Copper + Fed"),
  ("OIL",-3,j(["GPR Iran War","OPEC Cut 1M","Supply Tight"],"Oil Buy"),j(["DXY Strong","Recession","Demand Down","Stock Up"],"Sell"),"OPEC + GPR + EIA"),
   ]
+indices=[
+ ("US30",-7,j(["Fed Cut","Dow Earnings Beat","CPI 3.2 Down","Risk On"],"Buy"),j(["DXY +7","Powell Hawk","Yield 4.2 Up","Miss"],"Sell"),"FOMC Sep29 + CPI Oct4"),
+ ("NAS100",-7,j(["Fed Cut","AAPL NVDA Beat","Yield Down","AI Demand"],"Buy"),j(["DXY +7","US10Y Up","Hawk","CPI Hot"],"Sell"),"Earnings + Yield + FOMC"),
+ ("SPX500",-7,j(["Fed Cut","SPX Earnings Up","CPI Down","GDP Up"],"Buy"),j(["DXY +7","Hawk","Yield Up","Recession"],"Sell"),"FOMC + NFP Oct3 + CPI"),
+]
+crypto=[
+ ("BTCUSD",-7,j(["Fed Cut","ETF Inflow 500M","Risk On","Halving"],"BTC Buy"),j(["DXY +7","Risk Off","SEC FUD","Outflow"],"BTC Sell"),"ETF + FOMC + NFP"),
+ ("ETHUSD",-7,j(["Fed Cut","ETH ETF In","BTC Up","Burn Up"],"ETH Buy"),j(["DXY +7","Hawk","BTC Sell","Outflow"],"ETH Sell"),"ETF + BTC + FOMC"),
+]
+cot=[
+ ["DXY","71%","29%","+3% Long","BULL","Powell Hawk"],
+ ["EURUSD","29%","71%","+4% Short","BEAR","DXY +7"],
+ ["GBPUSD","30%","70%","+2% Short","BEAR","DXY Bull"],
+ ["USDJPY","71%","29%","+2% Long","BULL","BoJ Dovish"],
+ ["AUDUSD","28%","72%","+3% Short","BEAR","Risk Off"],
+ ["USDCHF","71%","29%","+1% Long","BULL","SNB Dovish"],
+ ["USDCAD","70%","30%","+2% Long","BULL","Oil Down"],
+ ["GOLD","25%","75%","+5% Short","BEAR","DXY + Yield"],
+ ["SILVER","27%","73%","+3% Short","BEAR","Gold Down"],
+ ["OIL","35%","65%","+2% Short","BEAR","DXY Strong"],
+ ["US30","30%","70%","+3% Short","BEAR","Hawk No Cut"],
+ ["NAS100","28%","72%","+4% Short","BEAR","Yield 4.2"],
+ ["SPX500","29%","71%","+3% Short","BEAR","DXY +7"],
+ ["BTCUSD","30%","70%","+2% Short","BEAR","Risk Off"],
+]
+retail=[
+ ["EURUSD","70%","30%","72% Long Retail","CONTRARIAN SELL","Retail Long Crowded"],
+ ["GBPUSD","68%","32%","70% Long Retail","CONTRARIAN SELL","Retail Long"],
+ ["USDJPY","35%","65%","66% Short Retail","CONTRARIAN BUY","Retail Short Crowded"],
+ ["AUDUSD","65%","35%","68% Long Retail","CONTRARIAN SELL","Retail Wrong"],
+ ["USDCHF","38%","62%","64% Short Retail","CONTRARIAN BUY","Retail Short"],
+ ["USDCAD","40%","60%","62% Short Retail","CONTRARIAN BUY","Retail Short"],
+ ["GOLD","75%","25%","80% Long Retail","CONTRARIAN SELL","Top Signal"],
+ ["SILVER","72%","28%","75% Long Retail","CONTRARIAN SELL","Retail Long"],
+ ["OIL","60%","40%","65% Long Retail","CONTRARIAN SELL","Retail Long Oil"],
