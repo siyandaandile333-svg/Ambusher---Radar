@@ -8,7 +8,7 @@ if "page" not in st.session_state:
 
 DXY=7
 TM=(datetime.utcnow()+timedelta(hours=2)).strftime("%H:%M SAST")
-st.success(f"LIVE v2.0 SCORE -10 to +10 | {TM}")
+st.success(f"LIVE v2.1 ACADEMY | {TM}")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -131,6 +131,7 @@ if st.session_state.page=="home":
         if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
         if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
         if st.button("RETAIL SENTIMENT", use_container_width=True): st.session_state.page="retail"
+        if st.button("LEARN FUNDAMENTALS", use_container_width=True): st.session_state.page="learn"
     with c2:
         if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
         if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
@@ -210,3 +211,61 @@ else:
         st.write("CPI Oct4 HIGH - Exp 3.2%")
         st.write("GPR: Israel-Gaza = Gold SELL")
         st.write("GPR: Russia-Ukraine = Gold BUY Oil BUY")
+    if st.session_state.page=="learn":
+        st.markdown("## FX AMBUSHERS ACADEMY")
+        st.write("Economic + Geopolitical + Definitions")
+        with st.expander("1. WHAT IS DXY? - King of Forex"):
+            st.write("**Definition:** DXY measures USD vs 6 majors EUR GBP JPY CAD SEK CHF")
+            st.write("**Formula:** If DXY UP = USD Strong, EURUSD DOWN")
+            st.write("**Bull:** DXY +1 to +10 = Powell Hawk + CPI Hot + Yield Up + BoJ Dovish")
+            st.write("**Bear:** DXY -1 to -10 = Fed Cut + Gold Up + Yield Down + Risk On")
+            st.write("**How we use:** Check DXY first! If DXY +7 BULL, we sell EURUSD GBPUSD AUDUSD, buy USDJPY USDCHF")
+        with st.expander("2. ECONOMIC INDICATORS - The News"):
+            st.write("**CPI Inflation:** Price of goods. HOT CPI = Hawk Fed = DXY BUY. Cold CPI = Cut = DXY SELL")
+            st.write("**NFP Jobs:** US jobs. HIGH NFP = Strong Economy = DXY BUY. Low NFP = Weak = DXY SELL")
+            st.write("**FOMC / Powell:** Fed interest rate. HAWK = No Cut Keep High = DXY BUY. DOVISH = Cut = DXY SELL Gold BUY")
+            st.write("**GDP Growth:** Economy growth. High GDP = Strong = Currency Buy")
+            st.write("**PMI:** Factory activity. Above 50 = Expansion = Buy. Below 50 = Recession = Sell")
+            st.write("**Retail Sales:** People spending. High = Economy Strong = Buy")
+            st.write("**Yield US10Y:** US bond. Yield UP = DXY UP + NAS100 DOWN. Yield DOWN = Gold UP + NAS100 UP")
+        with st.expander("3. CENTRAL BANKS - Who Moves Market"):
+            st.write("**FED US:** Most powerful. Controls DXY. Hawk = Strong USD")
+            st.write("**ECB Europe:** Controls EUR. Lagarde Hawk = EUR Buy")
+            st.write("**BoE UK:** Controls GBP. Bailey Hawk = GBP Buy")
+            st.write("**BoJ Japan:** Controls JPY. Ueda Dovish = USDJPY Buy. Hawk Hike = USDJPY Sell")
+            st.write("**RBA Australia:** Controls AUD. Linked to Gold + China + Iron")
+            st.write("**SNB Swiss:** Controls CHF. Safe haven like Gold")
+            st.write("**BoC Canada:** Controls CAD. Linked to Oil Price")
+        with st.expander("4. GEOPOLITICAL RISK - GPR"):
+            st.write("**Definition:** War, Election, Sanctions that move Gold Oil USD")
+            st.write("**Israel-Gaza War:** Risk On? Gold SELL Oil BUY. If ceasefire = Gold SELL")
+            st.write("**Russia-Ukraine:** Gold BUY + Oil BUY + USD BUY safe haven")
+            st.write("**Iran Oil:** War in Iran = Oil 85+ UP = USDCAD SELL")
+            st.write("**US Election:** Trump vs Biden = Volatility HIGH = DXY + Gold UP")
+            st.write("**OPEC Cut:** Oil supply cut = Oil BUY")
+            st.write("**China Stimulus:** China prints money = AUD BUY + Gold BUY + Copper BUY")
+        with st.expander("5. COT REPORT - Smart Money"):
+            st.write("**Definition:** Commitments of Traders. Shows where hedge funds banks positioned")
+            st.write("**Long %:** % of funds buying. 71% Long DXY = Banks buying USD = BULL")
+            st.write("**Short %:** % selling. 71% Short EURUSD = Banks selling EUR = BEAR")
+            st.write("**Change +3% Long:** This week they added 3% more longs = Momentum Bull")
+            st.write("**How we use:** Follow smart money. If COT 71% Long DXY +7, we buy USD pairs")
+        with st.expander("6. RETAIL SENTIMENT - Crowd Psychology"):
+            st.write("**Definition:** What retail traders small traders doing. 70% long EURUSD")
+            st.write("**Contrarian:** When retail 70% long, we do opposite = SELL. Retail always wrong at tops")
+            st.write("**Example:** BTC 78% long retail = 85% FOMO = Top coming = CONTRARIAN SELL")
+            st.write("**DXY 30% long 70% short retail:** Crowd short USD = CONTRARIAN BUY USD = DXY +7")
+            st.write("**Why fade:** Retail buys high sells low. We ambush them")
+        with st.expander("7. SCORE SYSTEM -10 to +10"):
+            st.write("**+1 to +10 BULL:** Buy signal. +7 = Strong Bull like DXY now")
+            st.write("**-1 to -10 BEAR:** Sell signal. -7 = Strong Bear like EURUSD now")
+            st.write("**0 NEUTRAL:** No trade, wait for news FOMC NFP CPI")
+            st.write("**How calculated:** Bull factors minus Bear factors + DXY + COT + Retail")
+            st.write("**Example:** DXY +7 + Powell Hawk + CPI 3.2% Hot + Yield Up = USD Buy = EURUSD -7")
+        with st.expander("8. AMBUSH STRATEGY - Patience is Profit"):
+            st.write("**Step 1:** Check DXY gauge first. DXY +7 = USD strong")
+            st.write("**Step 2:** Check COT Change. +3% Long = banks adding")
+            st.write("**Step 3:** Check Retail. 70% long = fade = sell")
+            st.write("**Step 4:** Check Score Finder -10 to +10. Only trade +/-5 to 10 strong")
+            st.write("**Step 5:** Wait for FUND HIGH dates FOMC NFP CPI. Dont trade before")
+            st.write("**Rule:** Patience is Profit. Ambush the market, dont chase")
