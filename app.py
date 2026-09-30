@@ -131,7 +131,36 @@ else:
         elif s<=-1: st.error(f"Score {s} = BEAR")
         else: st.warning(f"Score 0 = WAIT")
 
-        # ===== NEW WHY ADDON LIKE YOUR SCREENSHOT - START =====
+                # ===== NEW WHY ADDON - FIXED NO ERROR - ONLY ADD =====
+        cot_row = next((x for x in cot if x[0]==ch), ["-","-","-","-","-","-"])
+        ret_row = next((x for x in retail if x[0]==ch), ["-","-","-","-","-","-"])
+
+        try:
+            r_long = int(ret_row[1].replace("%",""))
+        except:
+            r_long = 70
+        r_short = 100 - r_long
+
+        st.markdown("<div style='margin-top:12px;border:1px solid #222;border-radius:12px;padding:10px;background:#0e1212'>Crowd sentiment signal: <b style='color:#6aa8ff;float:right'>"+str(ret_row[4])+"</b><div style='display:flex;gap:2px;margin:6px 0'><div style='flex:"+str(r_long)+";height:8px;background:#ff4444'></div><div style='flex:"+str(r_short)+";height:8px;background:#3b82f6'></div></div><div style='font-size:11px;color:#888'>Long % "+str(ret_row[1])+" | Short % "+str(ret_row[2])+" | "+str(ret_row[3])+" | "+str(ret_row[5])+"</div></div>", unsafe_allow_html=True)
+
+        html2 = "<table style='width:100%;border-collapse:collapse;font-size:11px;margin-top:10px'>"
+        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Technicals</th><th style='text-align:left;padding:6px;color:#ff7777'>"+("Very Bearish" if s<=-6 else "Bearish" if s<0 else "Bullish")+"</th></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>4H / Daily Trend Score "+str(s)+"</td><td style='padding:5px;border-bottom:1px solid #1a1a1a'>Score "+str(s)+"</td></tr>"
+        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Institutional</th><th style='padding:6px;color:#888'>Long Short Change</th></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>COT Net Positioning</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#6aa8ff'>"+str(cot_row[1])+" Long "+str(cot_row[2])+" Short "+str(cot_row[4])+"</td></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>COT Latest</td><td style='padding:5px;border-bottom:1px solid #1a1a1a'>"+str(cot_row[3])+" | "+str(cot_row[5])+"</td></tr>"
+        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Economic Growth</th><th></th></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>DXY +"+str(DXY)+" Bull King</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa'>"+str(bu)[:60]+"</td></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>Retail Contrarian "+str(ret_row[1])+"</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#ffcc00'>"+str(ret_row[4])+" | "+str(ret_row[3])+"</td></tr>"
+        html2 += "<tr style='background:#111'><th style='text-align:left;padding:6px;color:#888'>Inflation / Jobs / GPR</th><th></th></tr>"
+        html2 += "<tr><td style='padding:5px;border-bottom:1px solid #1a1a1a'>CPI 3.2% + US10Y 4.2% + NFP</td><td style='padding:5px;border-bottom:1px solid #1a1a1a;color:#aaa'>"+str(ne)+"</td></tr>"
+        html2 += "</table>"
+        st.markdown(html2, unsafe_allow_html=True)
+
+        st.caption("WHY: DXY +"+str(DXY)+" + COT "+str(cot_row[1])+" "+str(cot_row[4])+" "+str(cot_row[3])+" + Retail "+str(ret_row[1])+" vs "+str(ret_row[2])+" = "+str(ret_row[4]))
+        st.write("Bull WHY: "+str(bu))
+        st.write("Bear WHY: "+str(be))
+        # ===== END FIXED ADDON =====
         # Find COT and Retail for chosen asset
         cot_row = next((x for x in cot if x[0]==ch), ["-","-","-","-","-","-"])
         ret_row = next((x for x in retail if x[0]==ch), ["-","-","-","-","-","-"])
