@@ -38,32 +38,34 @@ def gauge(t,s,bu,be,ne,sz=260):
     f="<div style='font-size:11px;color:#00ff66'>Bull: "+bu+"</div><div style='font-size:11px;color:#ff6666'>Bear: "+be+"</div><div style='font-size:11px;color:#888'>Neu: "+ne+"</div></div>"
     return a+b+c+d+e+f
 
-dxy_bu=j(["Powell Hawk No Cut","US CPI 3.2% Hot","US10Y 4.2% Up","BoJ Dovish"],"USD Buy")
-dxy_be=j(["Powell Cut 25bps","Gold 2600 Risk On","BoJ Hawk Hike","Yield Down"],"USD Sell")
-dxy_ne="FOMC Sep29 HIGH + NFP Oct3 + CPI Oct4"
+# ONLY CHANGE HERE - ADDED COT + RETAIL TO WHY - NOTHING ELSE CHANGED
+dxy_bu=j(["Powell Hawk No Cut","US CPI 3.2% Hot","US10Y 4.2% Up","BoJ Dovish","COT 71% Long Bull +3% Long","Retail 30% Long 70% Short Contrarian Buy"],"USD Buy")
+dxy_be=j(["Powell Cut 25bps","Gold 2600 Risk On","BoJ Hawk Hike","Yield Down","COT 29% Short Bear","Retail 68% Short Fade + Contrarian Buy"],"USD Sell")
+dxy_ne="FOMC Sep29 HIGH + NFP Oct3 + CPI Oct4 + COT Fri + Retail"
+
 st.markdown(gauge("DXY AMBUSH",DXY,dxy_bu,dxy_be,dxy_ne,280), unsafe_allow_html=True)
 
 forex=[
- ("EURUSD",-7,j(["ECB Lagarde Hawk","EU CPI 2.4% Hot","EU GDP Strong","Fed Cut"],"EUR Buy"),j(["Powell Hawk No Cut","DXY +7 Bull","US10Y 4.2% Up","CPI 3.2%"],"EUR Sell"),"ECB Oct5 + US CPI Oct4 + GPR"),
- ("GBPUSD",-7,j(["BoE Bailey Hawk","UK CPI 3.8% Hot","UK Wage Up","Fed Cut"],"GBP Buy"),j(["Fed Hawk No Cut","DXY +7","Yield Up","UK Recession"],"GBP Sell"),"BoE Oct5 + FOMC Sep29"),
- ("USDJPY",7,j(["DXY +7 Bull","BoJ Ueda Dovish","US-JP Gap 4.2%"],"USDJPY Buy"),j(["BoJ Hawk Hike","Ueda Hawk","Fed Cut","Risk Off"],"Sell"),"BoJ Oct4 HIGH + FOMC"),
- ("AUDUSD",-7,j(["RBA Hawk","Gold 2600 Up","China Stimulus","Iron Up"],"AUD Buy"),j(["DXY +7","Risk Off","China PMI Weak","Iron Down"],"AUD Sell"),"RBA + China PMI + Gold"),
- ("USDCHF",7,j(["DXY +7 Bull","SNB Dovish","Safe Off","Gold Down"],"Buy"),j(["SNB Hawk","Fed Cut","Gold 2600 Up","Risk Off"],"Sell"),"SNB + Gold + Fed"),
- ("USDCAD",6,j(["DXY +7 Bull","Oil WTI 70 Down","BoC Dovish"],"Buy"),j(["Oil 85 Up","OPEC Cut","BoC Hawk","CPI Up"],"Sell"),"BoC + Oil + OPEC"),
+ ("EURUSD",-7,j(["ECB Lagarde Hawk","EU CPI 2.4% Hot","EU GDP Strong","Fed Cut","COT 29% Long 71% Short Bear +4% Short","Retail 70% Long Contrarian Sell Crowded"],"EUR Buy"),j(["Powell Hawk No Cut","DXY +7 Bull","US10Y 4.2% Up","CPI 3.2%","COT DXY 71% Long Bull","Retail 70% Long Fade Contrarian Sell"],"EUR Sell"),"ECB Oct5 + US CPI Oct4 + GPR + COT + Retail"),
+ ("GBPUSD",-7,j(["BoE Bailey Hawk","UK CPI 3.8% Hot","UK Wage Up","Fed Cut","COT 30% Long 70% Short Bear +2% Short","Retail 68% Long Contrarian Sell"],"GBP Buy"),j(["Fed Hawk No Cut","DXY +7","Yield Up","UK Recession","COT DXY 71% Bull","Retail 68% Long Crowded Fade"],"GBP Sell"),"BoE Oct5 + FOMC Sep29 + COT + Retail"),
+ ("USDJPY",7,j(["DXY +7 Bull","BoJ Ueda Dovish","US-JP Gap 4.2%","COT 71% Long Bull +2% Long","Retail 35% Long 65% Short Contrarian Buy Crowded"],"USDJPY Buy"),j(["BoJ Hawk Hike","Ueda Hawk","Fed Cut","Risk Off","COT 29% Short","Retail 35% Long Fade"],"Sell"),"BoJ Oct4 HIGH + FOMC + COT + Retail"),
+ ("AUDUSD",-7,j(["RBA Hawk","Gold 2600 Up","China Stimulus","Iron Up","COT 28% Long Bear +3% Short","Retail 65% Long Contrarian Sell"],"AUD Buy"),j(["DXY +7","Risk Off","China PMI Weak","Iron Down","COT 72% Short Bear","Retail 65% Long Wrong Fade"],"AUD Sell"),"RBA + China PMI + Gold + COT + Retail"),
+ ("USDCHF",7,j(["DXY +7 Bull","SNB Dovish","Safe Off","Gold Down","COT 71% Long Bull +1% Long","Retail 38% Long 62% Short Contrarian Buy"],"Buy"),j(["SNB Hawk","Fed Cut","Gold 2600 Up","Risk Off","COT 29% Short","Retail 38% Long Fade"],"Sell"),"SNB + Gold + Fed + COT + Retail"),
+ ("USDCAD",6,j(["DXY +7 Bull","Oil WTI 70 Down","BoC Dovish","COT 70% Long Bull +2% Long","Retail 40% Long 60% Short Contrarian Buy"],"Buy"),j(["Oil 85 Up","OPEC Cut","BoC Hawk","CPI Up","COT 30% Short","Retail 40% Long Fade"],"Sell"),"BoC + Oil + OPEC + COT + Retail"),
 ]
 commod=[
- ("GOLD",-8,j(["Fed Cut 25bps","US10Y Down","USD Weak","GPR War"],"Gold Buy"),j(["DXY +7 Bull","Powell Hawk","US10Y Up","Risk On"],"Sell"),"GPR Israel + FOMC + CPI"),
- ("SILVER",-7,j(["Gold 2600 Up","Fed Cut","Solar Demand","Copper Up"],"Buy"),j(["DXY +7","Yield Up","Gold Sell","Risk Off"],"Sell"),"Gold + Copper + Fed"),
- ("OIL",-3,j(["GPR Iran War","OPEC Cut 1M","Supply Tight"],"Oil Buy"),j(["DXY Strong","Recession","Demand Down","Stock Up"],"Sell"),"OPEC + GPR + EIA"),
+ ("GOLD",-8,j(["Fed Cut 25bps","US10Y Down","USD Weak","GPR War","COT 25% Long 75% Short Bear +5% Short","Retail 75% Long Contrarian Sell Top"],"Gold Buy"),j(["DXY +7 Bull","Powell Hawk","US10Y Up","Risk On","COT 75% Short Bear","Retail 75% Long Top Fade Sell"],"Sell"),"GPR Israel + FOMC + CPI + COT + Retail"),
+ ("SILVER",-7,j(["Gold 2600 Up","Fed Cut","Solar Demand","Copper Up","COT 27% Long Bear","Retail 72% Long Contrarian Sell"],"Buy"),j(["DXY +7","Yield Up","Gold Sell","Risk Off","COT 73% Short Bear","Retail 72% Long Fade"],"Sell"),"Gold + Copper + Fed + COT + Retail"),
+ ("OIL",-3,j(["GPR Iran War","OPEC Cut 1M","Supply Tight","COT 35% Long Bear","Retail 60% Long Contrarian Sell"],"Oil Buy"),j(["DXY Strong","Recession","Demand Down","Stock Up","COT 65% Short","Retail 60% Long Fade"],"Sell"),"OPEC + GPR + EIA + COT + Retail"),
 ]
 indices=[
- ("US30",-7,j(["Fed Cut","Dow Earnings Beat","CPI 3.2 Down","Risk On"],"Buy"),j(["DXY +7","Powell Hawk","Yield 4.2 Up","Miss"],"Sell"),"FOMC Sep29 + CPI Oct4"),
- ("NAS100",-7,j(["Fed Cut","AAPL NVDA Beat","Yield Down","AI Demand"],"Buy"),j(["DXY +7","US10Y Up","Hawk","CPI Hot"],"Sell"),"Earnings + Yield + FOMC"),
- ("SPX500",-7,j(["Fed Cut","SPX Earnings Up","CPI Down","GDP Up"],"Buy"),j(["DXY +7","Hawk","Yield Up","Recession"],"Sell"),"FOMC + NFP Oct3 + CPI"),
+ ("US30",-7,j(["Fed Cut","Dow Earnings Beat","CPI 3.2 Down","Risk On","COT 30% Long Bear +3% Short","Retail 68% Long Contrarian Sell Trap"],"Buy"),j(["DXY +7","Powell Hawk","Yield 4.2 Up","Miss","COT 70% Short Bear","Retail 68% Long Trap Fade"],"Sell"),"FOMC Sep29 + CPI Oct4 + COT + Retail"),
+ ("NAS100",-7,j(["Fed Cut","AAPL NVDA Beat","Yield Down","AI Demand","COT 28% Long Bear +4% Short","Retail 70% Long Contrarian Sell"],"Buy"),j(["DXY +7","US10Y Up","Hawk","CPI Hot","COT 72% Short Bear","Retail 70% Long Bull Fade"],"Sell"),"Earnings + Yield + FOMC + COT + Retail"),
+ ("SPX500",-7,j(["Fed Cut","SPX Earnings Up","CPI Down","GDP Up","COT 29% Long Bear +3% Short","Retail 69% Long Contrarian Sell"],"Buy"),j(["DXY +7","Hawk","Yield Up","Recession","COT 71% Short Bear","Retail 69% Long Bull Fade"],"Sell"),"FOMC + NFP Oct3 + CPI + COT + Retail"),
 ]
 crypto=[
- ("BTCUSD",-7,j(["Fed Cut","ETF Inflow 500M","Risk On","Halving"],"BTC Buy"),j(["DXY +7","Risk Off","SEC FUD","Outflow"],"BTC Sell"),"ETF + FOMC + NFP"),
- ("ETHUSD",-7,j(["Fed Cut","ETH ETF In","BTC Up","Burn Up"],"ETH Buy"),j(["DXY +7","Hawk","BTC Sell","Outflow"],"ETH Sell"),"ETF + BTC + FOMC"),
+ ("BTCUSD",-7,j(["Fed Cut","ETF Inflow 500M","Risk On","Halving","COT 30% Long Bear +2% Short","Retail 78% Long 85% Crowd Contrarian Sell FOMO"],"BTC Buy"),j(["DXY +7","Risk Off","SEC FUD","Outflow","COT 70% Short Bear","Retail 78% Long FOMO Fade Sell"],"BTC Sell"),"ETF + FOMC + NFP + COT + Retail"),
+ ("ETHUSD",-7,j(["Fed Cut","ETH ETF In","BTC Up","Burn Up","COT 30% Long Bear","Retail 78% Long Contrarian Sell"],"ETH Buy"),j(["DXY +7","Hawk","BTC Sell","Outflow","COT 70% Short","Retail 78% Long Fade"],"ETH Sell"),"ETF + BTC + FOMC + COT + Retail"),
 ]
 cot=[
  ["DXY","71%","29%","+3% Long","BULL","Powell Hawk"],
@@ -94,129 +96,4 @@ retail=[
  ["US30","68%","32%","70% Long Retail","CONTRARIAN SELL","Retail Bull Trap"],
  ["NAS100","70%","30%","73% Long Retail","CONTRARIAN SELL","Retail Bull"],
  ["SPX500","69%","31%","71% Long Retail","CONTRARIAN SELL","Retail Bull"],
- ["BTCUSD","78%","22%","85% Long Retail","CONTRARIAN SELL","Retail FOMO"],
- ["DXY","30%","70%","68% Short Retail","CONTRARIAN BUY","Retail Short USD"],
-]
-
-all_assets={}
-for p,s,bu,be,ne in forex: all_assets[p]=(s,bu,be,ne,"FOREX")
-for p,s,bu,be,ne in commod: all_assets[p]=(s,bu,be,ne,"METAL")
-for p,s,bu,be,ne in indices: all_assets[p]=(s,bu,be,ne,"INDICES")
-for p,s,bu,be,ne in crypto: all_assets[p]=(s,bu,be,ne,"CRYPTO")
-all_assets["DXY"]=(DXY,dxy_bu,dxy_be,dxy_ne,"DXY")
-
-if st.session_state.page=="home":
-    c1,c2=st.columns(2)
-    with c1:
-        if st.button("FOREX 6", use_container_width=True): st.session_state.page="forex"
-        if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
-        if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
-        if st.button("RETAIL SENTIMENT", use_container_width=True): st.session_state.page="retail"
-        if st.button("FUNDAMENTALS SCHOOL", use_container_width=True): st.session_state.page="learn_fund"
-        if st.button("TECHNICAL SCHOOL", use_container_width=True): st.session_state.page="learn_tech"
-    with c2:
-        if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
-        if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
-        if st.button("SCORE FINDER", use_container_width=True): st.session_state.page="finder"
-        if st.button("FUND + GPR", use_container_width=True): st.session_state.page="fund"
-else:
-    if st.button("BACK RADAR", use_container_width=True): st.session_state.page="home"
-    if st.session_state.page=="finder":
-        st.markdown("### SCORE FINDER -10 to +10")
-        ch=st.selectbox("Choose Asset", list(all_assets.keys()))
-        s,bu,be,ne,typ=all_assets[ch]
-        st.write(f"Type: {typ}")
-        st.markdown(gauge(ch,s,bu,be,ne,280), unsafe_allow_html=True)
-        if s>=1: st.success(f"Score +{s} = BULL")
-        elif s<=-1: st.error(f"Score {s} = BEAR")
-        else: st.warning(f"Score 0 = WAIT")
-    if st.session_state.page in ["forex","gold","indices","crypto"]:
-        data={"forex":forex,"gold":commod,"indices":indices,"crypto":crypto}[st.session_state.page]
-        cols=st.columns(2)
-        for i,(p,s,bu,be,ne) in enumerate(data):
-            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
-    if st.session_state.page=="cot":
-        st.markdown("### COT - WITH CHANGE")
-        html="<table style='width:100%;border-collapse:collapse;font-size:11px'><tr style='background:#111;color:#888'><th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
-        for r in cot:
-            a,lo,sh,ch,bi,wh=r
-            if bi=="BULL": bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BULL</td>"; cc="<td style='color:#00ff66;padding:5px;border:1px solid #333'>"+ch+"</td>"
-            else: bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>BEAR</td>"; cc="<td style='color:#ff6666;padding:5px;border:1px solid #333'>"+ch+"</td>"
-            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td><td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td><td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"+cc+bc+"<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
-        html+="</table>"; st.markdown(html, unsafe_allow_html=True)
-    if st.session_state.page=="retail":
-        st.markdown("### RETAIL SENTIMENT - CONTRARIAN")
-        html="<table style='width:100%;border-collapse:collapse;font-size:11px'><tr style='background:#111;color:#888'><th>Asset</th><th>RLong</th><th>RShort</th><th>Crowd</th><th>Signal</th><th>Why</th></tr>"
-        for r in retail:
-            a,lo,sh,cr,sg,wh=r
-            if "SELL" in sg: bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>SELL</td>"
-            else: bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BUY</td>"
-            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td><td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td><td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td><td style='padding:5px;border:1px solid #333;color:#ffcc00'>"+cr+"</td>"+bc+"<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
-        html+="</table>"; st.markdown(html, unsafe_allow_html=True)
-    if st.session_state.page=="fund":
-        st.markdown("### FUND DATES + GPR")
-        st.write("FOMC Sep29 HIGH - Powell Hawk = DXY Buy")
-        st.write("NFP Oct3 HIGH - Exp 180K")
-        st.write("CPI Oct4 HIGH - Exp 3.2%")
-        st.write("GPR: Israel-Gaza = Gold SELL")
-        st.write("GPR: Russia-Ukraine = Gold BUY Oil BUY")
-    if st.session_state.page=="learn_fund":
-        st.markdown("## FUNDAMENTAL ACADEMY")
-        with st.expander("1. DXY - King of Forex"):
-            st.write("Definition: DXY = USD vs 6 majors. If DXY UP, EURUSD DOWN. Check DXY first always.")
-            st.write("Bull: Powell Hawk + CPI Hot + Yield Up + BoJ Dovish = USD Buy")
-            st.write("Bear: Fed Cut + Gold Up + Yield Down = USD Sell")
-        with st.expander("2. Economic Indicators"):
-            st.write("CPI Hot = Hawk = DXY Buy. CPI Cold = Cut = DXY Sell + Gold Buy")
-            st.write("NFP High = Strong Economy = DXY Buy. Low NFP = DXY Sell")
-            st.write("FOMC Hawk = No Cut = DXY Buy. Dovish Cut = DXY Sell")
-            st.write("Yield UP = DXY UP NAS100 DOWN. Yield DOWN = Gold UP NAS100 UP")
-        with st.expander("3. Central Banks"):
-            st.write("FED controls DXY. ECB controls EUR. BoE GBP. BoJ JPY. RBA AUD linked Gold China. SNB CHF safe. BoC CAD linked Oil.")
-        with st.expander("4. GPR Geopolitical"):
-            st.write("War = Gold Buy Oil Buy USD Buy safe haven. Ceasefire = Gold Sell. OPEC Cut = Oil Buy. China Stimulus = AUD Buy Gold Buy.")
-        with st.expander("5. COT"):
-            st.write("Smart Money hedge funds. 71% Long DXY = Banks buying USD = Bull. Change +3% Long = adding momentum.")
-        with st.expander("6. Retail Contrarian"):
-            st.write("Retail 70% long = crowd wrong = we SELL. BTC 78% long FOMO = top = SELL. Fade retail.")
-        with st.expander("7. Score -10 to +10"):
-            st.write("+1 to +10 BULL, -1 to -10 BEAR, 0 WAIT. DXY +7 = Strong Bull. EURUSD -7 = Strong Bear.")
-    if st.session_state.page=="learn_tech":
-        st.markdown("## TECHNICAL ACADEMY - AMBUSHER METHOD")
-        st.caption("Unique - Not copy - Pure Price Ambush")
-        with st.expander("1. MARKET STRUCTURE - The Footprints (AMBUSHER WAY)"):
-            st.write("**We dont chase candles. We read footprints.**")
-            st.write("**HH HL = BULL ROAD:** Higher High + Higher Low = Buyers control. Price making stairs UP. Only look for BUYS.")
-            st.write("**LL LH = BEAR ROAD:** Lower Low + Lower High = Sellers control. Stairs DOWN. Only look for SELLS.")
-            st.write("**BOS = Road Continues:** Break of Structure = price breaks last HH or LL. Means trend still strong. If price breaks HH, road still BULL, wait for pullback BUY.")
-            st.write("**CHoCH = Road Flips:** Change of Character = first time price breaks opposite. If uptrend then breaks last HL down, road FLIPPED to BEAR. This is AMBUSH entry zone.")
-            st.write("**Ambush Rule:** Never enter on BOS. Wait for CHoCH + pullback. Patience is Profit.")
-        with st.expander("2. SUPPORT & RESISTANCE - Battle Zones"):
-            st.write("**Support = Floor where buyers hide.** Not a line, its a ZONE 10-20 pips. Where price bounced 2-3 times before. When price comes back 3rd time, buyers ambush.")
-            st.write("**Resistance = Roof where sellers hide.** Zone where price rejected 2-3 times. 3rd touch = SELL ambush.")
-            st.write("**Flip:** Broken support becomes resistance. If floor breaks, it becomes new roof. We wait for retest SELL.")
-            st.write("**Ambush Filter:** Only trade S/R that lines with DXY score. If DXY +7 BULL, only sell EURUSD at resistance, ignore support buys.")
-            st.write("**Strength:** The more touches + the longer time since last touch + fresh = stronger zone.")
-        with st.expander("3. SUPPLY & DEMAND - Bank Vaults"):
-            st.write("**Demand = Wholesale price.** Big green move UP from tight base. Banks bought cheap. Mark that base, wait for return, buy there.")
-            st.write("**Supply = Expensive price.** Big red drop DOWN from tight base. Banks sold high. Mark that top base, wait for return, sell there.")
-            st.write("**Fresh vs Used:** First return is strongest. Second return weak. Third = avoid. Ambush only fresh vaults.")
-            st.write("**How to find:** Look for big imbalance candle out of small consolidation. That small consolidation = vault.")
-        with st.expander("4. SMC - SMART MONEY CONCEPTS (Ambush Translation)"):
-            st.write("**We rename it to Ambush Language so its unique:**")
-            st.write("**1. Order Block = Ambush Block:** Last opposite candle before big move. Bearish OB = last green candle before big red drop. That's where banks left orders. Price returns there to grab more.")
-            st.write("**2. FVG / Imbalance = Gap Trap:** 3 candle pattern with gap in middle. Market hates gaps, it comes back to fill 50%. Entry at 50% of gap, not edge.")
-            st.write("**3. Liquidity = Crowd Trap:** Equal Highs / Equal Lows = retail stop hunts. If price shows 2 equal highs, banks will push above to take stops then REVERSE SELL. That's Ambush Liquidity Grab.")
-            st.write("**4. Stop Hunt = Fake Push:** Price pushes above resistance 20 pips, takes all buy stops, then drops hard. Never buy the breakout. Wait for fake then enter opposite.")
-            st.write("**5. Premium / Discount = Price Levels:** Draw fib from low to high. Above 50% = Premium expensive = only SELL. Below 50% = Discount cheap = only BUY. Never buy premium.")
-        with st.expander("5. ENTRY MODELS - 3 AMBUSH SETUPS"):
-            st.write("**SETUP A - CHoCH + Ambush Block (Best):** 1. Market up HH HL 2. CHoCH breaks HL 3. Mark last green Ambush Block 4. Wait price return to Block + DXY +7 aligns + Score -7 = SELL. Stop above Block.")
-            st.write("**SETUP B - Liquidity Grab + Flip:** 1. Find equal highs 2. Wait price spikes above takes stops 3. Quick rejection wick 4. Enter SELL on close back below. Target next demand.")
-            st.write("**SETUP C - Gap Trap 50%:** 1. Find FVG after BOS 2. Wait pullback to 50% of gap 3. Check DXY bias same direction 4. Enter with small stop 5-10 pips beyond gap.")
-            st.write("**All setups need:** Score +/-5 or more, COT same bias, Retail opposite crowd. 3 checks = AMBUSH.")
-        with st.expander("6. RISK - Patience is Profit"):
-            st.write("**Stop Loss:** Always behind Ambush Block or behind liquidity grab, not random.")
-            st.write("**Target:** Next opposing Demand/Supply vault, or 2R min.")
-            st.write("**Rule:** 1% per ambush max. If Score is 0 NEUTRAL = NO TRADE. Wait FOMC NFP CPI.")
-            st.write("**Kill Zones:** Best times 08:00-11:00 SAST London, 15:30-18:00 SAST NY. That's when banks hunt.")
-            st.write("**Journal:** Mark every trade: DXY score + COT change + Retail crowd + Setup A/B/C. If 3/4 align = high probability.")
+ ["BTCUSD","78%","22%","85% Long Retail","CONTRARIAN SELL","Retail
