@@ -1,5 +1,5 @@
 import streamlit as st
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 
 st.set_page_config(page_title="FX AMBUSHERS", layout="wide")
@@ -7,8 +7,8 @@ if "page" not in st.session_state:
     st.session_state.page="home"
 
 DXY=7
-TM=datetime.now().strftime("%H:%M SAST")
-st.success(f"LIVE v1.9 SCORE -10 to +10 | {TM}")
+TM=(datetime.utcnow()+timedelta(hours=2)).strftime("%H:%M SAST")
+st.success(f"LIVE v2.0 SCORE -10 to +10 | {TM}")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -19,7 +19,6 @@ def j(parts, end):
     return " + ".join(parts) + " = " + end
 
 def gauge(t,s,bu,be,ne,sz=260):
-    # s is -10 to +10
     ang=s*9
     if s>=1:
         col="#00ff66"; bcol="#00ff66"; bias="BULL"
