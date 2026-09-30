@@ -1,44 +1,63 @@
 import streamlit as st
-st.set_page_config(page_title="FX AMBUSHERS", layout="wide")
+st.set_page_config(layout="wide")
 if "page" not in st.session_state:
     st.session_state.page="home"
 DXY=7
-st.success("LIVE v2.4 NO NESTED QUOTES - FIXED")
+st.success("LIVE v2.6 AMBUSH-FINDER - FIXED")
 
-def gauge(t,s,bu,be,ne,sz=260):
-    ang=s*9
-    col="#00ff66" if s>=1 else "#ff4444" if s<=-1 else "#ffcc00"
-    bcol=col
-    bias="BULL" if s>=1 else "BEAR" if s<=-1 else "NEU"
-    a="<div style='border:1px solid #222;border-radius:18px;padding:12px;background:#0f1414;border-left:4px solid "+bcol+";margin-bottom:12px'>"
-    b="<div style='text-align:center;color:#888;font-size:11px'>"+t+"</div>"
-    c="<div style='text-align:center;color:"+col+";font-weight:900;font-size:20px'>"+bias+" "+str(s)+"</div>"
-    d="<div style='width:"+str(sz)+"px;height:"+str(sz//2)+"px;margin:8px auto;position:relative;background:conic-gradient(from 270deg at 50% 100%,#ff2b2b 0 60deg,#ffcc00 60deg 120deg,#00cc66 120deg 180deg);border-radius:"+str(sz)+"px "+str(sz)+"px 0 0'>"
-    e="<div style='width:3px;height:120px;background:white;position:absolute;bottom:0;left:50%;transform-origin:bottom;transform:rotate("+str(ang)+"deg)'></div></div>"
-    f="<div style='font-size:11px;color:#00ff66'>Bull: "+bu+"</div><div style='font-size:11px;color:#ff6666'>Bear: "+be+"</div><div style='font-size:11px;color:#888'>Neu: "+ne+"</div></div>"
-    return a+b+c+d+e+f
+def gauge(t,s,bu,be,ne,sz=200):
+    col="#0f6" if s>=1 else "#f44" if s<=-1 else "#fc0"
+    a="<div style='border:1px solid #222;"
+    a+="border-radius:12px;padding:8px'>"
+    b="<div style='color:"+col+"'>"+t+" "+str(s)+"</div>"
+    c="<div style='font-size:10px'>"+bu+"</div>"
+    d="<div style='font-size:10px'>"+be+"</div></div>"
+    return a+b+c+d
 
 def badge(l):
     l=str(l)
-    if "Very Bearish" in l:
-        return "<span style='background:#7f1d1d;color:#fecaca;padding:2px 6px;border-radius:4px'>"+l+"</span>"
     if "Bearish" in l or "BEAR" in l or "SELL" in l:
-        return "<span style='background:#450a0a;color:#fca5a5;padding:2px 6px;border-radius:4px'>"+l+"</span>"
-    if "Very Bullish" in l:
-        return "<span style='background:#1e3a8a;color:#bfdbfe;padding:2px 6px;border-radius:4px'>"+l+"</span>"
+        return "<span style='background:#450a0a;color:#fca5a5;padding:2px 6px'>"+l+"</span>"
     if "Bullish" in l or "BULL" in l or "BUY" in l:
-        return "<span style='background:#172554;color:#93c5fd;padding:2px 6px;border-radius:4px'>"+l+"</span>"
-    return "<span style='background:#1f2937;color:#9ca3af;padding:2px 6px;border-radius:4px'>"+l+"</span>"
+        return "<span style='background:#172554;color:#93c5fd;padding:2px 6px'>"+l+"</span>"
+    return "<span style='background:#1f2937;color:#aaa;padding:2px 6px'>"+l+"</span>"
 
-dxy_bu="Powell Hawk No Cut + US CPI 3.2 Hot + US10Y 4.2 Up + BoJ Dovish = USD Buy"
-dxy_be="Powell Cut 25bps + Gold 2600 Risk On + BoJ Hawk Hike + Yield Down = USD Sell"
-dxy_ne="FOMC Sep29 HIGH + NFP Oct3 + CPI Oct4"
-st.markdown(gauge("DXY AMBUSH",DXY,dxy_bu,dxy_be,dxy_ne,280), unsafe_allow_html=True)
+dxy_bu="Powell Hawk = USD Buy"
+dxy_be="Powell Cut = USD Sell"
+dxy_ne="FOMC HIGH"
+st.markdown(gauge("DXY",DXY,dxy_bu,dxy_be,dxy_ne,260),unsafe_allow_html=True)
 
-forex=[
- ("EURUSD",-7,"ECB Hawk + EU CPI 2.4 Hot + EU GDP Strong + Fed Cut = EUR Buy","Powell Hawk No Cut + DXY +7 Bull + US10Y 4.2 Up + CPI 3.2 = EUR Sell","ECB Oct5 + CPI Oct4"),
- ("GBPUSD",-7,"BoE Hawk + UK CPI 3.8 Hot + UK Wage Up + Fed Cut = GBP Buy","Fed Hawk No Cut + DXY +7 + Yield Up + UK Recession = GBP Sell","BoE Oct5 + FOMC"),
- ("USDJPY",7,"DXY +7 Bull + BoJ Dovish + US-JP Gap 4.2 = USDJPY Buy","BoJ Hawk Hike + Ueda Hawk + Fed Cut + Risk Off = Sell","BoJ Oct4 HIGH"),
- ("AUDUSD",-7,"RBA Hawk + Gold 2600 Up + China Stimulus + Iron Up = AUD Buy","DXY +7 + Risk Off + China PMI Weak + Iron Down = AUD Sell","RBA + China PMI"),
- ("USDCHF",7,"DXY +7 Bull + SNB Dovish + Safe Off + Gold Down = Buy","SNB Hawk + Fed Cut + Gold 2600 Up + Risk Off = Sell","SNB + Gold"),
- ("USDCAD",6,"DXY +7 Bull + Oil 70 Down + BoC Dovish = Buy","Oil 85
+forex=[]
+forex.append(("EURUSD",-7,"EUR Buy","EUR Sell","ECB"))
+forex.append(("GBPUSD",-7,"GBP Buy","GBP Sell","BoE"))
+forex.append(("USDJPY",7,"JPY Sell","JPY Buy","BoJ"))
+forex.append(("AUDUSD",-7,"AUD Buy","AUD Sell","RBA"))
+forex.append(("USDCHF",7,"CHF Sell","CHF Buy","SNB"))
+forex.append(("USDCAD",6,"CAD Sell","CAD Buy","BoC"))
+
+commod=[]
+commod.append(("GOLD",-8,"Gold Buy","Gold Sell","GPR"))
+commod.append(("SILVER",-7,"Silver Buy","Silver Sell","Gold"))
+commod.append(("OIL",-3,"Oil Buy","Oil Sell","OPEC"))
+
+indices=[]
+indices.append(("US30",-7,"US30 Buy","US30 Sell","FOMC"))
+indices.append(("NAS100",-7,"NAS Buy","NAS Sell","FOMC"))
+indices.append(("SPX500",-7,"SPX Buy","SPX Sell","FOMC"))
+
+crypto=[]
+crypto.append(("BTCUSD",-7,"BTC Buy","BTC Sell","ETF"))
+crypto.append(("ETHUSD",-7,"ETH Buy","ETH Sell","ETF"))
+
+cot=[]
+cot.append(["DXY","71%","29%","+3% Long","BULL","Hawk"])
+cot.append(["EURUSD","29%","71%","+4% Short","BEAR","DXY"])
+cot.append(["GBPUSD","30%","70%","+2% Short","BEAR","DXY"])
+cot.append(["USDJPY","71%","29%","+2% Long","BULL","BoJ"])
+cot.append(["GOLD","25%","75%","+5% Short","BEAR","DXY"])
+cot.append(["BTCUSD","30%","70%","+2% Short","BEAR","Risk"])
+
+retail=[]
+retail.append(["EURUSD","70%","30%","SELL","Crowd Long"])
+retail.append(["GOLD","75%","25%","SELL","Top"])
+retail.append(["BTCUSD
