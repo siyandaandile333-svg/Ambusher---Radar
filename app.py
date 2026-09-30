@@ -4,7 +4,7 @@ import os
 if "page" not in st.session_state:
     st.session_state.page = "radar"
 
-st.image("logo.png", width=150)
+st.write("AMBUSHER RADAR")
 st.title("Patience is Profit")
 
 c1,c2,c3 = st.columns(3)
