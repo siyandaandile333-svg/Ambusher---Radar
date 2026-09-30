@@ -18,3 +18,38 @@ forex+=[('AUDUSD',-7),('USDCHF',7),('USDCAD',6)]
 commod=[('GOLD',-8),('SILVER',-7),('OIL',-3)]
 indices=[('US30',-7),('NAS100',-7),('SPX500',-7)]
 crypto=[('BTCUSD',-7),('ETHUSD',-7)]
+cot=[['DXY','71','29','+3 Long','BULL']]
+cot+=[['EURUSD','29','71','+4 Short','BEAR']]
+cot+=[['GOLD','25','75','+5 Short','BEAR']]
+cot+=[['BTCUSD','30','70','+2 Short','BEAR']]
+
+retail=[['EURUSD','70','30','SELL']]
+retail+=[['GOLD','75','25','SELL']]
+retail+=[['BTCUSD','78','22','SELL']]
+retail+=[['DXY','30','70','BUY']]
+
+all_assets=['DXY','EURUSD','GBPUSD']
+all_assets+=['USDJPY','AUDUSD','GOLD','BTCUSD']
+
+if st.session_state.page=='home':
+    if st.button('FOREX 6'):
+        st.session_state.page='forex'
+    if st.button('GOLD OIL'):
+        st.session_state.page='gold'
+    if st.button('INDICES'):
+        st.session_state.page='indices'
+    if st.button('CRYPTO'):
+        st.session_state.page='crypto'
+    if st.button('COT TABLE'):
+        st.session_state.page='cot'
+    if st.button('RETAIL'):
+        st.session_state.page='retail'
+    if st.button('AMBUSH-FINDER'):
+        st.session_state.page='finder'
+    if st.button('FUND SCHOOL'):
+        st.session_state.page='learn_fund'
+    if st.button('TECH SCHOOL'):
+        st.session_state.page='learn_tech'
+else:
+    if st.button('BACK RADAR'):
+        st.session_state.page='home'
