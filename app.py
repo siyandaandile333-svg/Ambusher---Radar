@@ -1,94 +1,271 @@
 import streamlit as st
-if 'page' not in st.session_state:
-    st.session_state.page='radar'
-st.title('AMBUSHER RADAR')
-st.write('Patience is Profit')
-c1,c2,c3,c4=st.columns(4)
-if c1.button('RADAR'):
-    st.session_state.page='radar'
-if c2.button('FINDER'):
-    st.session_state.page='finder'
-if c3.button('FUND'):
-    st.session_state.page='fund'
-if c4.button('LEARN'):
-    st.session_state.page='learn_fund'
+from datetime import datetime, timedelta
+import os
 
-if st.session_state.page=='radar':
-    st.subheader('RADAR -10 to +10')
-    st.metric('DXY','+7 BULL')
-    st.metric('GOLD','-8 BEAR')
+st.set_page_config(page_title="FX AMBUSHERS", layout="wide")
+if "page" not in st.session_state:
+    st.session_state.page="home"
 
-if st.session_state.page=='finder':
-    st.subheader('FINDER')
-    st.metric('EURUSD','-7 BEAR')
+DXY=7
+TM=(datetime.utcnow()+timedelta(hours=2)).strftime("%H:%M SAST")
+st.success(f"LIVE v2.1 ACADEMY | {TM}")
 
-if st.session_state.page=='fund':
-    st.write('FOMC Sep29 HIGH Hawkish')
-    st.write('NFP Oct3 HIGH 180K exp')
+for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
+    if os.path.exists(f):
+        st.image(f, use_container_width=True)
+        break
 
-if st.session_state.page=='learn_fund':
-    st.markdown('## FUNDAMENTAL ACADEMY - DEFINITIONS')
-    with st.expander('1. DXY King DEFINITION'):
-        st.write('DEF: DXY = Dollar Index vs 6')
-        st.write('EUR 57pct JPY 13pct GBP 11pct')
-        st.write('CAD 9pct SEK 4pct CHF 3pct')
-        st.write('BULL = DXY UP USD strong')
-        st.write('BEAR = DXY DOWN USD weak')
-        st.write('RULE: DXY UP = EURUSD DOWN')
-        st.write('RULE: DXY UP = Gold DOWN')
-    with st.expander('2. Indicators DEFINITION'):
-        st.write('CPI = Inflation')
-        st.write('CPI Hot 3.5pct = Hawk = DXY +2')
-        st.write('CPI Cold = Dovish = DXY -2')
-        st.write('NFP = Jobs')
-        st.write('NFP High 200K = Strong = DXY +2')
-        st.write('NFP Low = Weak = DXY -2')
-        st.write('FOMC = Fed Meeting')
-        st.write('Hawk = No Cut = DXY +3')
-        st.write('Dovish = Cut = DXY -3')
-        st.write('Yields UP = DXY UP NAS DOWN')
-    with st.expander('3. Central Banks DEFINITION'):
-        st.write('DEF: Banks control money')
-        st.write('FED USA controls DXY')
-        st.write('Hawkish Rates UP = BULL +2')
-        st.write('Dovish Rates DOWN = BEAR -2')
-        st.write('ECB = EUR BoE = GBP BoJ = JPY')
-        st.write('BoJ 150+ = Intervention JPY BUY +3')
-        st.write('RBA AUD = Gold + China')
-        st.write('SNB CHF = Safe haven')
-        st.write('BoC CAD = Oil price')
-    with st.expander('4. GPR War DEFINITION'):
-        st.write('DEF: GPR = War Politics Oil')
-        st.write('WAR = Fear = Safe Haven BUY')
-        st.write('Gold BUY +3 Oil BUY +3')
-        st.write('USD BUY +2 CHF BUY +2')
-        st.write('PEACE = Ceasefire = SELL')
-        st.write('Gold SELL -3 Oil SELL -2')
-        st.write('OPEC Cut = Oil BUY +3')
-        st.write('OPEC Increase = Oil SELL -3')
-        st.write('China Stimulus = AUD BUY +2')
-    with st.expander('5. COT Smart Money DEFINITION'):
-        st.write('DEF: COT = Hedge Funds bets')
-        st.write('Report Friday 8.30pm')
-        st.write('71pct Long DXY = Banks BUY +2')
-        st.write('80pct Long = Extreme BULL +3')
-        st.write('30pct Long = Banks SELL -2')
-        st.write('Momentum +3pct week = Adding +1')
-        st.write('RULE: Dont fight Smart Money')
-    with st.expander('6. Retail Contrarian DEFINITION'):
-        st.write('DEF: Retail = Small traders')
-        st.write('Rule: Crowd WRONG at top')
-        st.write('Retail 70pct long EUR = SELL -2')
-        st.write('Retail 80pct long = Top = SELL -3')
-        st.write('BTC 78pct long = FOMO = SELL -3')
-        st.write('BTC 70pct short = Fear = BUY +3')
-        st.write('Why fade: Retail holds losers')
-    with st.expander('7. Score -10 to +10 DEFINITION'):
-        st.write('DEF: Total of all 6 pillars')
-        st.write('DXY +3 Yields +2 Banks +2')
-        st.write('GPR +3 COT +2 Retail -2')
-        st.write('0 = NO TRADE choppy')
-        st.write('+7 to +10 = STRONG BUY AMBUSH')
-        st.write('-7 to -10 = STRONG SELL AMBUSH')
-        st.write('Today DXY +7 = SELL EURUSD')
-        st.write('GOLD -8 = Strong Sell')
+def j(parts, end):
+    return " + ".join(parts) + " = " + end
+
+def gauge(t,s,bu,be,ne,sz=260):
+    ang=s*9
+    if s>=1:
+        col="#00ff66"; bcol="#00ff66"; bias="BULL"
+    elif s<=-1:
+        col="#ff4444"; bcol="#ff4444"; bias="BEAR"
+    else:
+        col="#ffcc00"; bcol="#ffcc00"; bias="NEU"
+    h=sz//2
+    a="<div style='border:1px solid #222;"
+    a+="border-radius:18px;padding:12px;"
+    a+="background:#0f1414;border-left:4px solid "
+    a+=bcol+";margin-bottom:12px'>"
+    b="<div style='text-align:center;"
+    b+="color:#888;font-size:11px'>"+t+"</div>"
+    c="<div style='text-align:center;color:"
+    c+=col+";font-weight:900;font-size:20px'>"
+    if s>0: c+=bias+" +"+str(s)
+    else: c+=bias+" "+str(s)
+    c+="</div>"
+    d="<div style='width:"+str(sz)+"px;height:"
+    d+=str(sz//2)+"px;margin:8px auto;"
+    d+="position:relative;background:conic-gradient"
+    d+="(from 270deg at 50% 100%,#ff2b2b 0 60deg,"
+    d+="#ffcc00 60deg 120deg,#00cc66 120deg 180deg);"
+    d+="border-radius:"+str(sz)+"px "+str(sz)+"px 0 0'>"
+    e="<div style='width:3px;height:"
+    e+=str(h-10)+"px;background:white;"
+    e+="position:absolute;bottom:0;left:50%;"
+    e+="transform-origin:bottom;transform:rotate("
+    e+=str(ang)+"deg)'></div></div>"
+    f="<div style='font-size:11px;color:#00ff66'>"
+    f+="Bull: "+bu+"</div>"
+    f+="<div style='font-size:11px;color:#ff6666'>"
+    f+="Bear: "+be+"</div>"
+    f+="<div style='font-size:11px;color:#888'>"
+    f+="Neu: "+ne+"</div></div>"
+    return a+b+c+d+e+f
+
+dxy_bu=j(["Powell Hawk No Cut","US CPI 3.2% Hot","US10Y 4.2% Up","BoJ Dovish"],"USD Buy")
+dxy_be=j(["Powell Cut 25bps","Gold 2600 Risk On","BoJ Hawk Hike","Yield Down"],"USD Sell")
+dxy_ne="FOMC Sep29 HIGH + NFP Oct3 + CPI Oct4"
+st.markdown(gauge("DXY AMBUSH",DXY,dxy_bu,dxy_be,dxy_ne,280), unsafe_allow_html=True)
+
+forex=[
+ ("EURUSD",-7,j(["ECB Lagarde Hawk","EU CPI 2.4% Hot","EU GDP Strong","Fed Cut"],"EUR Buy"),j(["Powell Hawk No Cut","DXY +7 Bull","US10Y 4.2% Up","CPI 3.2%"],"EUR Sell"),"ECB Oct5 + US CPI Oct4 + GPR"),
+ ("GBPUSD",-7,j(["BoE Bailey Hawk","UK CPI 3.8% Hot","UK Wage Up","Fed Cut"],"GBP Buy"),j(["Fed Hawk No Cut","DXY +7","Yield Up","UK Recession"],"GBP Sell"),"BoE Oct5 + FOMC Sep29"),
+ ("USDJPY",7,j(["DXY +7 Bull","BoJ Ueda Dovish","US-JP Gap 4.2%"],"USDJPY Buy"),j(["BoJ Hawk Hike","Ueda Hawk","Fed Cut","Risk Off"],"Sell"),"BoJ Oct4 HIGH + FOMC"),
+ ("AUDUSD",-7,j(["RBA Hawk","Gold 2600 Up","China Stimulus","Iron Up"],"AUD Buy"),j(["DXY +7","Risk Off","China PMI Weak","Iron Down"],"AUD Sell"),"RBA + China PMI + Gold"),
+ ("USDCHF",7,j(["DXY +7 Bull","SNB Dovish","Safe Off","Gold Down"],"Buy"),j(["SNB Hawk","Fed Cut","Gold 2600 Up","Risk Off"],"Sell"),"SNB + Gold + Fed"),
+ ("USDCAD",6,j(["DXY +7 Bull","Oil WTI 70 Down","BoC Dovish"],"Buy"),j(["Oil 85 Up","OPEC Cut","BoC Hawk","CPI Up"],"Sell"),"BoC + Oil + OPEC"),
+]
+commod=[
+ ("GOLD",-8,j(["Fed Cut 25bps","US10Y Down","USD Weak","GPR War"],"Gold Buy"),j(["DXY +7 Bull","Powell Hawk","US10Y Up","Risk On"],"Sell"),"GPR Israel + FOMC + CPI"),
+ ("SILVER",-7,j(["Gold 2600 Up","Fed Cut","Solar Demand","Copper Up"],"Buy"),j(["DXY +7","Yield Up","Gold Sell","Risk Off"],"Sell"),"Gold + Copper + Fed"),
+ ("OIL",-3,j(["GPR Iran War","OPEC Cut 1M","Supply Tight"],"Oil Buy"),j(["DXY Strong","Recession","Demand Down","Stock Up"],"Sell"),"OPEC + GPR + EIA"),
+]
+indices=[
+ ("US30",-7,j(["Fed Cut","Dow Earnings Beat","CPI 3.2 Down","Risk On"],"Buy"),j(["DXY +7","Powell Hawk","Yield 4.2 Up","Miss"],"Sell"),"FOMC Sep29 + CPI Oct4"),
+ ("NAS100",-7,j(["Fed Cut","AAPL NVDA Beat","Yield Down","AI Demand"],"Buy"),j(["DXY +7","US10Y Up","Hawk","CPI Hot"],"Sell"),"Earnings + Yield + FOMC"),
+ ("SPX500",-7,j(["Fed Cut","SPX Earnings Up","CPI Down","GDP Up"],"Buy"),j(["DXY +7","Hawk","Yield Up","Recession"],"Sell"),"FOMC + NFP Oct3 + CPI"),
+]
+crypto=[
+ ("BTCUSD",-7,j(["Fed Cut","ETF Inflow 500M","Risk On","Halving"],"BTC Buy"),j(["DXY +7","Risk Off","SEC FUD","Outflow"],"BTC Sell"),"ETF + FOMC + NFP"),
+ ("ETHUSD",-7,j(["Fed Cut","ETH ETF In","BTC Up","Burn Up"],"ETH Buy"),j(["DXY +7","Hawk","BTC Sell","Outflow"],"ETH Sell"),"ETF + BTC + FOMC"),
+]
+cot=[
+ ["DXY","71%","29%","+3% Long","BULL","Powell Hawk"],
+ ["EURUSD","29%","71%","+4% Short","BEAR","DXY +7"],
+ ["GBPUSD","30%","70%","+2% Short","BEAR","DXY Bull"],
+ ["USDJPY","71%","29%","+2% Long","BULL","BoJ Dovish"],
+ ["AUDUSD","28%","72%","+3% Short","BEAR","Risk Off"],
+ ["USDCHF","71%","29%","+1% Long","BULL","SNB Dovish"],
+ ["USDCAD","70%","30%","+2% Long","BULL","Oil Down"],
+ ["GOLD","25%","75%","+5% Short","BEAR","DXY + Yield"],
+ ["SILVER","27%","73%","+3% Short","BEAR","Gold Down"],
+ ["OIL","35%","65%","+2% Short","BEAR","DXY Strong"],
+ ["US30","30%","70%","+3% Short","BEAR","Hawk No Cut"],
+ ["NAS100","28%","72%","+4% Short","BEAR","Yield 4.2"],
+ ["SPX500","29%","71%","+3% Short","BEAR","DXY +7"],
+ ["BTCUSD","30%","70%","+2% Short","BEAR","Risk Off"],
+]
+retail=[
+ ["EURUSD","70%","30%","72% Long Retail","CONTRARIAN SELL","Retail Long Crowded"],
+ ["GBPUSD","68%","32%","70% Long Retail","CONTRARIAN SELL","Retail Long"],
+ ["USDJPY","35%","65%","66% Short Retail","CONTRARIAN BUY","Retail Short Crowded"],
+ ["AUDUSD","65%","35%","68% Long Retail","CONTRARIAN SELL","Retail Wrong"],
+ ["USDCHF","38%","62%","64% Short Retail","CONTRARIAN BUY","Retail Short"],
+ ["USDCAD","40%","60%","62% Short Retail","CONTRARIAN BUY","Retail Short"],
+ ["GOLD","75%","25%","80% Long Retail","CONTRARIAN SELL","Top Signal"],
+ ["SILVER","72%","28%","75% Long Retail","CONTRARIAN SELL","Retail Long"],
+ ["OIL","60%","40%","65% Long Retail","CONTRARIAN SELL","Retail Long Oil"],
+ ["US30","68%","32%","70% Long Retail","CONTRARIAN SELL","Retail Bull Trap"],
+ ["NAS100","70%","30%","73% Long Retail","CONTRARIAN SELL","Retail Bull"],
+ ["SPX500","69%","31%","71% Long Retail","CONTRARIAN SELL","Retail Bull"],
+ ["BTCUSD","78%","22%","85% Long Retail","CONTRARIAN SELL","Retail FOMO"],
+ ["DXY","30%","70%","68% Short Retail","CONTRARIAN BUY","Retail Short USD"],
+]
+
+all_assets={}
+for p,s,bu,be,ne in forex: all_assets[p]=(s,bu,be,ne,"FOREX")
+for p,s,bu,be,ne in commod: all_assets[p]=(s,bu,be,ne,"METAL")
+for p,s,bu,be,ne in indices: all_assets[p]=(s,bu,be,ne,"INDICES")
+for p,s,bu,be,ne in crypto: all_assets[p]=(s,bu,be,ne,"CRYPTO")
+all_assets["DXY"]=(DXY,dxy_bu,dxy_be,dxy_ne,"DXY")
+
+if st.session_state.page=="home":
+    c1,c2=st.columns(2)
+    with c1:
+        if st.button("FOREX 6", use_container_width=True): st.session_state.page="forex"
+        if st.button("GOLD OIL", use_container_width=True): st.session_state.page="gold"
+        if st.button("COT TABLE", use_container_width=True): st.session_state.page="cot"
+        if st.button("RETAIL SENTIMENT", use_container_width=True): st.session_state.page="retail"
+        if st.button("LEARN FUNDAMENTALS", use_container_width=True): st.session_state.page="learn"
+    with c2:
+        if st.button("INDICES", use_container_width=True): st.session_state.page="indices"
+        if st.button("CRYPTO", use_container_width=True): st.session_state.page="crypto"
+        if st.button("SCORE FINDER", use_container_width=True): st.session_state.page="finder"
+        if st.button("FUND + GPR", use_container_width=True): st.session_state.page="fund"
+else:
+    if st.button("BACK RADAR", use_container_width=True): st.session_state.page="home"
+    if st.session_state.page=="finder":
+        st.markdown("### SCORE FINDER -10 to +10")
+        ch=st.selectbox("Choose Asset", list(all_assets.keys()))
+        s,bu,be,ne,typ=all_assets[ch]
+        st.write(f"Type: {typ}")
+        st.markdown(gauge(ch,s,bu,be,ne,280), unsafe_allow_html=True)
+        if s>=1: st.success(f"Score +{s} = BULL")
+        elif s<=-1: st.error(f"Score {s} = BEAR")
+        else: st.warning(f"Score 0 = WAIT NEUTRAL")
+    if st.session_state.page=="forex":
+        cols=st.columns(2)
+        for i,(p,s,bu,be,ne) in enumerate(forex):
+            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
+    if st.session_state.page=="gold":
+        cols=st.columns(2)
+        for i,(p,s,bu,be,ne) in enumerate(commod):
+            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
+    if st.session_state.page=="indices":
+        cols=st.columns(2)
+        for i,(p,s,bu,be,ne) in enumerate(indices):
+            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
+    if st.session_state.page=="crypto":
+        cols=st.columns(2)
+        for i,(p,s,bu,be,ne) in enumerate(crypto):
+            with cols[i%2]: st.markdown(gauge(p,s,bu,be,ne,170), unsafe_allow_html=True)
+    if st.session_state.page=="cot":
+        st.markdown("### COT - WITH CHANGE")
+        html="<table style='width:100%;border-collapse:collapse;font-size:11px'>"
+        html+="<tr style='background:#111;color:#888'>"
+        html+="<th>Asset</th><th>Long</th><th>Short</th><th>Change</th><th>Bias</th><th>Why</th></tr>"
+        for r in cot:
+            a,lo,sh,ch,bi,wh=r
+            if bi=="BULL":
+                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BULL</td>"
+                cc="<td style='color:#00ff66;padding:5px;border:1px solid #333'>"+ch+"</td>"
+            else:
+                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>BEAR</td>"
+                cc="<td style='color:#ff6666;padding:5px;border:1px solid #333'>"+ch+"</td>"
+            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"
+            html+=cc+bc
+            html+="<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+        html+="</table>"
+        st.markdown(html, unsafe_allow_html=True)
+    if st.session_state.page=="retail":
+        st.markdown("### RETAIL SENTIMENT - CONTRARIAN")
+        st.write("Retail = Crowd | We fade them")
+        html="<table style='width:100%;border-collapse:collapse;font-size:11px'>"
+        html+="<tr style='background:#111;color:#888'>"
+        html+="<th>Asset</th><th>RLong</th><th>RShort</th><th>Crowd</th><th>Signal</th><th>Why</th></tr>"
+        for r in retail:
+            a,lo,sh,cr,sg,wh=r
+            if "SELL" in sg:
+                bc="<td style='background:#ff4444;color:white;font-weight:900;padding:5px;border:1px solid #333'>SELL</td>"
+            else:
+                bc="<td style='background:#00ff66;color:black;font-weight:900;padding:5px;border:1px solid #333'>BUY</td>"
+            html+="<tr><td style='padding:5px;border:1px solid #333'>"+a+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#00ff66'>"+lo+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#ff6666'>"+sh+"</td>"
+            html+="<td style='padding:5px;border:1px solid #333;color:#ffcc00'>"+cr+"</td>"
+            html+=bc
+            html+="<td style='padding:5px;border:1px solid #333;color:#aaa'>"+wh+"</td></tr>"
+        html+="</table>"
+        st.markdown(html, unsafe_allow_html=True)
+    if st.session_state.page=="fund":
+        st.markdown("### FUND DATES + GPR")
+        st.write("FOMC Sep29 HIGH - Powell Hawk = DXY Buy")
+        st.write("NFP Oct3 HIGH - Exp 180K")
+        st.write("CPI Oct4 HIGH - Exp 3.2%")
+        st.write("GPR: Israel-Gaza = Gold SELL")
+        st.write("GPR: Russia-Ukraine = Gold BUY Oil BUY")
+    if st.session_state.page=="learn":
+        st.markdown("## FX AMBUSHERS ACADEMY")
+        st.write("Economic + Geopolitical + Definitions")
+        with st.expander("1. WHAT IS DXY? - King of Forex"):
+            st.write("**Definition:** DXY measures USD vs 6 majors EUR GBP JPY CAD SEK CHF")
+            st.write("**Formula:** If DXY UP = USD Strong, EURUSD DOWN")
+            st.write("**Bull:** DXY +1 to +10 = Powell Hawk + CPI Hot + Yield Up + BoJ Dovish")
+            st.write("**Bear:** DXY -1 to -10 = Fed Cut + Gold Up + Yield Down + Risk On")
+            st.write("**How we use:** Check DXY first! If DXY +7 BULL, we sell EURUSD GBPUSD AUDUSD, buy USDJPY USDCHF")
+        with st.expander("2. ECONOMIC INDICATORS - The News"):
+            st.write("**CPI Inflation:** Price of goods. HOT CPI = Hawk Fed = DXY BUY. Cold CPI = Cut = DXY SELL")
+            st.write("**NFP Jobs:** US jobs. HIGH NFP = Strong Economy = DXY BUY. Low NFP = Weak = DXY SELL")
+            st.write("**FOMC / Powell:** Fed interest rate. HAWK = No Cut Keep High = DXY BUY. DOVISH = Cut = DXY SELL Gold BUY")
+            st.write("**GDP Growth:** Economy growth. High GDP = Strong = Currency Buy")
+            st.write("**PMI:** Factory activity. Above 50 = Expansion = Buy. Below 50 = Recession = Sell")
+            st.write("**Retail Sales:** People spending. High = Economy Strong = Buy")
+            st.write("**Yield US10Y:** US bond. Yield UP = DXY UP + NAS100 DOWN. Yield DOWN = Gold UP + NAS100 UP")
+        with st.expander("3. CENTRAL BANKS - Who Moves Market"):
+            st.write("**FED US:** Most powerful. Controls DXY. Hawk = Strong USD")
+            st.write("**ECB Europe:** Controls EUR. Lagarde Hawk = EUR Buy")
+            st.write("**BoE UK:** Controls GBP. Bailey Hawk = GBP Buy")
+            st.write("**BoJ Japan:** Controls JPY. Ueda Dovish = USDJPY Buy. Hawk Hike = USDJPY Sell")
+            st.write("**RBA Australia:** Controls AUD. Linked to Gold + China + Iron")
+            st.write("**SNB Swiss:** Controls CHF. Safe haven like Gold")
+            st.write("**BoC Canada:** Controls CAD. Linked to Oil Price")
+        with st.expander("4. GEOPOLITICAL RISK - GPR"):
+            st.write("**Definition:** War, Election, Sanctions that move Gold Oil USD")
+            st.write("**Israel-Gaza War:** Risk On? Gold SELL Oil BUY. If ceasefire = Gold SELL")
+            st.write("**Russia-Ukraine:** Gold BUY + Oil BUY + USD BUY safe haven")
+            st.write("**Iran Oil:** War in Iran = Oil 85+ UP = USDCAD SELL")
+            st.write("**US Election:** Trump vs Biden = Volatility HIGH = DXY + Gold UP")
+            st.write("**OPEC Cut:** Oil supply cut = Oil BUY")
+            st.write("**China Stimulus:** China prints money = AUD BUY + Gold BUY + Copper BUY")
+        with st.expander("5. COT REPORT - Smart Money"):
+            st.write("**Definition:** Commitments of Traders. Shows where hedge funds banks positioned")
+            st.write("**Long %:** % of funds buying. 71% Long DXY = Banks buying USD = BULL")
+            st.write("**Short %:** % selling. 71% Short EURUSD = Banks selling EUR = BEAR")
+            st.write("**Change +3% Long:** This week they added 3% more longs = Momentum Bull")
+            st.write("**How we use:** Follow smart money. If COT 71% Long DXY +7, we buy USD pairs")
+        with st.expander("6. RETAIL SENTIMENT - Crowd Psychology"):
+            st.write("**Definition:** What retail traders small traders doing. 70% long EURUSD")
+            st.write("**Contrarian:** When retail 70% long, we do opposite = SELL. Retail always wrong at tops")
+            st.write("**Example:** BTC 78% long retail = 85% FOMO = Top coming = CONTRARIAN SELL")
+            st.write("**DXY 30% long 70% short retail:** Crowd short USD = CONTRARIAN BUY USD = DXY +7")
+            st.write("**Why fade:** Retail buys high sells low. We ambush them")
+        with st.expander("7. SCORE SYSTEM -10 to +10"):
+            st.write("**+1 to +10 BULL:** Buy signal. +7 = Strong Bull like DXY now")
+            st.write("**-1 to -10 BEAR:** Sell signal. -7 = Strong Bear like EURUSD now")
+            st.write("**0 NEUTRAL:** No trade, wait for news FOMC NFP CPI")
+            st.write("**How calculated:** Bull factors minus Bear factors + DXY + COT + Retail")
+            st.write("**Example:** DXY +7 + Powell Hawk + CPI 3.2% Hot + Yield Up = USD Buy = EURUSD -7")
+        with st.expander("8. AMBUSH STRATEGY - Patience is Profit"):
+            st.write("**Step 1:** Check DXY gauge first. DXY +7 = USD strong")
+            st.write("**Step 2:** Check COT Change. +3% Long = banks adding")
+            st.write("**Step 3:** Check Retail. 70% long = fade = sell")
+            st.write("**Step 4:** Check Score Finder -10 to +10. Only trade +/-5 to 10 strong")
+            st.write("**Step 5:** Wait for FUND HIGH dates FOMC NFP CPI. Dont trade before")
+            st.write("**Rule:** Patience is Profit. Ambush the market, dont chase")
