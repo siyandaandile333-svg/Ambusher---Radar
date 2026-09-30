@@ -8,16 +8,7 @@ if "page" not in st.session_state:
 
 DXY=7
 TM=(datetime.utcnow()+timedelta(hours=2)).strftime("%H:%M SAST")
-
-# BRAND HEADER - FX AMBUSHERS
-st.markdown("""
-<div style='text-align:center;background:#0a0a0a;border:2px solid #00ff66;border-radius:15px;padding:12px;margin-bottom:10px'>
-<div style='font-size:32px;font-weight:900;color:#00ff66;letter-spacing:3px'>FX AMBUSHERS</div>
-<div style='font-size:12px;color:#888;letter-spacing:2px'>PATIENCE IS PROFIT • EST 2025</div>
-</div>
-""", unsafe_allow_html=True)
-
-st.success(f"LIVE v2.4 BRANDED | {TM} | DXY +7 BULL")
+st.success(f"LIVE v2.2 TECH ACADEMY | {TM}")
 
 for f in ["logo.png","logo.jpg","IMG-20260929-WA1810.jpg"]:
     if os.path.exists(f):
@@ -136,6 +127,9 @@ else:
         s,bu,be,ne,typ=all_assets[ch]
         st.write(f"Type: {typ}")
         st.markdown(gauge(ch,s,bu,be,ne,280), unsafe_allow_html=True)
+        if s>=1: st.success(f"Score +{s} = BULL")
+        elif s<=-1: st.error(f"Score {s} = BEAR")
+        else: st.warning(f"Score 0 = WAIT")
     if st.session_state.page in ["forex","gold","indices","crypto"]:
         data={"forex":forex,"gold":commod,"indices":indices,"crypto":crypto}[st.session_state.page]
         cols=st.columns(2)
@@ -164,42 +158,65 @@ else:
         st.write("FOMC Sep29 HIGH - Powell Hawk = DXY Buy")
         st.write("NFP Oct3 HIGH - Exp 180K")
         st.write("CPI Oct4 HIGH - Exp 3.2%")
+        st.write("GPR: Israel-Gaza = Gold SELL")
+        st.write("GPR: Russia-Ukraine = Gold BUY Oil BUY")
     if st.session_state.page=="learn_fund":
-        st.markdown("## FX AMBUSHERS FUNDAMENTAL ACADEMY")
+        st.markdown("## FUNDAMENTAL ACADEMY")
         with st.expander("1. DXY - King of Forex"):
-            st.write("DXY = USD vs 6 majors. DXY UP = EURUSD DOWN. Check DXY first.")
+            st.write("Definition: DXY = USD vs 6 majors. If DXY UP, EURUSD DOWN. Check DXY first always.")
+            st.write("Bull: Powell Hawk + CPI Hot + Yield Up + BoJ Dovish = USD Buy")
+            st.write("Bear: Fed Cut + Gold Up + Yield Down = USD Sell")
         with st.expander("2. Economic Indicators"):
-            st.write("CPI Hot = Hawk = DXY Buy. NFP High = DXY Buy. FOMC Hawk = DXY Buy. Yield UP = DXY UP NAS100 DOWN.")
+            st.write("CPI Hot = Hawk = DXY Buy. CPI Cold = Cut = DXY Sell + Gold Buy")
+            st.write("NFP High = Strong Economy = DXY Buy. Low NFP = DXY Sell")
+            st.write("FOMC Hawk = No Cut = DXY Buy. Dovish Cut = DXY Sell")
+            st.write("Yield UP = DXY UP NAS100 DOWN. Yield DOWN = Gold UP NAS100 UP")
         with st.expander("3. Central Banks"):
-            st.write("FED DXY, ECB EUR, BoE GBP, BoJ JPY, RBA AUD Gold China, SNB CHF safe, BoC CAD Oil.")
+            st.write("FED controls DXY. ECB controls EUR. BoE GBP. BoJ JPY. RBA AUD linked Gold China. SNB CHF safe. BoC CAD linked Oil.")
         with st.expander("4. GPR Geopolitical"):
-            st.write("War = Gold Buy Oil Buy. Ceasefire = Gold Sell. OPEC Cut = Oil Buy. China Stimulus = AUD Gold Buy.")
-        with st.expander("5. COT Smart Money"):
-            st.write("71% Long DXY = Banks buying USD = Bull. Change +3% Long = adding momentum.")
+            st.write("War = Gold Buy Oil Buy USD Buy safe haven. Ceasefire = Gold Sell. OPEC Cut = Oil Buy. China Stimulus = AUD Buy Gold Buy.")
+        with st.expander("5. COT"):
+            st.write("Smart Money hedge funds. 71% Long DXY = Banks buying USD = Bull. Change +3% Long = adding momentum.")
         with st.expander("6. Retail Contrarian"):
-            st.write("Retail 70% long = crowd wrong = SELL. BTC 78% long FOMO = Top = SELL.")
+            st.write("Retail 70% long = crowd wrong = we SELL. BTC 78% long FOMO = top = SELL. Fade retail.")
         with st.expander("7. Score -10 to +10"):
-            st.write("+1 to +10 BULL, -1 to -10 BEAR, 0 WAIT. DXY +7 Strong Bull.")
+            st.write("+1 to +10 BULL, -1 to -10 BEAR, 0 WAIT. DXY +7 = Strong Bull. EURUSD -7 = Strong Bear.")
     if st.session_state.page=="learn_tech":
-        st.markdown("## FX AMBUSHERS TECHNICAL ACADEMY")
-        st.caption("Patience is Profit - Unique Ambush Method")
-        if os.path.exists("tech_structure.png"):
-            st.image("tech_structure.png", use_container_width=True)
-        with st.expander("1. MARKET STRUCTURE - Bull Road / Bear Road"):
-            st.write("HH HL = Bull Road stairs UP. LL LH = Bear Road stairs DOWN. BOS = Road Continues. CHoCH = Road Flips = Ambush zone. Never enter BOS, wait CHoCH + pullback.")
-            if os.path.exists("tech_structure.png"):
-                st.image("tech_structure.png", use_container_width=True)
+        st.markdown("## TECHNICAL ACADEMY - AMBUSHER METHOD")
+        st.caption("Unique - Not copy - Pure Price Ambush")
+        with st.expander("1. MARKET STRUCTURE - The Footprints (AMBUSHER WAY)"):
+            st.write("**We dont chase candles. We read footprints.**")
+            st.write("**HH HL = BULL ROAD:** Higher High + Higher Low = Buyers control. Price making stairs UP. Only look for BUYS.")
+            st.write("**LL LH = BEAR ROAD:** Lower Low + Lower High = Sellers control. Stairs DOWN. Only look for SELLS.")
+            st.write("**BOS = Road Continues:** Break of Structure = price breaks last HH or LL. Means trend still strong. If price breaks HH, road still BULL, wait for pullback BUY.")
+            st.write("**CHoCH = Road Flips:** Change of Character = first time price breaks opposite. If uptrend then breaks last HL down, road FLIPPED to BEAR. This is AMBUSH entry zone.")
+            st.write("**Ambush Rule:** Never enter on BOS. Wait for CHoCH + pullback. Patience is Profit.")
         with st.expander("2. SUPPORT & RESISTANCE - Battle Zones"):
-            st.write("Support = Floor zone 10-20 pips where price bounced 2-3x. Resistance = Roof. 3rd touch = Ambush. Broken support becomes resistance FLIP retest SELL. Only trade S/R with DXY +7 alignment.")
-            if os.path.exists("tech_sr.png"):
-                st.image("tech_sr.png", use_container_width=True)
+            st.write("**Support = Floor where buyers hide.** Not a line, its a ZONE 10-20 pips. Where price bounced 2-3 times before. When price comes back 3rd time, buyers ambush.")
+            st.write("**Resistance = Roof where sellers hide.** Zone where price rejected 2-3 times. 3rd touch = SELL ambush.")
+            st.write("**Flip:** Broken support becomes resistance. If floor breaks, it becomes new roof. We wait for retest SELL.")
+            st.write("**Ambush Filter:** Only trade S/R that lines with DXY score. If DXY +7 BULL, only sell EURUSD at resistance, ignore support buys.")
+            st.write("**Strength:** The more touches + the longer time since last touch + fresh = stronger zone.")
         with st.expander("3. SUPPLY & DEMAND - Bank Vaults"):
-            st.write("Demand = Wholesale - big green move from tight base. Banks bought cheap. Supply = Expensive - big red drop from tight base. First return strongest.")
-        with st.expander("4. SMC - Ambush Translation"):
-            st.write("Order Block = Ambush Block last opposite candle before big move. FVG = Gap Trap 3 candles gap fill 50%. Liquidity = Crowd Trap equal highs stop hunt then reverse. Stop Hunt = Fake Push. Premium above 50% only SELL, Discount below 50% only BUY.")
-            if os.path.exists("tech_smc.png"):
-                st.image("tech_smc.png", use_container_width=True)
+            st.write("**Demand = Wholesale price.** Big green move UP from tight base. Banks bought cheap. Mark that base, wait for return, buy there.")
+            st.write("**Supply = Expensive price.** Big red drop DOWN from tight base. Banks sold high. Mark that top base, wait for return, sell there.")
+            st.write("**Fresh vs Used:** First return is strongest. Second return weak. Third = avoid. Ambush only fresh vaults.")
+            st.write("**How to find:** Look for big imbalance candle out of small consolidation. That small consolidation = vault.")
+        with st.expander("4. SMC - SMART MONEY CONCEPTS (Ambush Translation)"):
+            st.write("**We rename it to Ambush Language so its unique:**")
+            st.write("**1. Order Block = Ambush Block:** Last opposite candle before big move. Bearish OB = last green candle before big red drop. That's where banks left orders. Price returns there to grab more.")
+            st.write("**2. FVG / Imbalance = Gap Trap:** 3 candle pattern with gap in middle. Market hates gaps, it comes back to fill 50%. Entry at 50% of gap, not edge.")
+            st.write("**3. Liquidity = Crowd Trap:** Equal Highs / Equal Lows = retail stop hunts. If price shows 2 equal highs, banks will push above to take stops then REVERSE SELL. That's Ambush Liquidity Grab.")
+            st.write("**4. Stop Hunt = Fake Push:** Price pushes above resistance 20 pips, takes all buy stops, then drops hard. Never buy the breakout. Wait for fake then enter opposite.")
+            st.write("**5. Premium / Discount = Price Levels:** Draw fib from low to high. Above 50% = Premium expensive = only SELL. Below 50% = Discount cheap = only BUY. Never buy premium.")
         with st.expander("5. ENTRY MODELS - 3 AMBUSH SETUPS"):
-            st.write("SETUP A: CHoCH + Ambush Block - CHoCH break HL, mark last green Block, wait return + DXY +7 + Score -7 = SELL. SETUP B: Liquidity Grab + Flip - equal highs spike take stops then rejection SELL. SETUP C: Gap Trap 50% - pullback to 50% of FVG + DXY bias.")
+            st.write("**SETUP A - CHoCH + Ambush Block (Best):** 1. Market up HH HL 2. CHoCH breaks HL 3. Mark last green Ambush Block 4. Wait price return to Block + DXY +7 aligns + Score -7 = SELL. Stop above Block.")
+            st.write("**SETUP B - Liquidity Grab + Flip:** 1. Find equal highs 2. Wait price spikes above takes stops 3. Quick rejection wick 4. Enter SELL on close back below. Target next demand.")
+            st.write("**SETUP C - Gap Trap 50%:** 1. Find FVG after BOS 2. Wait pullback to 50% of gap 3. Check DXY bias same direction 4. Enter with small stop 5-10 pips beyond gap.")
+            st.write("**All setups need:** Score +/-5 or more, COT same bias, Retail opposite crowd. 3 checks = AMBUSH.")
         with st.expander("6. RISK - Patience is Profit"):
-            st.write("Stop behind Block or liquidity. Target next vault or 2R. 1% max per ambush. Score 0 = NO TRADE. Kill Zones 08:00-11:00 SAST London, 15:30-18:00 NY.")
+            st.write("**Stop Loss:** Always behind Ambush Block or behind liquidity grab, not random.")
+            st.write("**Target:** Next opposing Demand/Supply vault, or 2R min.")
+            st.write("**Rule:** 1% per ambush max. If Score is 0 NEUTRAL = NO TRADE. Wait FOMC NFP CPI.")
+            st.write("**Kill Zones:** Best times 08:00-11:00 SAST London, 15:30-18:00 SAST NY. That's when banks hunt.")
+            st.write("**Journal:** Mark every trade: DXY score + COT change + Retail crowd + Setup A/B/C. If 3/4 align = high probability.")
