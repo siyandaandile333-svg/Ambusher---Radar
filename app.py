@@ -27,3 +27,39 @@ commod=[
  ("SILVER",-7,j(["Gold 2600 Up","Fed Cut","Solar Demand","Copper Up"],"Buy"),j(["DXY +7","Yield Up","Gold Sell","Risk Off"],"Sell"),"Gold + Copper"),
  ("OIL",-3,j(["GPR Iran War","OPEC Cut 1M","Supply Tight"],"Oil Buy"),j(["DXY Strong","Recession","Demand Down","Stock Up"],"Sell"),"OPEC + GPR"),
 ]
+indices=[
+ ("US30",-7,j(["Fed Cut","Dow Earnings Beat","CPI Down","Risk On"],"Buy"),j(["DXY +7","Powell Hawk","Yield 4.2 Up","Miss"],"Sell"),"FOMC Sep29 + CPI Oct4"),
+ ("NAS100",-7,j(["Fed Cut","AAPL NVDA Beat","Yield Down","AI Demand"],"Buy"),j(["DXY +7","US10Y Up","Hawk","CPI Hot"],"Sell"),"Earnings + Yield"),
+ ("SPX500",-7,j(["Fed Cut","SPX Earnings Up","CPI Down","GDP Up"],"Buy"),j(["DXY +7","Hawk","Yield Up","Recession"],"Sell"),"FOMC + NFP Oct3"),
+]
+crypto=[
+ ("BTCUSD",-7,j(["Fed Cut","ETF Inflow 500M","Risk On","Halving"],"BTC Buy"),j(["DXY +7","Risk Off","SEC FUD","Outflow"],"BTC Sell"),"ETF + FOMC"),
+ ("ETHUSD",-7,j(["Fed Cut","ETH ETF In","BTC Up","Burn Up"],"ETH Buy"),j(["DXY +7","Hawk","BTC Sell","Outflow"],"ETH Sell"),"ETF + BTC"),
+]
+cot=[
+ ["DXY","71%","29%","+3% Long","BULL","Powell Hawk"],
+ ["EURUSD","29%","71%","+4% Short","BEAR","DXY +7"],
+ ["GBPUSD","30%","70%","+2% Short","BEAR","DXY Bull"],
+ ["USDJPY","71%","29%","+2% Long","BULL","BoJ Dovish"],
+ ["AUDUSD","28%","72%","+3% Short","BEAR","Risk Off"],
+ ["USDCHF","71%","29%","+1% Long","BULL","SNB Dovish"],
+ ["USDCAD","70%","30%","+2% Long","BULL","Oil Down"],
+ ["GOLD","25%","75%","+5% Short","BEAR","DXY + Yield"],
+ ["SILVER","27%","73%","+3% Short","BEAR","Gold Down"],
+ ["OIL","35%","65%","+2% Short","BEAR","DXY Strong"],
+]
+retail=[
+ ["EURUSD","70%","30%","72% Long Retail","CONTRARIAN SELL","Retail Long"],
+ ["GBPUSD","68%","32%","70% Long Retail","CONTRARIAN SELL","Retail Long"],
+ ["USDJPY","35%","65%","66% Short Retail","CONTRARIAN BUY","Retail Short"],
+ ["AUDUSD","65%","35%","68% Long Retail","CONTRARIAN SELL","Retail Wrong"],
+ ["GOLD","75%","25%","80% Long Retail","CONTRARIAN SELL","Top Signal"],
+ ["BTCUSD","78%","22%","85% Long Retail","CONTRARIAN SELL","Retail FOMO"],
+ ["DXY","30%","70%","68% Short Retail","CONTRARIAN BUY","Retail Short USD"],
+]
+all_assets={}
+for p,s,bu,be,ne in forex: all_assets[p]=(s,bu,be,ne,"FOREX")
+for p,s,bu,be,ne in commod: all_assets[p]=(s,bu,be,ne,"METAL")
+for p,s,bu,be,ne in indices: all_assets[p]=(s,bu,be,ne,"INDICES")
+for p,s,bu,be,ne in crypto: all_assets[p]=(s,bu,be,ne,"CRYPTO")
+all_assets["DXY"]=(DXY,dxy_bu,dxy_be,dxy_ne,"DXY")
