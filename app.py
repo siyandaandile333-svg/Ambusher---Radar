@@ -63,3 +63,13 @@ for p,s,bu,be,ne in commod: all_assets[p]=(s,bu,be,ne,"METAL")
 for p,s,bu,be,ne in indices: all_assets[p]=(s,bu,be,ne,"INDICES")
 for p,s,bu,be,ne in crypto: all_assets[p]=(s,bu,be,ne,"CRYPTO")
 all_assets["DXY"]=(DXY,dxy_bu,dxy_be,dxy_ne,"DXY")
+# === SCHOOLS LIKE SCREENSHOT ===
+def pro_block():
+    return {
+      "GOLD": {
+        "edge": 2, "tech": -3, "sent": 1, "macro": 4,
+        "tech_label": "Very Bearish", "h4": "Bearish", "season": "Bearish",
+        "cot": ["Long 88.95%","Short 11.05%","Change -0.17%","Date Sep 04"],
+        "levels": ["Support: $2450","Resistance: $2550","ATR: $18","RSI: 68"],
+        "news": [
+          ["GDP","5.6
