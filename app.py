@@ -73,3 +73,26 @@ def pro_block():
         "levels": ["Support: $2450","Resistance: $2550","ATR: $18","RSI: 68"],
         "news": [
           ["GDP","5.6
+if st.session_state.page=="home":
+    c1,c2,c3=st.columns(3)
+    if c1.button("FX FOREX 6", use_container_width=True):
+        st.session_state.page="forex"
+        st.rerun()
+    if c2.button("GOLD OIL 3", use_container_width=True):
+        st.session_state.page="commod"
+        st.rerun()
+    if c3.button("INDICES 3 + CRYPTO 2", use_container_width=True):
+        st.session_state.page="other"
+        st.rerun()
+    if st.button("SCORE FINDER - PRO", use_container_width=True):
+        st.session_state.page="pro"
+        st.rerun()
+    if st.button("COT + RETAIL TABLE", use_container_width=True):
+        st.session_state.page="tables"
+        st.rerun()
+    if st.button("AMBUSH SCHOOLS", use_container_width=True):
+        st.session_state.page="schools"
+        st.rerun()
+    cols=st.columns(3)
+    i=0
+    for p in all
