@@ -96,3 +96,42 @@ if st.session_state.page=="home":
     cols=st.columns(3)
     i=0
     for p in all
+elif st.session_state.page=="forex":
+    if st.button("← HOME"):
+        st.session_state.page="home"
+        st.rerun()
+    st.subheader("FOREX 6")
+    cols=st.columns(2)
+    i=0
+    for p,s,bu,be,ne in forex:
+        with cols[i%2]:
+            st.markdown(gauge(p,s,bu,be,ne), unsafe_allow_html=True)
+        i+=1
+
+elif st.session_state.page=="commod":
+    if st.button("← HOME"):
+        st.session_state.page="home"
+        st.rerun()
+    st.subheader("GOLD OIL 3")
+    cols=st.columns(2)
+    i=0
+    for p,s,bu,be,ne in commod:
+        with cols[i%2]:
+            st.markdown(gauge(p,s,bu,be,ne), unsafe_allow_html=True)
+        i+=1
+
+elif st.session_state.page=="other":
+    if st.button("← HOME"):
+        st.session_state.page="home"
+        st.rerun()
+    st.subheader("INDICES + CRYPTO")
+    for p,s,bu,be,ne in indices+ crypto:
+        st.markdown(gauge(p,s,bu,be,ne,320), unsafe_allow_html=True)
+
+elif st.session_state.page=="tables":
+    if st.button("← HOME"):
+        st.session_state.page="home"
+        st.rerun()
+    st.subheader("COT TABLE - Like Screenshot")
+    for r in cot:
+        col="#00ff66" if "
