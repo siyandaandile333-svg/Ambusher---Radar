@@ -143,3 +143,5 @@ elif st.session_state.page=="schools":
     s1="""
     <div style='border-left:4px solid #00ff66;padding:12px;background:#0f1414;border-radius:12px;margin:8px 0'>
     <b>SCHOOL 1: DXY AMBUSH</b><br> DXY = USD Strength = 7 BULL means Powell Hawk + US CPI 3.2% Hot + US10Y 4.2% Up + BoJ Dovish = USD Buy. DXY +7 Bear = EURUSD GBPUSD AUDUSD SELL, USDJPY USDCHF USDCAD BU
+    st.info("Learn each school: DXY controls all pairs, COT shows smart money, News Actual vs Forecast, Technicals 4H + Seasonality, Retail 70% = contrarian, PRO score -8 to +8.")
+    st.caption(f"Last Update {TM} | v3 PRO SCORECARD Like Screenshot | FX AMBUSHERS")
