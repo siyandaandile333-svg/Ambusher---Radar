@@ -1,78 +1,103 @@
 import streamlit as st
 import pandas as pd
-import random
 
-st.set_page_config(page_title='Ambush Radar Pro', layout='wide')
+st.set_page_config(page_title='Ambush Radar - Lovable Exact Colours', layout='wide')
 
 st.markdown("""
 <style>
-.stApp{background:#080d0d;color:#e5e7eb;}
-.card{background:#121818;border:1px solid #1f2a2a;border-radius:18px;padding:16px;margin-bottom:14px;}
-.bull-badge{background:#052e1a;border:1px solid #22c55e;color:#22c55e;border-radius:999px;padding:4px 12px;font-weight:800;font-size:12px;}
-.bear-badge{background:#2e0a0a;border:1px solid #ef4444;color:#ff6b6b;border-radius:999px;padding:4px 12px;font-weight:800;font-size:12px;}
+.stApp{background:#080c0c;color:#a0aeae;}
+.card{background:#161c1a;border:1px solid #1e2828;border-radius:12px;margin-bottom:12px;overflow:hidden;}
+.head{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;font-style:italic;color:#7a8a8a;border-bottom:1px solid #1e2828;font-weight:700;}
+.blueBox{background:#2d4cc0;color:white;padding:8px 18px;border-radius:6px;font-weight:800;min-width:48px;text-align:center;}
+.redBox{background:#ee4e4d;color:white;padding:8px 18px;border-radius:6px;font-weight:800;min-width:48px;text-align:center;}
+.cell{padding:14px;text-align:center;border-right:1px solid #1e2828;}
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("# AMBUSH RADAR PRO")
-st.caption("LIVE | NFP Oct 2 | CPI Oct 14 | FOMC Sep 15-16 | Auto 5min | 15 Tracked")
+st.markdown("## AMBUSH RADAR PRO - SAME COLOURS AS LOVABLE")
+
+symbol = st.selectbox("SELECT PAIR - Know bullish/bearish for what", ["DXY","GOLD","EURUSD","GBPUSD","USDJPY","SILVER","OIL","US30","NAS100","SPX500","BTCUSD","ETHUSD"], index=0)
 
 DATA = {
- 'DXY': {'score':7,'price':99.45,'rsi':62,'atr':0.35,'sup':98.8,'res':100.2,'tech':2,'sent':1,'macro':4},
- 'GOLD': {'score':2,'price':2475.3,'rsi':68,'atr':18.5,'sup':2450.0,'res':2550.0,'tech':-3,'sent':1,'macro':4},
- 'EURUSD': {'score':-7,'price':1.0845,'rsi':42,'atr':0.0065,'sup':1.08,'res':1.092,'tech':-4,'sent':-1,'macro':-2},
- 'GBPUSD': {'score':-7,'price':1.295,'rsi':38,'atr':0.008,'sup':1.285,'res':1.305,'tech':-3,'sent':-1,'macro':-2},
- 'USDJPY': {'score':7,'price':149.8,'rsi':65,'atr':0.75,'sup':148.5,'res':151.2,'tech':2,'sent':1,'macro':4},
- 'AUDUSD': {'score':-7,'price':0.652,'rsi':40,'atr':0.0055,'sup':0.645,'res':0.662,'tech':-3,'sent':-1,'macro':-1},
- 'USDCHF': {'score':7,'price':0.882,'rsi':60,'atr':0.0045,'sup':0.875,'res':0.889,'tech':1,'sent':1,'macro':2},
- 'USDCAD': {'score':7,'price':1.368,'rsi':63,'atr':0.006,'sup':1.36,'res':1.375,'tech':2,'sent':1,'macro':2},
- 'US30': {'score':-7,'price':42150,'rsi':45,'atr':250,'sup':41800,'res':42500,'tech':-2,'sent':-1,'macro':-1},
- 'NAS100': {'score':-7,'price':18200,'rsi':48,'atr':180,'sup':17900,'res':18500,'tech':-2,'sent':-1,'macro':-1},
- 'SPX500': {'score':-7,'price':5750,'rsi':46,'atr':45,'sup':5700,'res':5800,'tech':-2,'sent':-1,'macro':-1},
- 'BTCUSD': {'score':-7,'price':62450,'rsi':52,'atr':1200,'sup':61000,'res':63500,'tech':-2,'sent':-1,'macro':-1},
- 'ETHUSD': {'score':-7,'price':2450,'rsi':50,'atr':85,'sup':2380,'res':2520,'tech':-2,'sent':-1,'macro':-1},
- 'SILVER': {'score':-2,'price':30.85,'rsi':58,'atr':0.65,'sup':30.2,'res':31.5,'tech':-1,'sent':0,'macro':1},
- 'OIL': {'score':7,'price':78.45,'rsi':55,'atr':1.2,'sup':77.0,'res':80.0,'tech':2,'sent':1,'macro':2},
+ 'DXY':{'edge':2,'tech':-3,'sent':1,'macro':4,'bias':'Neutral','techL':'Very Bearish','4h':'Bearish','season':'Bearish','crowd':'Bullish'},
+ 'GOLD':{'edge':2,'tech':-3,'sent':1,'macro':4,'bias':'Neutral','techL':'Very Bearish','4h':'Bearish','season':'Bearish','crowd':'Bullish'},
+ 'EURUSD':{'edge':-7,'tech':-4,'sent':-1,'macro':-2,'bias':'Bearish','techL':'Very Bearish','4h':'Bearish','season':'Bearish','crowd':'Bearish'},
+ 'SILVER':{'edge':-2,'tech':-1,'sent':0,'macro':1,'bias':'Neutral','techL':'Neutral','4h':'Neutral','season':'Bullish','crowd':'Bullish'},
 }
+d = DATA.get(symbol, DATA['DXY'])
 
-c1,c2,c3 = st.columns(3)
-c1.metric("Tracked", len(DATA))
-c2.metric("Bullish", len([x for x in DATA.values() if x['score']>0]))
-c3.metric("Bearish", len([x for x in DATA.values() if x['score']<0]))
+st.markdown(f"<div style='color:#7a8a8a;margin:8px 0;'>Symbol: <b style='color:white;font-size:18px;'>{symbol}</b> <span style='float:right;'>{d['bias']}</span></div>", unsafe_allow_html=True)
 
-cols = st.columns(3)
-for i,(k,v) in enumerate(DATA.items()):
-    badge = "bull-badge" if v['score']>0 else "bear-badge"
-    label = "BULL" if v['score']>0 else "BEAR"
-    arrow = "↗" if v['score']>0 else "↘"
-    with cols[i%3]:
-        st.markdown(f"<div class='card'><div style='display:flex;justify-content:space-between;align-items:center;'><b>{k}</b><span class='{badge}'>{v['score']:+d} {arrow} {label}</span></div><div style='margin-top:8px;color:#9ca3af;font-size:12px;'>Price {v['price']} | RSI {v['rsi']} | ATR {v['atr']}</div><div style='color:#6b7280;font-size:11px;'>Sup {v['sup']} Res {v['res']}</div></div>", unsafe_allow_html=True)
+# GAUGE + SCORES - EXACT COLOURS
+needle = 90 + (d['edge'] * 10)
+st.markdown(f"""
+<div class='card'>
+<div style='display:flex;align-items:center;padding:16px;'>
+<div style='flex:1;text-align:center;'>
+<svg width='160' height='90' viewBox='0 0 160 90'>
+<path d='M 10 80 A 70 70 0 0 1 150 80' fill='none' stroke='#1e2828' stroke-width='18'/>
+<path d='M 10 80 A 70 70 0 0 1 60 15' fill='none' stroke='#ee4e4d' stroke-width='18'/>
+<path d='M 60 15 A 70 70 0 0 1 90 10' fill='none' stroke='white' stroke-width='18'/>
+<path d='M 90 10 A 70 70 0 0 1 150 80' fill='none' stroke='#2d4cc0' stroke-width='18'/>
+<g transform='rotate({needle-90} 80 80)'><line x1='80' y1='80' x2='80' y2='15' stroke='white' stroke-width='2'/><circle cx='80' cy='80' r='6' fill='#080c0c' stroke='white' stroke-width='2'/></g>
+</svg>
+</div>
+<div style='flex:1.5;'>
+<div style='display:flex;justify-content:space-between;padding:8px 0;'><span>EdgeFinder score</span><b style='color:white;'>{d['edge']}</b></div>
+<div style='display:flex;justify-content:space-between;align-items:center;padding:6px 0;'><span>Technical score</span><span class='redBox'>{d['tech']}</span></div>
+<div style='display:flex;justify-content:space-between;align-items:center;padding:6px 0;'><span>Sentiment score</span><span class='blueBox'>{d['sent']}</span></div>
+<div style='display:flex;justify-content:space-between;align-items:center;padding:6px 0;'><span>Macroeconomic score</span><span class='blueBox'>{d['macro']}</span></div>
+</div>
+</div>
+</div>
+""", unsafe_allow_html=True)
 
-st.divider()
-st.subheader("Score Finder Pro")
+# Score history
+st.markdown("<div class='card'><div class='head'><span>Score history</span><span style='font-size:11px;'>ILLUSTRATIVE</span></div></div>", unsafe_allow_html=True)
+st.bar_chart([1,1.2,1.5,1.8,2,2.2,2.8,3.2,3,3.5,4,4.5,5,5.2,5.5,5.8,6,5.9,5.5,5.2,5,4.8,4.5,4.2,3.8,3.5,3.2,3,2.8,2.5], height=120)
+st.markdown("<div style='display:flex;justify-content:space-between;color:#5a6a6a;font-size:11px;padding:0 10px 10px;'><span>Jul</span><span>Aug</span><span>Sep</span></div>", unsafe_allow_html=True)
 
-selected = st.selectbox("SELECT PAIR - Know bullish/bearish for what", list(DATA.keys()), index=2)
-v = DATA[selected]
-color = "#22c55e" if v['score']>0 else "#ef4444"
-bias = "BULLISH BUY" if v['score']>0 else "BEARISH SELL"
+# Econ surprise
+st.markdown("<div class='card'><div class='head'><span>Econ. surprise index</span><span style='font-size:11px;'>ILLUSTRATIVE</span></div></div>", unsafe_allow_html=True)
+df = pd.DataFrame({'blue':[2,2,1.8,1.9,2,2.1,2.2,1.5,1,0.8,0.6,0.5,0.3,0.2,0,-0.2,-0.1,0.2,0.4,0.5,0.7],'red':[1.5,1.5,1.8,1.9,1.8,1.6,1,0.7,0.5,0.2,0,-0.2,-0.3,-0.5,-0.6,-0.4,-0.2,0,0.2,0.4,0.6]})
+st.line_chart(df, height=140)
 
-st.markdown(f"<div style='text-align:center;'><div style='font-size:64px;font-weight:900;color:{color};'>{v['score']:+d}</div><div style='font-size:20px;color:{color};font-weight:800;'>{selected} - {bias}</div></div>", unsafe_allow_html=True)
+# Technicals
+st.markdown(f"""
+<div class='card'>
+<div class='head'><span>Technicals</span><span style='color:#ee4e4d;font-style:normal;'>{d['techL']}</span></div>
+<div style='display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #1e2828;'><span>4H / Daily Chart Trend</span><span class='redBox'>{d['4h']}</span></div>
+<div style='display:flex;justify-content:space-between;padding:12px 16px;'><span>Seasonality Trend</span><span class='redBox'>{d['season']}</span></div>
+</div>
+""", unsafe_allow_html=True)
 
-a,b,c,d = st.columns(4)
-a.metric("EdgeFinder", v['score'])
-b.metric("Technical", v['tech'])
-c.metric("Sentiment", v['sent'])
-d.metric("Macro", v['macro'])
+# Crowd
+st.markdown(f"""
+<div class='card'>
+<div class='head'><span>Crowd sentiment signal</span><span class='blueBox' style='padding:4px 10px;font-size:12px;'>{d['crowd']}</span></div>
+<div style='display:flex;height:28px;margin:16px;'><div style='flex:0.65;background:#2d4cc0;'></div><div style='flex:0.35;background:#ee4e4d;'></div></div>
+<div style='display:flex;justify-content:space-between;color:#5a6a6a;font-size:12px;padding:0 16px 10px;'><span>65% bullish sentiment</span><span>35% bearish sentiment</span></div>
+</div>
+""", unsafe_allow_html=True)
 
-st.markdown(f"<div class='card'>Support {v['sup']} | Resistance {v['res']} | ATR {v['atr']} | RSI {v['rsi']}<br><br>COT Long 88.95% Short 11.05% Change -0.17%<br><br>Crowd 65% Bull 35% Bear</div>", unsafe_allow_html=True)
+# Levels - EXACT
+st.markdown("""
+<div class='card'>
+<div class='head'><span>Levels</span><span>Support · Resistance · ATR · RSI</span></div>
+<div style='display:flex;'>
+<div class='cell' style='flex:1;'><div style='color:#5a6a6a;font-size:12px;'>Support</div><div style='margin-top:8px;'>—</div></div>
+<div class='cell' style='flex:1;'><div style='color:#5a6a6a;font-size:12px;'>Resistance</div><div style='margin-top:8px;'>—</div></div>
+<div class='cell' style='flex:1;'><div style='color:#5a6a6a;font-size:12px;'>ATR</div><div style='margin-top:8px;'>—</div></div>
+<div class='cell' style='flex:1;border:none;'><div style='color:#5a6a6a;font-size:12px;'>RSI</div><div style='margin-top:8px;'>—</div></div>
+</div>
+<div style='padding:8px 16px;color:#5a6a6a;font-size:11px;'>Verified price and indicator levels are not connected.</div>
+</div>
+""", unsafe_allow_html=True)
 
-table = pd.DataFrame([
-    ["NFP","254k","140k","+114k","Oct 2","Bull USD"],
-    ["CPI","3.2%","3.1%","+0.1%","Oct 14","Bull USD"],
-    ["FOMC","5.5%","5.5%","0%","Sep 15-16","Neutral"]
-], columns=["Indicator","Actual","Forecast","Surprise","Date","Bias"])
-st.dataframe(table, use_container_width=True)
-
-st.subheader("Score history")
-st.line_chart([v['score']+random.uniform(-1,1) for _ in range(30)])
-st.subheader("Econ surprise index")
-st.line_chart([random.uniform(-2,2) for _ in range(30)])
+# Institutional
+st.markdown("""
+<div class='card'>
+<div class='head'><span>Institutional activity</span><span style='color:white;font-style:normal;'>Neutral</span></div>
+<div style='display:flex;justify-content:space-between;align-items:center;padding:12px 16px;'><span>COT - Net Positioning</span><span class='blueBox'>Bullish</span></div>
+<div style='display:flex;background:#0e1515;padding:10px 0;color:#5a6a6a;font-size:12px;text-align:center;'>
+<div style='flex:1;'>COT - Latest<br>Buys/Sells</div><div style='flex:1;'>Long %</div><div style='flex:1;'>
