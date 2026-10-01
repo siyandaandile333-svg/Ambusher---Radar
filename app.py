@@ -135,3 +135,11 @@ elif st.session_state.page=="tables":
     st.subheader("COT TABLE - Like Screenshot")
     for r in cot:
         col="#00ff66" if "
+elif st.session_state.page=="schools":
+    if st.button("← HOME"):
+        st.session_state.page="home"
+        st.rerun()
+    st.subheader("AMBUSH SCHOOLS - 6 LEVELS")
+    s1="""
+    <div style='border-left:4px solid #00ff66;padding:12px;background:#0f1414;border-radius:12px;margin:8px 0'>
+    <b>SCHOOL 1: DXY AMBUSH</b><br> DXY = USD Strength = 7 BULL means Powell Hawk + US CPI 3.2% Hot + US10Y 4.2% Up + BoJ Dovish = USD Buy. DXY +7 Bear = EURUSD GBPUSD AUDUSD SELL, USDJPY USDCHF USDCAD BU
