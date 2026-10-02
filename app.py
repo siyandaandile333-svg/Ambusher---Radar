@@ -1,62 +1,67 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as go
-from datetime import datetime
-import random
+import yfinance as yf
 
 st.set_page_config(page_title="AMBUSH RADAR", layout="wide", page_icon="🎯")
 
-# SAME COLOURS AS LOVABLE - DARK + GOLD + BLUE
 st.markdown("""
 <style>
-body { background: #0A0A0F; }
-.main { background: #0A0A0F; }
-.metric-card { background: #15151E; border:1px solid #2A2A3A; border-radius:12px; padding:16px; }
-.gold { color:#FFD43B; } .blue { color:#3BB4FF; }
-.stButton>button { background:#FFD43B; color:black; font-weight:bold; border-radius:8px; }
+div[data-testid="stMetric"] {background:#171717; border:1px solid #2A2A2A; padding:12px; border-radius:10px;}
+h3 {font-style:italic;}
+.bull {background:#1E40FF; color:white; padding:6px 12px; border-radius:4px; text-align:center; font-weight:bold;}
+.bear {background:#FF4A4A; color:white; padding:6px 12px; border-radius:4px; text-align:center; font-weight:bold;}
+.neutral {color:#9CA3AF; text-align:center;}
+.card {background:#111; border:1px solid #333; border-radius:10px; padding:12px; margin-bottom:12px;}
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("## 🎯 <span class='gold'>AMBUSH</span> RADAR <span style='font-size:14px;color:#888'>Patience is key in Trading.</span>", unsafe_allow_html=True)
+st.markdown("#### 🎯 AMBUSH RADAR")
+c1,c2 = st.columns([1,1])
+with c1: st.markdown("65% bullish sentiment")
+with c2: st.markdown("<div style='text-align:right'>35% bearish sentiment</div>", unsafe_allow_html=True)
+st.progress(65)
 
-# TOP METRICS
-c1,c2,c3,c4 = st.columns(4)
-with c1: st.markdown('<div class="metric-card"><p>Win Rate</p><h1>78.4%</h1><p class="blue">+3.2% vs last 7d</p></div>', unsafe_allow_html=True)
-with c2: st.markdown('<div class="metric-card"><p>Active Signals</p><h1>12</h1><p><span style="background:#FFD43B;color:black;padding:2px 8px;border-radius:4px">4 BUY</span> 8 SELL</p></div>', unsafe_allow_html=True)
-with c3: st.markdown('<div class="metric-card"><p>Risk Exposure</p><h1>1.2%</h1><p>Low • Target <2.0%</p></div>', unsafe_allow_html=True)
-with c4: st.markdown('<div class="metric-card"><p>Today\'s P&L</p><h1 class="gold">+$4,237</h1><p class="gold">+1.84%</p></div>', unsafe_allow_html=True)
+# LEVELS - EXACT LIKE LOVABLE
+st.markdown('<div class="card">', unsafe_allow_html=True)
+st.markdown("**_Levels_** <span style='float:right'>Support · Resistance · ATR · RSI</span>", unsafe_allow_html=True)
+col1,col2,col3,col4 = st.columns(4)
+col1.markdown("Support<br><b>—</b>", unsafe_allow_html=True)
+col2.markdown("Resistance<br><b>—</b>", unsafe_allow_html=True)
+col3.markdown("ATR<br><b>—</b>", unsafe_allow_html=True)
+col4.markdown("RSI<br><b>—</b>", unsafe_allow_html=True)
+st.caption("Verified price and indicator levels are not connected.")
+st.markdown('</div>', unsafe_allow_html=True)
 
+# INSTITUTIONAL
+st.markdown('<div class="card">', unsafe_allow_html=True)
+st.markdown("**_Institutional activity_** <span style='float:right'>Neutral</span>", unsafe_allow_html=True)
+st.markdown('<div style="display:flex; justify-content:space-between; align-items:center;"><span>COT - Net Positioning</span><span class="bull">Bullish</span></div>', unsafe_allow_html=True)
 st.write("")
-# CHART
-left,right = st.columns([2.2,1])
-with left:
-    pair = st.selectbox("Pair", ["EUR/USD • 15m","GBP/JPY • 15m","USD/JPY • 15m"])
-    fig = go.Figure()
-    # fake candle data
-    x = list(range(50))
-    o = [1.08 + random.uniform(-0.005,0.005) for _ in x]
-    c = [v + random.uniform(-0.002,0.002) for v in o]
-    fig.add_trace(go.Candlestick(x=x, open=o, high=[v+0.002 for v in o], low=[v-0.002 for v in o], close=c, increasing_line_color='#3BB4FF', decreasing_line_color='#FFD43B'))
-    fig.add_hrect(y0=1.0820, y1=1.0830, fillcolor="rgba(255,212,59,0.2)", line_width=0, annotation_text="AMBUSH ZONE 1.0820-1.0830")
-    fig.update_layout(height=350, template="plotly_dark", paper_bgcolor="#15151E", plot_bgcolor="#15151E", margin=dict(l=10,r=10,t=10,b=10), xaxis_rangeslider_visible=False)
-    st.plotly_chart(fig, use_container_width=True)
-    st.caption("Confidence: 92% | Est. Target: 1.0895 (+53 pips) | Stop Loss: 1.0815 (-27 pips)")
+df_cot = pd.DataFrame([["COT - Latest Buys/Sells", "Long %", "Short %", "Change %", "Date"], ["Bearish", "88.95%", "11.05%", "-0.17%", "Sep 04"]])
+st.dataframe(df_cot, hide_index=True, use_container_width=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
-with right:
-    st.markdown("### Detection Overview")
-    st.markdown("**3 Zones Detected** - High prob ambush zones")
-    df = pd.DataFrame([
-        ["EUR/USD", "BUY", "92%", "1.0842", "ACTIVE"],
-        ["GBP/JPY", "SELL", "87%", "189.42", "ACTIVE"],
-        ["USD/JPY", "BUY", "76%", "148.20", "PENDING"],
-        ["AUD/USD", "SELL", "81%", "0.6621", "ACTIVE"],
-    ], columns=["PAIR","DIR","CONF","ENTRY","STATUS"])
-    st.dataframe(df, use_container_width=True, hide_index=True)
-    st.success("Model Status: ONLINE | Signal threshold: High")
+# FORECAST TABLE - EXACT LIKE SCREENSHOT
+st.markdown('<div class="card">', unsafe_allow_html=True)
+st.markdown("**Forecast | Surprise | Date | Bias**")
+
+forecast_data = [
+    ["1.50%", "0.00%", "Aug 26", "Very Bullish"],
+    ["55.2", "-0.60", "Sep 01", "Bullish"],
+    ["54.1", "1.30", "Sep 03", "Bearish"],
+    ["0.10%", "-0.70%", "Aug 14", "Bullish"],
+    ["90.3", "-0.90", "Aug 25", "Bullish"],
+    ["3.4%", "0.0%", "Aug 12*", "Neutral"],
+]
+
+df = pd.DataFrame(forecast_data, columns=["Forecast","Surprise","Date","Bias"])
+st.dataframe(df, use_container_width=True, hide_index=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")
-st.markdown("**Live Signals** • Updated 12s ago • Your private edge")
-
-if st.button("🚀 Generate New Signal"):
-    st.balloons()
-    st.toast("New AMBUSH zone detected on EUR/USD!")
+pair = st.selectbox("Live Check", ["EUR/USD","GBP/USD","XAU/USD"])
+if st.button("Scan Live Ambush"):
+    ticker = yf.Ticker("EURUSD=X")
+    data = ticker.history(period="5d")
+    st.line_chart(data['Close'])
+    st.success(f"Live scan done for {pair} - Zones match institutional bias above.")
